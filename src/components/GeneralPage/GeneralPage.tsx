@@ -24,6 +24,12 @@ const GeneralPage = () => {
     const [cordinateData, setcordinateData] = useState<cordinateData>({lastPosition: 0, startX: 0, canStart: "start"})
 
 
+
+
+
+
+
+
     function onMouseDown(event: React.MouseEvent){
 
         if(cordinateData.canStart !== "start"){
@@ -108,6 +114,7 @@ const GeneralPage = () => {
 
 
     useEffect(() => {
+
         return ()=>{
             window.removeEventListener("mousemove", move);
             window.removeEventListener("mouseup", onMouseUp);
@@ -243,7 +250,7 @@ const GeneralPage = () => {
                     <button className={cl.chooseDoctorBtn}>Choose a doctor</button>
                 </div>
             </div>
-            <div className={cl.container__geoLocationSection}>
+            <div id="Location" className={cl.container__geoLocationSection}>
                 <div className={cl.geoLocationContent}>
                     <div className={cl.geoLocationContent__photoContainer}>
                         <img width={"100%"} height={"100%"} src={"/OurMap.png"} alt={"geolocation photo"}/>
@@ -298,7 +305,7 @@ const GeneralPage = () => {
                     </div>
                 </div>
             </div>
-            <div className={cl.sliderSection}>
+            <div id="News" className={cl.sliderSection}>
                 <div className={cl.sliderSection__content}>
                     <h2>News</h2>
                     <p>Latest news and current updates for our clients:</p>
