@@ -1,0 +1,151 @@
+
+
+.container{
+    width: 100%;
+    height: 160px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1480px;
+    padding-left: 55px;
+    padding-right: 55px;
+    position: relative;
+}
+
+.container__content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    position: relative;
+}
+
+
+.LogoContainer{
+    gap: 5px;
+    display: flex;
+    align-items: start;
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+}
+
+.Logo__icon{
+    height: 160px;
+    width: 187px;
+    cursor: pointer;
+}
+
+.Logo__text{
+    font-weight: 400;
+    line-height: 37px;
+    font-size: 27px;
+    margin-top: 48px;
+    margin-left: -45px;
+    color: #325CC8;
+    cursor: pointer;
+}
+
+.Logo__text:hover{
+    opacity: 0.7;
+}
+
+
+.navigationContainer{
+    display: flex;
+    max-width: 573px;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 48px;
+    margin-left: 86px;
+    position: relative;
+}
+
+
+.navigation_buttonActive{
+    width: 96px;
+    height: 35px;
+    border-radius: 24px;
+    border: none;
+    background-color: #325CC8;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.navigation_buttonActive:hover{
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+.navigation_button{
+    width: 96px;
+    height: 35px;
+    border: none;
+    background: none;
+    color: #A2A2A2;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.navigation_button:hover{
+    color: rgba(162, 162, 162, 0.7);
+}
+
+.AuthContainer{
+    margin-left: 176px;
+    display: flex;
+    align-items: center;
+    margin-top: 48px;
+    height: 35px;
+    max-width: 226px;
+    width: 100%;
+    position: relative;
+}
+
+.navigation__singUpBtn{
+    width: 96px;
+    height: 35px;
+    background: none;
+    color: #0D3290;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border: 2px solid #1A357A;
+    border-radius: 24px;
+
+}
+
+
+.navigation__singUpBtn:hover{
+    opacity: 0.6;
+}
+
+.slesher{
+    margin-left: 16px;
+    margin-right: 16px;
+    background-color: #325CC8;
+    height: 74%;
+    width: 2px;
+}
+
