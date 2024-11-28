@@ -2,10 +2,25 @@ import React, {useEffect, useState} from 'react';
 import cl from '../../modules/AuthPage/AuthPage.module.css'
 import {Link, useLocation} from "react-router-dom";
 import {routesEnum} from "../../types/routes.type";
+import * as yup from "yup";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {registerForm} from "../../types/forms.type";
 
 
 
 
+
+
+const validationYupSchema = yup.object().shape({
+    fullName: yup.string().required("Full Name is required").matches(/^[a-zA-Zа-яА-Я]+\s[a-zA-Zа-яА-Я]+$/),
+    phone: yup.string().transform(value => value.replace(/\s+/g, '')).required("Phone number is  required").matches(/^380\d{9}$/, 'Phone number must start with 380 and contain 12 digits in total'),
+    address: yup.string().required("Address is required"),
+    date: yup.string().required("Date is required"),
+    email: yup.string().required("Email is required").email("email is not correct"),
+    password: yup.string().required("Password is required").min(6),
+    checkPassword: yup.string().oneOf([yup.ref("password")], "Password must be match").required("need to match passwords"),
+})
 
 
 
@@ -13,14 +28,78 @@ import {routesEnum} from "../../types/routes.type";
 
 const AuthPage = () => {
 
-
     const location = useLocation();
     const currentLocation = location.pathname.split("/")[2] === "login";
     const [finalStageOfRegistration, setFinalStageOfRegistration] = useState(false);
+    const [dataState, setDataState] = useState<registerForm>({})
+    const [errorsState, setErrorsState] = useState<Array<any>>([])
+
+
+    const {register,formState: {errors}, watch, getValues, trigger,setValue,reset} = useForm({
+        resolver: yupResolver(validationYupSchema),
+        mode: "onSubmit",
+    })
+
+    const onSubmit  = async () =>{
+        setDataState({...dataState, email: getValues().email, password: getValues().password, checkPassword: getValues().checkPassword})
+        if(await setsValues({...dataState, email: getValues().email, password: getValues().password, checkPassword: getValues().checkPassword})){
+
+        }
+    }
+
+    async function setsValues(data: registerForm){
+        setValue('email', data.email || "");
+        setValue('password', data.password || "");
+        setValue('checkPassword', data.checkPassword || "");
+        setValue('fullName', data.fullName || "");
+        setValue('phone', data.phone || "");
+        setValue('address', dataState.address || "");
+        setValue('date', data.date || "");
+
+        const isValid = await trigger();
+        return isValid;
+
+    }
+
+
+
+
+    useEffect(() => {
+        if(!currentLocation){
+            if(finalStageOfRegistration){
+                setDataState({ ...dataState, fullName: getValues().fullName, phone: getValues().phone, address: getValues().address, date: getValues().date });
+                setValue('email', dataState.email || "");
+                setValue('password', dataState.password || "");
+                setValue('checkPassword', dataState.checkPassword || "");
+
+            }
+            if(!finalStageOfRegistration){
+                setDataState({...dataState, email: getValues().email, password: getValues().password, checkPassword: getValues().checkPassword})
+                setValue('fullName', dataState.fullName || "");
+                setValue('phone', dataState.phone || "");
+                setValue('address', dataState.address || "");
+                setValue('date', dataState.date || "");
+
+            }
+            reset()
+        }
+    }, [finalStageOfRegistration]);
+
 
     useEffect(() => {
         setFinalStageOfRegistration(false)
+        setDataState({})
+        setsValues({})
     }, [location.pathname]);
+
+
+    useEffect(()=>{
+        console.log(errors)
+        if(Object.entries(dataState).length > 0){
+            setErrorsState(Object.entries(errors))
+        }
+    }, [errors])
+
 
     return (
         <div className={cl.container}>
@@ -50,28 +129,28 @@ const AuthPage = () => {
                                          className={cl.formIcons}>
                                         <use xlinkHref={"/sprite.svg#HumanFormIcon"}></use>
                                     </svg>
-                                    <input type={"text"} className={cl.field} placeholder={"Full name"}/>
+                                    <input {...register('fullName')}  type={"text"} className={cl.field} placeholder={"Full name"}/>
                                 </div>
                                 <div className={cl.containerForSvgWithField}>
                                     <svg style={{marginLeft: "34px", marginTop: "20px"}} width={"24px"} height={"24px"}
                                          className={cl.formIcons}>
                                         <use xlinkHref={"/sprite.svg#PhoneFormIcon"}></use>
                                     </svg>
-                                    <input type={"text"} className={cl.field} placeholder={"Phone"}/>
+                                    <input {...register('phone')}  type={"number"} className={cl.field} placeholder={"Phone"}/>
                                 </div>
                                 <div className={cl.containerForSvgWithField}>
                                     <svg style={{marginLeft: "32px", marginTop: "20px"}} width={"26px"} height={"26px"}
                                          className={cl.formIcons}>
                                         <use xlinkHref={"/sprite.svg#AddressFormIcon"}></use>
                                     </svg>
-                                    <input type={"text"} className={cl.field} placeholder={"Address"}/>
+                                    <input {...register('address')} type={"text"} className={cl.field} placeholder={"Address"}/>
                                 </div>
                                 <div className={cl.containerForSvgWithField}>
                                     <svg style={{marginLeft: "32px", marginTop: "20px"}} width={"26px"} height={"26px"}
                                          className={cl.formIcons}>
                                         <use xlinkHref={"/sprite.svg#DateFormIcon"}></use>
                                     </svg>
-                                    <input type={"text"} className={cl.field} placeholder={"Date of birth"}/>
+                                    <input {...register('date')} style={{paddingRight:"24px"}} type={"date"} className={cl.field} placeholder={"Date of birth"}/>
                                 </div>
                             </div>
                             :
@@ -81,21 +160,21 @@ const AuthPage = () => {
                                          className={cl.formIcons}>
                                         <use xlinkHref={"/sprite.svg#EmailFormIcon"}></use>
                                     </svg>
-                                    <input type={"text"} className={cl.field} placeholder={"Email"}/>
+                                    <input {...register('email')} type={"text"} className={cl.field} placeholder={"Email"}/>
                                 </div>
                                 <div className={cl.containerForSvgWithField}>
                                     <svg style={{marginLeft: "30px", marginTop: "18px"}} width={"24px"} height={"28px"}
                                          className={cl.formIcons}>
                                         <use xlinkHref={"/sprite.svg#LockFormIcon"}></use>
                                     </svg>
-                                    <input type={"text"} className={cl.field} placeholder={"Password"}/>
+                                    <input {...register('password')} type={"text"} className={cl.field} placeholder={"Password"}/>
                                 </div>
                                 <div className={cl.containerForSvgWithField}>
                                     <svg style={{marginLeft: "30px", marginTop: "18px", opacity: "0.7"}} width={"24px"} height={"28px"}
                                          className={cl.formIcons}>
                                         <use xlinkHref={"/sprite.svg#LockFormIcon"}></use>
                                     </svg>
-                                    <input type={"text"} className={cl.field} placeholder={"Check password"}/>
+                                    <input {...register('checkPassword')} type={"text"} className={cl.field} placeholder={"Check password"}/>
                                 </div>
                             </div>
                     }
@@ -104,6 +183,9 @@ const AuthPage = () => {
                             <input type="checkbox" className={cl.checkBox}/>
                             I'm a doctor
                         </label>
+                        <div  style={!currentLocation ? {} : {display:"none"}} className={cl.errorsContainer}>
+                            {errorsState.map((value,index)=> <small key={index}>{`${value[0]}:`}<span>{value[1]?.message}</span></small>)}
+                        </div>
                         <div>
                             <Link
                                 style={{textDecoration: "1px underline solid #0D329096", color: "#0D329096"}}
@@ -120,9 +202,12 @@ const AuthPage = () => {
                     }} className={cl.form__button}>
                         Back
                     </button>
-                    <button onClick={() => {
-                        if (!finalStageOfRegistration) {
+                    <button type={"button"} onClick={() => {
+                        if (!finalStageOfRegistration && !currentLocation) {
                             setFinalStageOfRegistration(true)
+                        }
+                        if(finalStageOfRegistration && !currentLocation){
+                            onSubmit()
                         }
                     }} className={cl.form__button}>
                         {currentLocation ? "Login" : !finalStageOfRegistration ? "Next" : "Sign up"}

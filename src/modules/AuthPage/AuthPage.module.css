@@ -138,3 +138,16 @@
     position: absolute;
     z-index: 4;
 }
+
+.errorsContainer{
+    color: #325CC8;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin-right: auto;
+}
+
+.errorsContainer small span{
+    color: red;
+    margin-left: 4px;
+}
