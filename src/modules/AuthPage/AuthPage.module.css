@@ -1,0 +1,140 @@
+
+
+.container{
+    max-width: 1480px;
+    width: 100%;
+    height: calc(100vh - 176px);
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 16px;
+    position: relative;
+}
+
+.content{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginFormContainer{
+    width: 459px;
+    position: relative;
+    box-shadow: 8px 20px 20px 7px #00000040;
+    background: #E8E9F1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 200px;
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 38px;
+    border-radius: 20px;
+}
+
+
+
+.aboutForm{
+    color: #325CC8;
+    font-size: 48px;
+    line-height: 70px;
+    font-weight: 700;
+    letter-spacing: -3px;
+    margin-bottom: 38px;
+}
+
+.fieldsContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    position: relative;
+    row-gap: 40px;
+    margin-bottom: 24px;
+}
+
+
+.containerForSvgWithField{
+    display: flex;
+    width: 100%;
+    max-height: 70px;
+    height: 100%;
+    position: relative;
+}
+
+.field{
+    color: #0D329096;
+    background: #FFFFFF;
+    border-radius: 38px;
+    width: 100%;
+    height: 70px;
+    position: relative;
+    border: none;
+    line-height: 34px;
+    font-size: 24px;
+    font-weight: 400;
+    padding-left: 79px;
+}
+
+.field::placeholder{
+    color: #0D329096;
+}
+
+.field:focus{
+    outline: none;
+    border: 2px solid #0D329096;
+}
+
+.additionalFunction{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: 27px;
+}
+
+.labelForCheckbox{
+    color: #00000080;
+    font-size: 18px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    padding-left: 38px;
+    user-select: none;
+}
+
+.checkBox{
+    margin-right: 16px;
+    width: 21px;
+    height: 21px;
+    background: #FFFFFF;
+}
+
+.form__button{
+    background: #325CC8;
+    border-radius: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 38px;
+    height: 52px;
+    width: 330px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 26px;
+}
+
+.formIcons{
+    position: absolute;
+    z-index: 4;
+}

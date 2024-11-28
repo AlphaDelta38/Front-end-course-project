@@ -24,12 +24,6 @@ const GeneralPage = () => {
     const [cordinateData, setcordinateData] = useState<cordinateData>({lastPosition: 0, startX: 0, canStart: "start"})
 
 
-
-
-
-
-
-
     function onMouseDown(event: React.MouseEvent){
 
         if(cordinateData.canStart !== "start"){
