@@ -5,14 +5,16 @@ import {routesEnum} from "../../types/routes.type";
 import * as yup from "yup";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {registerForm} from "../../types/forms.type";
+import {registerForm, typeOfState} from "../../types/forms.type";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {UserLogin, UserRegister} from "../../store/reducers/ActionCreator";
 
 
 
 
 
 
-const validationYupSchema = yup.object().shape({
+const validationYupSchemaRegister = yup.object().shape({
     fullName: yup.string().required("Full Name is required").matches(/^[a-zA-Zа-яА-Я]+\s[a-zA-Zа-яА-Я]+$/),
     phone: yup.string().transform(value => value.replace(/\s+/g, '')).required("Phone number is  required").matches(/^380\d{9}$/, 'Phone number must start with 380 and contain 12 digits in total'),
     address: yup.string().required("Address is required"),
@@ -20,6 +22,11 @@ const validationYupSchema = yup.object().shape({
     email: yup.string().required("Email is required").email("email is not correct"),
     password: yup.string().required("Password is required").min(6),
     checkPassword: yup.string().oneOf([yup.ref("password")], "Password must be match").required("need to match passwords"),
+})
+
+const validationYupSchemaLogin = yup.object().shape({
+    email: yup.string().required("Email is required").email("email is not correct"),
+    password: yup.string().required("Password is required").min(6),
 })
 
 
@@ -34,16 +41,55 @@ const AuthPage = () => {
     const [dataState, setDataState] = useState<registerForm>({})
     const [errorsState, setErrorsState] = useState<Array<any>>([])
 
+    const dispatch = useAppDispatch()
 
-    const {register,formState: {errors}, watch, getValues, trigger,setValue,reset} = useForm({
-        resolver: yupResolver(validationYupSchema),
+    const [isChecked, setIsChecked] = useState(false);
+
+    const {
+        register,
+        formState: {errors},
+        watch,
+        getValues,
+        trigger,
+        setValue,
+        reset
+    } = useForm({
+        resolver: yupResolver(validationYupSchemaRegister),
         mode: "onSubmit",
     })
 
-    const onSubmit  = async () =>{
-        setDataState({...dataState, email: getValues().email, password: getValues().password, checkPassword: getValues().checkPassword})
-        if(await setsValues({...dataState, email: getValues().email, password: getValues().password, checkPassword: getValues().checkPassword})){
+    const {
+        register: loginRegister,
+        formState: {errors: loginErrors},
+        watch: loginWatch,
+        getValues: loginGetValues,
+        trigger: loginTrigger,
+        setValue: loginSetValue,
+        reset: loginReset
+    } = useForm({
+        resolver: yupResolver(validationYupSchemaLogin),
+        mode: "onSubmit",
+    })
 
+
+
+
+
+    const onSubmit  = async (type: typeOfState):Promise<void> =>{
+        if(type === "register"){
+            setDataState({...dataState, email: getValues().email, password: getValues().password, checkPassword: getValues().checkPassword})
+            if(await setsValues({...dataState, email: getValues().email, password: getValues().password, checkPassword: getValues().checkPassword})){
+                const date = new Date(getValues().date);
+                const formattedDate = date.toISOString().split('T')[0]
+                dispatch(UserRegister({...getValues(), date: formattedDate}))
+            }
+        }else if(type === "login"){
+            const isValid = await loginTrigger();
+            if(isValid){
+                const email = loginGetValues().email
+                const password = loginGetValues().password
+                dispatch(UserLogin({email,password, isPatient: !isChecked}))
+            }
         }
     }
 
@@ -60,8 +106,6 @@ const AuthPage = () => {
         return isValid;
 
     }
-
-
 
 
     useEffect(() => {
@@ -89,16 +133,22 @@ const AuthPage = () => {
     useEffect(() => {
         setFinalStageOfRegistration(false)
         setDataState({})
+        setErrorsState([])
         setsValues({})
     }, [location.pathname]);
 
 
     useEffect(()=>{
-        console.log(errors)
         if(Object.entries(dataState).length > 0){
             setErrorsState(Object.entries(errors))
         }
+
     }, [errors])
+
+
+
+
+
 
 
     return (
@@ -112,13 +162,18 @@ const AuthPage = () => {
                                 <svg style={{marginLeft:"28px", marginTop:"28px"}} width={"26px"} height={"16px"} className={cl.formIcons}>
                                     <use xlinkHref={"/sprite.svg#EmailFormIcon"}></use>
                                 </svg>
-                                <input type={"text"} className={cl.field} placeholder={"Email"}/>
+                                <input {...loginRegister('email')} type={"text"} className={cl.field} placeholder={"Email"}/>
                             </div>
                             <div className={cl.containerForSvgWithField}>
                                 <svg style={{marginLeft:"30px", marginTop:"20px"}} width={"24px"} height={"28px"} className={cl.formIcons}>
                                     <use xlinkHref={"/sprite.svg#LockFormIcon"}></use>
                                 </svg>
-                                <input type={"text"} className={cl.field} placeholder={"Password"}/>
+                                <input {...loginRegister('password')}  type={"text"} className={cl.field} placeholder={"Password"}/>
+                            </div>
+                            <div className={cl.loginErrContainer}>
+                                {loginErrors && Object.entries(loginErrors).map((value,index)=>
+                                    <small key={index}>{`${value[0]}:`}<span>{value[1]?.message}</span></small>
+                                )}
                             </div>
                         </div>
                         :
@@ -180,7 +235,7 @@ const AuthPage = () => {
                     }
                     <div style={currentLocation ? {} : {justifyContent: "end"}} className={cl.additionalFunction}>
                         <label style={currentLocation ? {} : {display: "none"}} className={cl.labelForCheckbox}>
-                            <input type="checkbox" className={cl.checkBox}/>
+                            <input type="checkbox" checked={isChecked} onChange={(e)=>setIsChecked(e.target.checked)} className={cl.checkBox}/>
                             I'm a doctor
                         </label>
                         <div  style={!currentLocation ? {} : {display:"none"}} className={cl.errorsContainer}>
@@ -206,8 +261,11 @@ const AuthPage = () => {
                         if (!finalStageOfRegistration && !currentLocation) {
                             setFinalStageOfRegistration(true)
                         }
-                        if(finalStageOfRegistration && !currentLocation){
-                            onSubmit()
+                        if(finalStageOfRegistration && !currentLocation ){
+                            onSubmit(typeOfState.register)
+                        }
+                        if(currentLocation){
+                            onSubmit(typeOfState.login)
                         }
                     }} className={cl.form__button}>
                         {currentLocation ? "Login" : !finalStageOfRegistration ? "Next" : "Sign up"}

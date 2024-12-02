@@ -151,3 +151,18 @@
     color: red;
     margin-left: 4px;
 }
+
+
+.loginErrContainer{
+    color: #325CC8;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    row-gap: 4px;
+}
+
+.loginErrContainer small span{
+    color: red;
+    margin-left: 4px;
+}

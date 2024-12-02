@@ -15,7 +15,7 @@ const Navigation = () => {
 
     const scrollToSection = (target:any) => {
         gsap.to(window, {
-            duration: 2,
+            duration: 1.5,
             scrollTo: { y: target, autoKill: true },
             ease: "power2.out"
         });
