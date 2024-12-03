@@ -1,10 +1,12 @@
 import {combineReducers} from "redux";
 import {configureStore, ReducerType} from "@reduxjs/toolkit";
 import userReducer from './reducers/UserSlice'
+import errorReducer from './reducers/ErrorSlice'
 
 
 const rootReducer = combineReducers({
     userReducer,
+    errorReducer,
 })
 
 

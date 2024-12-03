@@ -1,9 +1,10 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
-import { AxiosResponse } from 'axios';
+import axios, {AxiosResponse} from "axios";
 import {loginForm, registerForm} from "../../types/forms.type";
 import {jwtDecode} from "jwt-decode";
 import {UserState} from "./UserSlice";
+import {errorSlice} from "./ErrorSlice";
+import {messageType} from "../../components/PopupMessage/PopupMessageItem";
 
 
 interface jwtToken{
@@ -48,11 +49,10 @@ export const UserRegister =  createAsyncThunk(
             }
 
             localStorage.setItem("token", response.data.token);
-
+            thunkAPI.dispatch(errorSlice.actions.setErrors({message:"Registration is done", type:messageType.successType}))
             return filtered;
         }catch (e){
-            alert({e, message: "Ошибка регистрации"})
-            console.log(e)
+            thunkAPI.dispatch(errorSlice.actions.setErrors({message:"Registration failed", type:messageType.errorType}))
         }
     },
 )
@@ -91,11 +91,13 @@ export const UserLogin =  createAsyncThunk(
             }
 
             localStorage.setItem("token", response.data.token);
+            thunkAPI.dispatch(errorSlice.actions.setErrors({message:"You are logged", type:messageType.successType}))
 
             return filtered;
         }catch (e){
-            alert({e, message: "Ошибка авторизации"})
-            console.log(e)
+            thunkAPI.dispatch(errorSlice.actions.setErrors({message:"Login failed", type:messageType.errorType}))
+
+
         }
     },
 )
@@ -143,7 +145,6 @@ export const checkLogin =  createAsyncThunk(
 
             return filtered;
         }catch (e){
-            alert(e)
             console.log(e)
         }
     },

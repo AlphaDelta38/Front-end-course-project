@@ -6,6 +6,7 @@ import {routes} from "./routes";
 import Navigation from "./components/GeneralPage/Navigation";
 import {useAppDispatch, useAppSelector} from "./hooks/redux";
 import {checkLogin} from "./store/reducers/ActionCreator";
+import PopupContainer from "./components/PopupMessage/PopupContainer";
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
             <Routes>
                 {routes.map((value, index)=><Route key={index} path={value.path} element={<value.element/>} />)}
             </Routes>
+            <PopupContainer/>
         </BrowserRouter>
     </div>
   );
