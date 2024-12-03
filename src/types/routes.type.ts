@@ -8,4 +8,5 @@ export enum routesEnum{
     general = "/general",
     login = "/auth/login",
     registration = "/auth/registration",
+    news= "/news/:id",
 }

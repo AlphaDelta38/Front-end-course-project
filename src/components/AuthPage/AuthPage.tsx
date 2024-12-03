@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import cl from '../../modules/AuthPage/AuthPage.module.css'
 import {Link, useLocation} from "react-router-dom";
 import {routesEnum} from "../../types/routes.type";
@@ -70,7 +70,6 @@ const AuthPage = () => {
         resolver: yupResolver(validationYupSchemaLogin),
         mode: "onSubmit",
     })
-
 
 
 
@@ -152,14 +151,14 @@ const AuthPage = () => {
 
 
     return (
-        <div className={cl.container}>
+        <div  className={cl.container}>
             <div className={cl.content}>
                 <div className={cl.loginFormContainer}>
                     <h1 className={cl.aboutForm}>{currentLocation ? "LOGIN" : "SIGN UP"}</h1>
                     {currentLocation ?
                         <div className={cl.fieldsContainer}>
                             <div className={cl.containerForSvgWithField}>
-                                <svg style={{marginLeft:"28px", marginTop:"28px"}} width={"26px"} height={"16px"} className={cl.formIcons}>
+                                <svg style={{marginLeft:"28px", marginTop:"28px"}}  width={"26px"} height={"16px"} className={cl.formIcons}>
                                     <use xlinkHref={"/sprite.svg#EmailFormIcon"}></use>
                                 </svg>
                                 <input {...loginRegister('email')} type={"text"} className={cl.field} placeholder={"Email"}/>
