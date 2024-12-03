@@ -35,9 +35,13 @@ const Navigation = () => {
                     <Link style={{textDecoration: "none"}} to={routesEnum.general}>
                         <button className={cl.navigation_buttonActive}>Home</button>
                     </Link>
-                    <button onClick={() => scrollToSection("#News")} className={cl.navigation_button}>News</button>
+                    <Link  style={{textDecoration: "none"}} to={routesEnum.general}>
+                        <button onClick={() => scrollToSection("#News")} className={cl.navigation_button}>News</button>
+                    </Link>
                     <button className={cl.navigation_button}>Doctors</button>
-                    <button onClick={()=>scrollToSection("#Location")} className={cl.navigation_button}>Location</button>
+                    <Link style={{textDecoration: "none"}} to={routesEnum.general}>
+                        <button onClick={() => scrollToSection("#Location")} className={cl.navigation_button}>Location</button>
+                    </Link>
                 </div>
                 <div className={cl.AuthContainer}>
                     <Link style={{textDecoration: "none"}} to={routesEnum.login}>
