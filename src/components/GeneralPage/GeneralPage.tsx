@@ -1,6 +1,12 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import cl from "../../modules/GeneralPage/GeneralPage.module.css"
-
+import {newsAPI, sortForwards} from "../../services/NewsService";
+import {useAppDispatch} from "../../hooks/redux";
+import {errorSlice} from "../../store/reducers/ErrorSlice";
+import {messageType} from "../PopupMessage/PopupMessageItem";
+import {NewsItemInterface} from "../../types/newsType";
+import {doctorAPI} from "../../services/DoctorService";
+import {DoctorsCardsInterface} from "../../types/doctorsType";
 
 
 interface cordinateData{
@@ -13,7 +19,8 @@ const GeneralPage = () => {
 
     const test = [1,2,3,4]
 
-    const NewsCardsTest = [1,2,3,4,5,6,7,8,9]
+    const [newsCardArray, setNewsCardArray] = useState<NewsItemInterface[]>([])
+    const [doctorCardsArray, setDoctorCardsArray] = useState<DoctorsCardsInterface[]>([])
 
     const sliderRef = useRef<HTMLDivElement | null>(null);
     const sliderTapeRef = useRef<HTMLDivElement | null>(null);
@@ -22,6 +29,43 @@ const GeneralPage = () => {
 
 
     const [cordinateData, setcordinateData] = useState<cordinateData>({lastPosition: 0, startX: 0, canStart: "start"})
+
+    const dispatch = useAppDispatch()
+
+    const {data: News, error: newsError, isLoading} = newsAPI.useFetchAllNewsQuery({limit: 30, sortForward: sortForwards.descending})
+    const {data: Doctors, error: doctorsError} = doctorAPI.useFetchAllDoctorsQuery({limit: 30, role:"doctor"})
+
+
+
+
+    useEffect(()=>{
+        if(News && News.length > 0){
+            setNewsCardArray(News)
+        }
+    }, [News])
+
+    useEffect(()=>{
+        if(Doctors && Doctors.length > 0){
+            const DoctorsArray: DoctorsCardsInterface[] = [];
+            Doctors.forEach((value)=>{
+                let totalNumber = 0;
+                for (let i = 0; i < value.raitings.length; i++) {
+                    totalNumber += value.raitings[i].rating
+                }
+
+                const raiting = totalNumber / value.raitings.length
+
+                DoctorsArray.push({...value, raitings: raiting || 0, count: value.raitings.length || 0 })
+
+            })
+            DoctorsArray.sort((a,b)=> b.raitings - a.raitings)
+
+
+            setDoctorCardsArray(DoctorsArray.filter((value,index)=>index <= 3))
+        }
+    }, [Doctors])
+
+
 
 
     function onMouseDown(event: React.MouseEvent){
@@ -107,6 +151,19 @@ const GeneralPage = () => {
 
 
 
+    function dateConvert(date: string){
+        const isoDate = date;
+
+        const formattedDate = new Intl.DateTimeFormat('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+        }).format(new Date(isoDate));
+
+        return formattedDate
+    }
+
+
     useEffect(() => {
 
         return ()=>{
@@ -119,6 +176,15 @@ const GeneralPage = () => {
         cordinateDataRef.current = cordinateData;
     }, [cordinateData]);
 
+
+    useEffect(()=>{
+        if(newsError){
+            dispatch(errorSlice.actions.setErrors({message: "Failed to load news", type: messageType.errorType}))
+        }
+        if(doctorsError){
+            dispatch(errorSlice.actions.setErrors({message: "Failed to load doctors", type: messageType.errorType}))
+        }
+    },[newsError, doctorsError])
 
     return (
         <div className={cl.container}>
@@ -136,20 +202,22 @@ const GeneralPage = () => {
                     </div>
                 </div>
                 <div className={cl.lastNewsContainer}>
-                    <div className={cl.lastNews__content}>
-                        <small className={cl.lastNews__date}>
-                            September 14, 2024
-                        </small>
-                        <div className={cl.lastNews__photoContainer}>
-                            <img width="100%"  height="100%"  src={"/img.png"}  alt={"photo of last news"}/>
+                    {News &&
+                        <div className={cl.lastNews__content}>
+                            <small className={cl.lastNews__date}>
+                                {dateConvert(News[0].createdAt)}
+                            </small>
+                            <div className={cl.lastNews__photoContainer}>
+                                <img width="100%" height="100%" src={`${News[0].image_link}`} alt={"photo of last news"}/>
+                            </div>
+                            <div className={cl.lastNews_textContainer}>
+                                {News[0].text}
+                            </div>
+                            <button className={cl.lastNews__button}>
+                                Learn more
+                            </button>
                         </div>
-                        <div className={cl.lastNews_textContainer}>
-                            Our clinic has acquired a <span>state-of-the-art ultrasound scanner</span> for cardiovascular diagnostics, enabling highly accurate... dsadadadsadasd
-                        </div>
-                        <button className={cl.lastNews__button}>
-                            Learn more
-                        </button>
-                    </div>
+                    }
                 </div>
             </div>
             <div className={cl.container__SerivceSection}>
@@ -159,12 +227,13 @@ const GeneralPage = () => {
                     </h1>
                     <p className={cl.service__secontText}>
                         Our clinic provides a comprehensive selection of health services focused on your wellness.
-                        From heart assessments to pediatric care, each service is designed to meet your unique health needs.
+                        From heart assessments to pediatric care, each service is designed to meet your unique health
+                        needs.
                         Let us support you in achieving and maintaining a healthy lifestyle.
                     </p>
                     <div className={cl.service__catalogContainer}>
                         <div className={cl.catalog__itemsContainer}>
-                            <div className={cl.catalog__item}>
+                        <div className={cl.catalog__item}>
                                 <div className={cl.item__IconContainer}>
                                     <img width={"100%"} height={"100%"} src={"/HealtIcon.png"} alt={"Icons"}/>
                                 </div>
@@ -217,23 +286,23 @@ const GeneralPage = () => {
                     </p>
                     <div className={cl.OurDoctorsItemsContainer}>
 
-                        {test.map((value,index) =>
+                        {doctorCardsArray.map((value,index) =>
                             <div  key={index} className={cl.OurDoctosItem}>
                                 <div className={cl.OurDoctosItem__photoContainer}>
-                                    <img width={"285px"} height={"249px"} src={"/testDoctorImg.png"} alt={"doctor img"}/>
+                                    <img width={"100%"} height={"100%"} src={`${value.image_link}`} alt={"doctor img"}/>
                                 </div>
                                 <div className={cl.OurDoctosItem__infoContainer}>
-                                    <h2>Dr. Emily Carter</h2>
-                                    <span>Cardiologist</span>
+                                    <h2>{`${value.first_name} ${value.last_name}`}</h2>
+                                    <span>{value.speciality}</span>
                                     <div className={cl.OurDoctosItem__raitingContainer}>
                                         <div className={cl.raiting}>
                                             <svg className={cl.raiting__starIcon}>
                                                 <use xlinkHref={"/sprite.svg#StarIcon"}></use>
                                             </svg>
-                                            5.0
+                                            {value.raitings}
                                         </div>
                                         <div className={cl.countOfLikes}>
-                                            (858)
+                                            {`(${value.count})`}
                                         </div>
                                     </div>
                                 </div>
@@ -307,15 +376,15 @@ const GeneralPage = () => {
                         <div ref={sliderRef} className={cl.slider}>
                             <div ref={sliderTapeRef} onMouseDown={(event) => onMouseDown(event)}
                                  onMouseUp={(e) => onMouseUp(e)} className={cl.sliderTape}>
-                                {NewsCardsTest.map((value, index) =>
+                                {newsCardArray.map((value, index) =>
                                     <div ref={itemRef} key={index} className={cl.slider__newsCardItem}>
                                         <img className={cl.backGroundItemImg} width={"100%"} height={"100%"}
-                                             src={"/TestItem.png"} alt={""}/>
+                                             src={`${value.image_link}`} alt={""}/>
                                         <div className={cl.newsCardItem__data}>
-                                            June 12, 2024
+                                            {dateConvert(value.createdAt)}
                                         </div>
                                         <div className={cl.newsCardItem__underInfoContainer}>
-                                            Free Pediatric Check-Ups for New Patients
+                                            {value.title}
                                         </div>
                                     </div>
                                 )}

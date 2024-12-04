@@ -149,6 +149,8 @@
     height: 251px;
     background-size: cover;
     margin-bottom: 23px;
+    border-radius: 24px;
+    overflow: hidden;
     position: relative;
     cursor: pointer;
 }
@@ -389,9 +391,9 @@
 }
 
 .OurDoctosItem__photoContainer img{
-    left: -20px;
+    object-fit: cover;
     bottom: 0;
-    position: absolute;
+    position: relative;
 }
 
 .OurDoctosItem__infoContainer{
@@ -744,6 +746,7 @@
     transition: 0.3s ease ;
     transform: translateX(0);
     position: absolute;
+    user-select: none;
 
 }
 
@@ -759,6 +762,7 @@
     position: relative;
     box-shadow: 15px 25px 20px 5px #00000040;
     border-radius: 0 0 24px 24px;
+
 }
 
 

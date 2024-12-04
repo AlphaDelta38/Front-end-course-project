@@ -169,7 +169,7 @@ const AuthPage = () => {
                                 </svg>
                                 <input {...loginRegister('password')}  type={"text"} className={cl.field} placeholder={"Password"}/>
                             </div>
-                            <div className={cl.loginErrContainer}>
+                            <div style={loginErrors ? {} : {display:"flex"}} className={cl.loginErrContainer}>
                                 {loginErrors && Object.entries(loginErrors).map((value,index)=>
                                     <small key={index}>{`${value[0]}:`}<span>{value[1]?.message}</span></small>
                                 )}

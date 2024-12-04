@@ -2,11 +2,15 @@ import {combineReducers} from "redux";
 import {configureStore, ReducerType} from "@reduxjs/toolkit";
 import userReducer from './reducers/UserSlice'
 import errorReducer from './reducers/ErrorSlice'
+import {newsAPI} from "../services/NewsService";
+import {doctorAPI} from "../services/DoctorService";
 
 
 const rootReducer = combineReducers({
     userReducer,
     errorReducer,
+    [newsAPI.reducerPath]: newsAPI.reducer,
+    [doctorAPI.reducerPath]: doctorAPI.reducer,
 })
 
 
@@ -14,6 +18,8 @@ const rootReducer = combineReducers({
 export  const setupStore = () =>{
     return configureStore({
         reducer: rootReducer,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware().concat(newsAPI.middleware, doctorAPI.middleware),
     })
 }
 
