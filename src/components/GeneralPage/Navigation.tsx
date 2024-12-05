@@ -5,6 +5,7 @@ import {ScrollToPlugin} from "gsap/ScrollToPlugin";
 import {Link} from "react-router-dom";
 import {routes} from "../../routes";
 import {routesEnum} from "../../types/routes.type";
+import {useAppSelector} from "../../hooks/redux";
 
 
 
@@ -22,6 +23,9 @@ const Navigation = () => {
     };
 
 
+    const {id: UserId, email} = useAppSelector(state => state.userReducer)
+
+
     return (
         <div className={cl.container}>
             <div className={cl.container__content}>
@@ -35,24 +39,37 @@ const Navigation = () => {
                     <Link style={{textDecoration: "none"}} to={routesEnum.general}>
                         <button className={cl.navigation_buttonActive}>Home</button>
                     </Link>
-                    <Link  style={{textDecoration: "none"}} to={routesEnum.general}>
+                    <Link style={{textDecoration: "none"}} to={routesEnum.general}>
                         <button onClick={() => scrollToSection("#News")} className={cl.navigation_button}>News</button>
                     </Link>
                     <Link style={{textDecoration: "none"}} to={routesEnum.doctors}>
                         <button className={cl.navigation_button}>Doctors</button>
                     </Link>
                     <Link style={{textDecoration: "none"}} to={routesEnum.general}>
-                        <button onClick={() => scrollToSection("#Location")} className={cl.navigation_button}>Location</button>
+                        <button onClick={() => scrollToSection("#Location")} className={cl.navigation_button}>Location
+                        </button>
                     </Link>
                 </div>
-                <div className={cl.AuthContainer}>
-                    <Link style={{textDecoration: "none"}} to={routesEnum.login}>
-                        <button className={cl.navigation_buttonActive}>Login</button>
-                    </Link>
-                    <div className={cl.slesher}></div>
-                    <Link style={{textDecoration: "none"}} to={routesEnum.registration}>
-                        <button className={cl.navigation__singUpBtn}>Sing Up</button>
-                    </Link>
+                {UserId === 0 &&
+                    <div className={cl.AuthContainer}>
+                        <Link style={{textDecoration: "none"}} to={routesEnum.login}>
+                            <button className={cl.navigation_buttonActive}>Login</button>
+                        </Link>
+                        <div className={cl.slesher}></div>
+                        <Link style={{textDecoration: "none"}} to={routesEnum.registration}>
+                            <button className={cl.navigation__singUpBtn}>Sing Up</button>
+                        </Link>
+                    </div>
+                }
+                <div className={cl.profileContainer}>
+                    <div className={cl.circle}>
+                        <svg height={"32px"} width={"36px"} fill={"white"}>
+                            <use xlinkHref={"/sprite.svg#HumanIcon"}></use>
+                        </svg>
+                    </div>
+                    <div className={cl.email}>
+                        {email}
+                    </div>
                 </div>
             </div>
         </div>

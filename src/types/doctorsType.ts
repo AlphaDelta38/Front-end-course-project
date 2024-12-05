@@ -1,9 +1,4 @@
-
-
-
-
-
-
+import {date} from "yup";
 
 
 interface raitingInterface{
@@ -11,6 +6,17 @@ interface raitingInterface{
     rating: number,
 }
 
+interface AppointmentsInterface{
+    id: number
+    patient_id: number
+    doctor_id: number
+    service_id: number
+    date: Date
+    time: string
+    status: boolean
+    createdAt: string
+    diagnosis_id: number
+}
 
 
 export interface roleInterface{
@@ -32,10 +38,23 @@ export interface DoctorsItemInerface{
     image_link: string,
     roles: roleInterface[],
     raitings:raitingInterface[],
+    appointments: AppointmentsInterface[],
 }
 
 
 export interface DoctorsCardsInterface extends Omit<DoctorsItemInerface, "raitings">{
     raitings: number,
     count: number,
+    bookedTime: string[],
+
+}
+
+
+export interface createAppointments{
+    patient_id: number,
+    doctor_id: number,
+    service_id: number,
+    date: string,
+    time: string
+    status: boolean
 }

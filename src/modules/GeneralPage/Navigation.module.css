@@ -149,3 +149,38 @@
     width: 2px;
 }
 
+
+.profileContainer{
+    display: flex;
+    padding-top: 30px;
+    justify-content: start;
+    align-items: center;
+    margin-left: auto;
+    flex-direction: column;
+    gap: 10px;
+    text-align: start;
+    height: 100%;
+    position: relative;
+}
+
+.circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 76px;
+    height: 76px;
+    background-color: #AFD1FA;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.email{
+    color: #325CC8;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.email:hover{
+    color: rgba(50, 92, 200, 0.7);
+}

@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {DoctorsItemInerface} from "../types/doctorsType";
+import {createAppointments, DoctorsItemInerface} from "../types/doctorsType";
 
 
 
@@ -24,6 +24,13 @@ export const doctorAPI = createApi({
                     ...e
                 }
             })
+        }),
+        createAppointments: build.mutation<any, createAppointments>({
+            query: (newDoctor) => ({
+                url: "/appointments",
+                method: "POST",
+                body: newDoctor,
+            }),
         }),
     })
 })

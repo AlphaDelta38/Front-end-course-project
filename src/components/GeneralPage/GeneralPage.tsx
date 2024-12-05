@@ -66,7 +66,7 @@ const GeneralPage = () => {
 
                 const raiting = totalNumber / value.raitings.length
 
-                DoctorsArray.push({...value, raitings: raiting || 0, count: value.raitings.length || 0 })
+                DoctorsArray.push({...value, raitings: raiting || 0, count: value.raitings.length || 0, bookedTime: [] })
 
             })
             DoctorsArray.sort((a,b)=> b.raitings - a.raitings)
@@ -173,6 +173,8 @@ const GeneralPage = () => {
 
         return formattedDate
     }
+
+
 
 
     useEffect(() => {
