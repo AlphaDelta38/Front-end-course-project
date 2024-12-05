@@ -13,7 +13,7 @@ interface raitingInterface{
 
 
 
-interface roleInterface{
+export interface roleInterface{
     id: number,
     role: string
 }

@@ -7,6 +7,9 @@ import {messageType} from "../PopupMessage/PopupMessageItem";
 import {NewsItemInterface} from "../../types/newsType";
 import {doctorAPI} from "../../services/DoctorService";
 import {DoctorsCardsInterface} from "../../types/doctorsType";
+import {gsap} from "gsap";
+import {Link} from "react-router-dom";
+import {routesEnum} from "../../types/routes.type";
 
 
 interface cordinateData{
@@ -17,7 +20,6 @@ interface cordinateData{
 
 const GeneralPage = () => {
 
-    const test = [1,2,3,4]
 
     const [newsCardArray, setNewsCardArray] = useState<NewsItemInterface[]>([])
     const [doctorCardsArray, setDoctorCardsArray] = useState<DoctorsCardsInterface[]>([])
@@ -36,6 +38,15 @@ const GeneralPage = () => {
     const {data: Doctors, error: doctorsError} = doctorAPI.useFetchAllDoctorsQuery({limit: 30, role:"doctor"})
 
 
+
+
+    const scrollToSection = (target:any) => {
+        gsap.to(window, {
+            duration: 1.5,
+            scrollTo: { y: target, autoKill: true },
+            ease: "power2.out"
+        });
+    };
 
 
     useEffect(()=>{
@@ -196,7 +207,7 @@ const GeneralPage = () => {
                         <button className={cl.shedules_button}>
                             Schedule now
                         </button>
-                        <button className={cl.shedules_button}>
+                        <button onClick={() => scrollToSection("#ourDoctors")} className={cl.shedules_button}>
                             Our doctors
                         </button>
                     </div>
@@ -275,7 +286,7 @@ const GeneralPage = () => {
                     </div>
                 </div>
             </div>
-            <div className={cl.container__OurDoctorSection}>
+            <div  id="ourDoctors" className={cl.container__OurDoctorSection}>
                 <div className={cl.outDoctorSection__content}>
                     <h2>Meet our expert <span>doctors</span></h2>
                     <p>
@@ -308,9 +319,10 @@ const GeneralPage = () => {
                                 </div>
                         </div>
                         )}
-
                     </div>
-                    <button className={cl.chooseDoctorBtn}>Choose a doctor</button>
+                    <Link style={{textDecoration: "none"}} to={routesEnum.doctors}>
+                        <button className={cl.chooseDoctorBtn}>Choose a doctor</button>
+                    </Link>
                 </div>
             </div>
             <div id="Location" className={cl.container__geoLocationSection}>
