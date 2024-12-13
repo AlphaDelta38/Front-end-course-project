@@ -791,6 +791,10 @@
         overflow: hidden;
 }
 
+.newsCardItem__underInfoContainer:hover{
+    color: rgba(26, 53, 122, 0.7);
+}
+
 .backGroundItemImg{
     width: 100%;
     height: 100%;

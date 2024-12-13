@@ -61,16 +61,18 @@ const Navigation = () => {
                         </Link>
                     </div>
                 }
-                <div className={cl.profileContainer}>
-                    <div className={cl.circle}>
-                        <svg height={"32px"} width={"36px"} fill={"white"}>
-                            <use xlinkHref={"/sprite.svg#HumanIcon"}></use>
-                        </svg>
+                {UserId !== 0 &&
+                    <div className={cl.profileContainer}>
+                        <div className={cl.circle}>
+                            <svg height={"32px"} width={"36px"} fill={"white"}>
+                                <use xlinkHref={"/sprite.svg#HumanIcon"}></use>
+                            </svg>
+                        </div>
+                        <div className={cl.email}>
+                            {email}
+                        </div>
                     </div>
-                    <div className={cl.email}>
-                        {email}
-                    </div>
-                </div>
+                }
             </div>
         </div>
     );
