@@ -8,8 +8,9 @@ import {NewsItemInterface} from "../../types/newsType";
 import {doctorAPI} from "../../services/DoctorService";
 import {DoctorsCardsInterface} from "../../types/doctorsType";
 import {gsap} from "gsap";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {routesEnum} from "../../types/routes.type";
+import {dateConvert} from "../../util/Date";
 
 
 interface cordinateData{
@@ -33,6 +34,7 @@ const GeneralPage = () => {
     const [cordinateData, setcordinateData] = useState<cordinateData>({lastPosition: 0, startX: 0, canStart: "start"})
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const {data: News, error: newsError, isLoading} = newsAPI.useFetchAllNewsQuery({limit: 30, sortForward: sortForwards.descending})
     const {data: Doctors, error: doctorsError} = doctorAPI.useFetchAllDoctorsQuery({limit: 30, role:"doctor"})
@@ -162,18 +164,6 @@ const GeneralPage = () => {
 
 
 
-    function dateConvert(date: string){
-        const isoDate = date;
-
-        const formattedDate = new Intl.DateTimeFormat('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-        }).format(new Date(isoDate));
-
-        return formattedDate
-    }
-
 
 
 
@@ -221,12 +211,12 @@ const GeneralPage = () => {
                                 {dateConvert(News[0].createdAt)}
                             </small>
                             <div className={cl.lastNews__photoContainer}>
-                                <img width="100%" height="100%" src={`${News[0].image_link}`} alt={"photo of last news"}/>
+                                <img onClick={()=>navigate(`/news/${News[0].id}`)} width="100%" height="100%" src={`${News[0].image_link}`} alt={"photo of last news"}/>
                             </div>
                             <div className={cl.lastNews_textContainer}>
                                 {News[0].text}
                             </div>
-                            <button className={cl.lastNews__button}>
+                            <button onClick={()=>navigate(`/news/${News[0].id}`)} className={cl.lastNews__button}>
                                 Learn more
                             </button>
                         </div>
@@ -391,13 +381,13 @@ const GeneralPage = () => {
                             <div ref={sliderTapeRef} onMouseDown={(event) => onMouseDown(event)}
                                  onMouseUp={(e) => onMouseUp(e)} className={cl.sliderTape}>
                                 {newsCardArray.map((value, index) =>
-                                    <div ref={itemRef} key={index} className={cl.slider__newsCardItem}>
+                                    <div   ref={itemRef} key={index} className={cl.slider__newsCardItem}>
                                         <img className={cl.backGroundItemImg} width={"100%"} height={"100%"}
                                              src={`${value.image_link}`} alt={""}/>
                                         <div className={cl.newsCardItem__data}>
                                             {dateConvert(value.createdAt)}
                                         </div>
-                                        <div className={cl.newsCardItem__underInfoContainer}>
+                                        <div onClick={()=>navigate(`/news/${value.id}`)} className={cl.newsCardItem__underInfoContainer}>
                                             {value.title}
                                         </div>
                                     </div>
