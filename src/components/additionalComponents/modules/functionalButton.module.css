@@ -1,0 +1,28 @@
+
+
+.container{
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 40px;
+    margin-right: 40px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    z-index: 16;
+    border: 1px solid #1A357A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+.settingsIcon{
+    width: 52px;
+    height: 52px;
+    fill: black;
+}
+
+

@@ -10,4 +10,5 @@ export enum routesEnum{
     registration = "/auth/registration",
     news= "/news/:id",
     doctors= "/doctors",
+    admin= "/admin",
 }

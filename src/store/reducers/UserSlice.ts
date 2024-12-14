@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppDispatch} from "../store";
 import {checkLogin, UserLogin, UserRegister} from "./ActionCreator";
 import {IUser} from "../../types/userType";
+import {roleInterface} from "../../types/doctorsType";
 
 
 export interface UserState{
@@ -19,7 +20,7 @@ export interface UserState{
     office_number?: string,
     speciality?: string,
     image_link?: string,
-    roles?: string[],
+    roles?: roleInterface[],
 
     ///Additional for pattient
     insurance_number?: string,
