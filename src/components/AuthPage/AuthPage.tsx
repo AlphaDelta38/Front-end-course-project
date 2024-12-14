@@ -40,6 +40,7 @@ const AuthPage = () => {
     const [finalStageOfRegistration, setFinalStageOfRegistration] = useState(false);
     const [dataState, setDataState] = useState<registerForm>({})
     const [errorsState, setErrorsState] = useState<Array<any>>([])
+    const [passwordVisible, setPasswordVisible] = useState<boolean>(false)
 
     const dispatch = useAppDispatch()
 
@@ -164,13 +165,19 @@ const AuthPage = () => {
                                 <input {...loginRegister('email')} type={"text"} className={cl.field} placeholder={"Email"}/>
                             </div>
                             <div className={cl.containerForSvgWithField}>
-                                <svg style={{marginLeft:"30px", marginTop:"20px"}} width={"24px"} height={"28px"} className={cl.formIcons}>
+                                <svg style={{marginLeft: "30px", marginTop: "20px"}} width={"24px"} height={"28px"}
+                                     className={cl.formIcons}>
                                     <use xlinkHref={"/sprite.svg#LockFormIcon"}></use>
                                 </svg>
-                                <input {...loginRegister('password')}  type={"text"} className={cl.field} placeholder={"Password"}/>
+                                <div className={cl.containerPassrodVisibles}>
+                                    <input style={{paddingRight: "64px"}} {...loginRegister('password')} type={passwordVisible ? "text" : "password"} className={cl.field} placeholder={"Password"}/>
+                                    <svg onClick={()=>setPasswordVisible(passwordVisible ? false : true)} className={cl.passwordVisibleIcon}>
+                                        <use xlinkHref={passwordVisible ? "/sprite.svg#OpenEyeIcon" : " /sprite.svg#CloseEyeIcon"}></use>
+                                    </svg>
+                                </div>
                             </div>
-                            <div style={loginErrors ? {} : {display:"flex"}} className={cl.loginErrContainer}>
-                                {loginErrors && Object.entries(loginErrors).map((value,index)=>
+                            <div style={loginErrors ? {} : {display: "flex"}} className={cl.loginErrContainer}>
+                                {loginErrors && Object.entries(loginErrors).map((value, index) =>
                                     <small key={index}>{`${value[0]}:`}<span>{value[1]?.message}</span></small>
                                 )}
                             </div>
@@ -179,7 +186,7 @@ const AuthPage = () => {
                         !finalStageOfRegistration ?
                             <div className={cl.fieldsContainer}>
                                 <div className={cl.containerForSvgWithField}>
-                                    <svg style={{marginLeft: "32px", marginTop: "24px"}} width={"24px"} height={"20px"}
+                                <svg style={{marginLeft: "32px", marginTop: "24px"}} width={"24px"} height={"20px"}
                                          className={cl.formIcons}>
                                         <use xlinkHref={"/sprite.svg#HumanFormIcon"}></use>
                                     </svg>
@@ -221,14 +228,20 @@ const AuthPage = () => {
                                          className={cl.formIcons}>
                                         <use xlinkHref={"/sprite.svg#LockFormIcon"}></use>
                                     </svg>
-                                    <input {...register('password')} type={"text"} className={cl.field} placeholder={"Password"}/>
+                                    <input {...register('password')} type={"password"} className={cl.field} placeholder={"Password"}/>
                                 </div>
                                 <div className={cl.containerForSvgWithField}>
                                     <svg style={{marginLeft: "30px", marginTop: "18px", opacity: "0.7"}} width={"24px"} height={"28px"}
                                          className={cl.formIcons}>
                                         <use xlinkHref={"/sprite.svg#LockFormIcon"}></use>
                                     </svg>
-                                    <input {...register('checkPassword')} type={"text"} className={cl.field} placeholder={"Check password"}/>
+                                    <div className={cl.containerPassrodVisibles}>
+                                        <input style={{paddingRight:"64px"}} {...register('checkPassword')} type={passwordVisible ? "text" : "password"} className={cl.field} placeholder={"Check password"}/>
+                                        <svg onClick={()=>setPasswordVisible(passwordVisible ? false : true)} className={cl.passwordVisibleIcon}>
+                                            <use
+                                                xlinkHref={passwordVisible ? "/sprite.svg#OpenEyeIcon" : " /sprite.svg#CloseEyeIcon"}></use>
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
                     }

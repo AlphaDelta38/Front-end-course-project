@@ -10,7 +10,7 @@ import {DoctorsCardsInterface} from "../../types/doctorsType";
 import {gsap} from "gsap";
 import {Link, useNavigate} from "react-router-dom";
 import {routesEnum} from "../../types/routes.type";
-import {dateConvert} from "../../util/Date";
+import {dateConvert} from "../../utils/Date";
 
 
 interface cordinateData{
@@ -196,7 +196,7 @@ const GeneralPage = () => {
                     <h3>MEDICAL CENTER</h3>
                     <h1>YOUR HEALTH <span className={cl.OurSpan}>OUR</span> MISSION</h1>
                     <div className={cl.shedulesBtnContainer}>
-                        <button className={cl.shedules_button}>
+                        <button onClick={() => navigate("/doctors")} className={cl.shedules_button}>
                             Schedule now
                         </button>
                         <button onClick={() => scrollToSection("#ourDoctors")} className={cl.shedules_button}>

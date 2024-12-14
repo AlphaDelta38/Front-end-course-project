@@ -3,7 +3,7 @@ import cl from '../../modules/NewsPage/NewsPage.module.css';
 import {newsAPI, sortForwards} from "../../services/NewsService";
 import {NewsItemInterface} from "../../types/newsType";
 import {useLocation, useNavigate, useNavigation} from "react-router-dom";
-import {dateConvert} from "../../util/Date";
+import {dateConvert} from "../../utils/Date";
 import {errorSlice} from "../../store/reducers/ErrorSlice";
 import {messageType} from "../PopupMessage/PopupMessageItem";
 import {useAppDispatch} from "../../hooks/redux";

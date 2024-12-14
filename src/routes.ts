@@ -3,9 +3,21 @@ import {routesEnum} from "./types/routes.type";
 import AuthPage from "./components/AuthPage/AuthPage";
 import NewsPage from "./components/NewsPage/NewsPage";
 import DoctorPage from "./components/DoctorPage/DoctorPage";
+import AdminPanel from "./components/AdminPanel/AdminPanel";
 
 
-export const routes = [
+
+
+export const loginRoutes = [
+    {path: routesEnum.general, element: GeneralPage},
+    {path: routesEnum.other, element: GeneralPage},
+    {path: routesEnum.news, element: NewsPage},
+    {path: routesEnum.doctors, element: DoctorPage},
+    {path: routesEnum.admin, element: AdminPanel},
+]
+
+
+export const unLoginRoutes = [
     {path: routesEnum.general, element: GeneralPage},
     {path: routesEnum.other, element: GeneralPage},
     {path: routesEnum.login, element: AuthPage},

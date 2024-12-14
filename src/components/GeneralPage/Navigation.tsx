@@ -3,7 +3,6 @@ import cl from '../../modules/GeneralPage/Navigation.module.css'
 import {gsap} from "gsap";
 import {ScrollToPlugin} from "gsap/ScrollToPlugin";
 import {Link} from "react-router-dom";
-import {routes} from "../../routes";
 import {routesEnum} from "../../types/routes.type";
 import {useAppSelector} from "../../hooks/redux";
 
@@ -27,7 +26,7 @@ const Navigation = () => {
 
 
     return (
-        <div className={cl.container}>
+        <div id="Navigation" className={cl.container}>
             <div className={cl.container__content}>
                 <div className={cl.LogoContainer}>
                     <svg className={cl.Logo__icon}>
