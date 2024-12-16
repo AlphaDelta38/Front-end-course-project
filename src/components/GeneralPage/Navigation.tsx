@@ -2,7 +2,7 @@ import React from 'react';
 import cl from '../../modules/GeneralPage/Navigation.module.css'
 import {gsap} from "gsap";
 import {ScrollToPlugin} from "gsap/ScrollToPlugin";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {routesEnum} from "../../types/routes.type";
 import {useAppSelector} from "../../hooks/redux";
 
@@ -23,10 +23,11 @@ const Navigation = () => {
 
 
     const {id: UserId, email} = useAppSelector(state => state.userReducer)
-
+    const location = useLocation()
+    const currentLocation = location.pathname.split("/")[1]
 
     return (
-        <div id="Navigation" className={cl.container}>
+        <div id="Navigation" style={currentLocation === "admin" ? {display:"none"} : {}} className={cl.container}>
             <div className={cl.container__content}>
                 <div className={cl.LogoContainer}>
                     <svg className={cl.Logo__icon}>

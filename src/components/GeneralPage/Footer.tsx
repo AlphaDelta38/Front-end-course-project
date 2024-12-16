@@ -1,13 +1,19 @@
 import React from 'react';
 import cl from '../../modules/GeneralPage/Footer.module.css'
+import {useLocation} from "react-router-dom";
 
 
 
 
 
 const Footer = () => {
+
+    const location = useLocation()
+    const currentLocation = location.pathname.split("/")[1]
+
+
     return (
-        <div className={cl.container}>
+        <div style={currentLocation === "admin" ? {display:"none"} : {}} className={cl.container}>
             <div className={cl.content}>
                 <div className={cl.mainInfo}>
                     <div className={cl.firstSection}>
