@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import cl from './modules/functionalButton.module.css'
 import {useLocation, useNavigate} from "react-router-dom";
 import {useAppSelector} from "../../hooks/redux";
 import {gsap} from "gsap";
+
+
+
 
 
 
@@ -37,10 +40,14 @@ const FunctionalButton = () => {
         }else if(location.pathname.split("/")[1] === "admin" && checkRole()){
             navigate("/general")
         }else if(location.pathname.split("/")[1] !== "admin" && checkRole()){
-            navigate("/admin")
+            navigate("/admin/doctors/create")
         }
         return () => {}
     }
+
+
+
+
 
     return (
         <div onClick={()=>actionFunctions()()}  className={cl.container}>
