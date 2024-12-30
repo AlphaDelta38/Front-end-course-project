@@ -40,7 +40,7 @@ const FunctionalButton = () => {
         }else if(location.pathname.split("/")[1] === "admin" && checkRole()){
             navigate("/general")
         }else if(location.pathname.split("/")[1] !== "admin" && checkRole()){
-            navigate("/admin/doctors/create")
+            navigate("/admin")
         }
         return () => {}
     }
@@ -68,7 +68,7 @@ const FunctionalButton = () => {
                 </svg>
             }
             {!checkRole() &&
-                <svg className={cl.settingsIcon}>
+                <svg style={{transform: "rotate(-90deg)"}} className={cl.settingsIcon}>
                     <use xlinkHref={"/sprite.svg#ChevronIcon"}></use>
                 </svg>
             }

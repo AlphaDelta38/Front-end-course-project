@@ -10,7 +10,7 @@ interface messageInterface{
 
 
 
-interface  errorState{
+export interface  errorState{
     messages: messageInterface[]
 }
 

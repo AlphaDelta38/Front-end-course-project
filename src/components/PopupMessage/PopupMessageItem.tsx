@@ -41,10 +41,7 @@ const PopupMessageItem = ({message,type, delay=0}:PopupMessageItemInterface ) =>
             dispatch(deleteFirst())
         }, delay * 1000 + 4000);
 
-        return () => {
-            clearTimeout(showTimeout);
-            clearTimeout(hideTimeout);
-        };
+
     }, []);
 
     const style: styleInterface = {

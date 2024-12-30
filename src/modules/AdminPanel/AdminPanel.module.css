@@ -245,10 +245,11 @@
     width: 100%;
     position: relative;
     background: rgb(241, 244, 246);
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .sideBarContainer{
+    user-select: none;
     width: 280px;
     flex: 0 0 280px;
     height: 100vh;
@@ -265,13 +266,36 @@
 }
 
 
-.sideBarContainerActive{
+.sideBarContainerActive {
     transform: translate3d(-200px,0,0);
+
 }
 
-.sideBarContainerActive:hover{
+
+.sideBarContainerActive:hover {
     transform: translate3d(0,0,0);
 }
+
+
+.text{
+    display: block;
+}
+
+
+
+
+@keyframes enterForHover {
+    0%{
+        transform: translate3d(-100px,0,0);
+    }
+    50%{
+        transform: translate3d(-100px,0,0);
+    }
+    100%{
+        transform: translate3d(0,0,0);
+    }
+}
+
 
 
 .sideBarContent{
@@ -327,6 +351,7 @@
 
 
 .heading{
+    width: 100%;
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
@@ -412,10 +437,10 @@
 }
 
 .sectionIcon{
-    width: 20px;
+    width: 22px;
     fill: #343a40;
     position: relative;
-    height: 22px;
+    height: 24px;
     margin-bottom: 4px;
 }
 
@@ -498,10 +523,65 @@
         display: block;
     }
 
+    .content{
+        padding-left: 0 !important;
+    }
 
 }
 
 
+@media (min-width: 992px ) {
+    .sideBarContainerActive .listItem__sectionIconContainer{
+        left: 200px;
+    }
+
+    .sideBarContainerActive:hover  .listItem__sectionIconContainer{
+        left: 0;
+    }
+
+    .sideBarContainerActive .heading{
+        text-indent: -999em;
+    }
+
+    .sideBarContainerActive .heading::before{
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 28px;
+        height: 1px;
+        background: #e0f3ff;
+    }
+
+    .sideBarContainerActive:hover .heading::before{
+        display: none;
+    }
+
+    .sideBarContainerActive:hover  .heading{
+        text-indent: 0;
+    }
+
+
+    .sideBarContainerActive .underList {
+        max-height: 0;
+    }
+
+
+    .sideBarContainerActive:hover  .underList{
+        max-height: initial;
+    }
+
+    .sideBarContainerActive:hover  .underList{
+        animation: enterForHover 0.3s ease;
+    }
+
+
+    .sideBarContainerActive:hover .text{
+        animation: enterForHover 0.3s ease;
+    }
+
+
+}
 
 @media (min-width: 992px ) and (max-width: 1268px) {
     .burgerButton{
@@ -515,6 +595,29 @@
     .sideBarContainer:hover{
         transform: translate3d(0,0,0);
     }
+
+    .logoAndButtonContainer{
+        padding: 0;
+        max-width: 100% !important;
+        min-width: 100% !important;
+        justify-content:  space-between !important;
+    }
+
+    .logo{
+        display: flex !important;
+        order: 2;
+        padding: 0 1.5rem;
+    }
+
+    .burgerButton{
+        order: 1;
+        padding: 0 1.5rem;
+    }
+
+    .additionalcontent{
+        display: none;
+    }
+
 
 }
 

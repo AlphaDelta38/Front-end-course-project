@@ -1,5 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {NewsItemInterface} from "../types/newsType";
+import {endpointsPath} from "../routes";
 
 
 
@@ -22,7 +23,7 @@ export const newsAPI = createApi({
     endpoints: (build)=>({
         fetchAllNews: build.query<NewsItemInterface[], fetchAllPropsInterface>({
             query: (e)=>({
-                url :"/news",
+                url : endpointsPath.news,
                 params: {
                     ...e
                 }
