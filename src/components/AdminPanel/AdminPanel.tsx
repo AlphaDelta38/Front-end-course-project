@@ -7,6 +7,7 @@ import {
     sideBarAdminPanelElements,
     underSection
 } from "../../types/adminPanelType";
+import DoctorManagementSection from "./DoctorManagementSection";
 
 
 const AdminPanel = () => {
@@ -15,7 +16,7 @@ const AdminPanel = () => {
     const [menuActivities, setMenuActivities] = useState<sectionActivities>({
         mainSection: mainSections.doctor,
         underSection: underSection.actions,
-        chosenAttribute: chosenAttribute.create,
+        chosenAttribute: chosenAttribute.management,
         chosenUnderSection: underSection.actions,
         chosenMainSection: mainSections.doctor,
     })
@@ -35,13 +36,16 @@ const AdminPanel = () => {
 
     const disableState = useCallback((e: Event)=>{
         if(window.innerWidth > 992 && window.innerWidth < 1268){
-            setMenuIsActive(false)
+            setMenuIsActive(true)
         }
     }, [])
 
     window.addEventListener("resize", disableState);
 
     useEffect(()=>{
+        if(window.innerWidth > 992 && window.innerWidth < 1268){
+            setMenuIsActive(true)
+        }
         return ()=>{
             window.removeEventListener("resize", disableState);
         }
@@ -102,7 +106,7 @@ const AdminPanel = () => {
                                             menuActivities.mainSection === mainSections[mValue.mainSection.toLowerCase() as keyof typeof mainSections]
                                             && menuActivities.underSection === underSection[sValue.name.toLowerCase() as keyof  typeof  underSection] ? {
                                                 fontWeight: "700",
-                                                maxHeight: "200px"
+                                                maxHeight: `${(sValue.attributes.length+2) * 38}px`
                                             } : {}
                                         } className={cl.listItem}
                                         >
@@ -115,10 +119,10 @@ const AdminPanel = () => {
                                             })}>
                                                 <i className={cl.listItem__sectionIconContainer}>
                                                     <svg className={cl.sectionIcon}>
-                                                        <use xlinkHref={"/sprite.svg#DoctorIcon"}></use>
+                                                        <use xlinkHref={`/sprite.svg#${mValue.svgIconPath}`}></use>
                                                     </svg>
                                                 </i>
-                                                {sValue.name}
+                                                <span className={cl.text}>{sValue.name}</span>
                                                 <i className={cl.listItem__chevronIconContainer}>
                                                     <svg style={
                                                         menuActivities.mainSection === mainSections[mValue.mainSection.toLowerCase() as keyof typeof mainSections]
@@ -162,7 +166,7 @@ const AdminPanel = () => {
                         </ul>
                     </div>
                 </div>
-
+                <DoctorManagementSection/>
             </div>
         </div>
     );

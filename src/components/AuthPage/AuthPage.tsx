@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import cl from '../../modules/AuthPage/AuthPage.module.css'
 import {Link, useLocation} from "react-router-dom";
 import {routesEnum} from "../../types/routes.type";
 import * as yup from "yup";
-import {SubmitHandler, useForm} from "react-hook-form";
+import { useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {registerForm, typeOfState} from "../../types/forms.type";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {useAppDispatch} from "../../hooks/redux";
 import {UserLogin, UserRegister} from "../../store/reducers/ActionCreator";
 
 
@@ -171,7 +171,7 @@ const AuthPage = () => {
                                 </svg>
                                 <div className={cl.containerPassrodVisibles}>
                                     <input style={{paddingRight: "64px"}} {...loginRegister('password')} type={passwordVisible ? "text" : "password"} className={cl.field} placeholder={"Password"}/>
-                                    <svg onClick={()=>setPasswordVisible(passwordVisible ? false : true)} className={cl.passwordVisibleIcon}>
+                                    <svg onClick={()=>setPasswordVisible(!passwordVisible)} className={cl.passwordVisibleIcon}>
                                         <use xlinkHref={passwordVisible ? "/sprite.svg#OpenEyeIcon" : " /sprite.svg#CloseEyeIcon"}></use>
                                     </svg>
                                 </div>

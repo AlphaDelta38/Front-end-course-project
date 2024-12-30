@@ -134,7 +134,7 @@ const DoctorPage = () => {
             })
 
             setRolesFilterArray(roles);
-            setDoctorCardsArray(DoctorsArray)
+            setDoctorCardsArray(DoctorsArray.filter((value)=>value.speciality && value.speciality.name !== "none" ))
         }
     }, [Doctors])
 
@@ -240,7 +240,7 @@ const DoctorPage = () => {
 
 
 
-        setDoctorCardsArray(DoctorsArray)
+        setDoctorCardsArray(DoctorsArray.filter((value)=>value.speciality && value.speciality.name !== "none" ))
     }, [filtersAcitvity.rating, filtersAcitvity.type])
 
 
@@ -352,7 +352,7 @@ const DoctorPage = () => {
                             <div className={cl.OurDoctosItem__infoContainer}>
                                 <h2>{`${value.first_name} ${value.last_name}`}</h2>
                                 <small>Mon-Fri, 9:00 AM - 6:00 PM</small>
-                                <span>{value.speciality}</span>
+                                <span>{value.speciality && value.speciality.name}</span>
                                 <div className={cl.OurDoctosItem__raitingContainer}>
                                     <div className={cl.raiting}>
                                         <svg className={cl.raiting__starIcon}>
@@ -377,7 +377,7 @@ const DoctorPage = () => {
                                 </div>
                                 <div className={cl.bookMeniContentContainer}>
                                     <div className={cl.specialityBox}>
-                                        {doctorCardsArray[chooseSettingsForAppointments.doctorId].speciality}
+                                        {doctorCardsArray[chooseSettingsForAppointments.doctorId].speciality.name}
                                     </div>
                                     <div className={cl.chooseActionsContainer}>
                                         <div className={cl.actionContainer}>

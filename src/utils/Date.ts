@@ -2,8 +2,11 @@
 
 
 export function dateConvert(date: string){
-    const isoDate = date;
+    if(date.length === 0){
+        return ""
+    }
 
+    const isoDate = date;
     const formattedDate = new Intl.DateTimeFormat('en-US', {
         month: 'long',
         day: 'numeric',

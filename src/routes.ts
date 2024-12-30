@@ -25,3 +25,15 @@ export const unLoginRoutes = [
     {path: routesEnum.news, element: NewsPage},
     {path: routesEnum.doctors, element: DoctorPage},
 ]
+
+
+
+export enum endpointsPath{
+    speciality = "/speciality",
+    roles = "/roles",
+    services = "/services",
+    news = "/news",
+    doctors ="/doctors",
+    doctorsAmount = "/doctors/get/amount",
+    appointments="/appointments",
+}

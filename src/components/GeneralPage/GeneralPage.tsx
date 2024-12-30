@@ -296,7 +296,7 @@ const GeneralPage = () => {
                                 </div>
                                 <div className={cl.OurDoctosItem__infoContainer}>
                                     <h2>{`${value.first_name} ${value.last_name}`}</h2>
-                                    <span>{value.speciality}</span>
+                                    <span>{value.speciality && value.speciality.name}</span>
                                     <div className={cl.OurDoctosItem__raitingContainer}>
                                         <div className={cl.raiting}>
                                             <svg className={cl.raiting__starIcon}>
