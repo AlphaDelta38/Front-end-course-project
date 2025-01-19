@@ -1,4 +1,7 @@
-import {DoctorsItemInerface} from "./doctorsType";
+
+import DoctorManagementSection from "../components/AdminPanel/DoctorManagementSection";
+import React from "react";
+import NewsManagementSection from "../components/AdminPanel/NewsManagementSection";
 
 
 export interface sectionActivities{
@@ -13,6 +16,7 @@ export interface sectionActivities{
 export enum mainSections{
     doctor ="doctor",
     patient ="patient",
+    news ="news",
 }
 
 export enum underSection{
@@ -29,9 +33,15 @@ export enum chosenAttribute{
 }
 
 
+interface chosenAttributeWithComponent{
+    attribute: chosenAttribute,
+    element?: () => React.ReactNode;
+}
+
+
 interface UnderSection {
     name: underSection;
-    attributes: string[];
+    attributes: chosenAttributeWithComponent[];
 }
 
 
@@ -48,7 +58,12 @@ export const sideBarAdminPanelElements: sideBarAdminPanelElementsInterFace[] = [
         underSections: [
             {
                 name: underSection.actions,
-                attributes: ["Management"],
+                attributes: [
+                    {
+                        attribute: chosenAttribute.management,
+                        element: DoctorManagementSection
+                    }
+                ],
             },
         ],
     },
@@ -58,10 +73,30 @@ export const sideBarAdminPanelElements: sideBarAdminPanelElementsInterFace[] = [
         underSections: [
             {
                 name: underSection.actions,
-                attributes: ["Management"],
+                attributes: [
+                    {
+                        attribute: chosenAttribute.management,
+                    }
+                ],
             },
         ],
     },
+    {
+        svgIconPath: "NewsIcon",
+        mainSection: mainSections.news,
+        underSections: [
+            {
+                name: underSection.actions,
+                attributes: [
+                    {
+                        attribute: chosenAttribute.management,
+                        element: NewsManagementSection
+                    },
+                ],
+            },
+        ],
+    },
+
 ];
 
 

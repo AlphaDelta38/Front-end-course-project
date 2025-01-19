@@ -11,6 +11,7 @@ import {gsap} from "gsap";
 import {Link, useNavigate} from "react-router-dom";
 import {routesEnum} from "../../types/routes.type";
 import {dateConvert} from "../../utils/Date";
+import QuillForm from "../additionalComponents/QuillForm";
 
 
 interface cordinateData{
@@ -214,7 +215,7 @@ const GeneralPage = () => {
                                 <img onClick={()=>navigate(`/news/${News[0].id}`)} width="100%" height="100%" src={`${News[0].image_link}`} alt={"photo of last news"}/>
                             </div>
                             <div className={cl.lastNews_textContainer}>
-                                {News[0].text}
+                                <QuillForm toolbarActive={false} readonly={true} value={News[0].text}/>
                             </div>
                             <button onClick={()=>navigate(`/news/${News[0].id}`)} className={cl.lastNews__button}>
                                 Learn more

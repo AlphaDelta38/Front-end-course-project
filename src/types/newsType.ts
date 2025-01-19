@@ -10,4 +10,9 @@ export interface NewsItemInterface{
     updatedAt: string,
 }
 
-
+export interface newsChangeRequestProps{
+    id: number,
+    title: string,
+    text: string,
+    image_link: string,
+}

@@ -1,0 +1,48 @@
+
+
+.paginationButtonsContainer{
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    position: relative;
+    flex: 1 1 65%;
+}
+
+.paginationPanel{
+    display: flex;
+    width: 100%;
+    list-style: none;
+}
+
+
+.paginationPanel li a{
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    display: block;
+    padding: 8px 12px;
+    font-size: 14px;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    user-select: none;
+}
+
+.paginationPanel li a:hover{
+    color: #0056b3;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+
+.disabled {
+
+    color: #6c757d !important;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+    border-color: #dee2e6;
+}

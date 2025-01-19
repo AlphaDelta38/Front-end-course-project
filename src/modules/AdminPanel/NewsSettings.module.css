@@ -1,0 +1,133 @@
+
+
+
+
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.content{
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.imgContainer{
+    max-width: 760px;
+    height: 400px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    box-shadow: 15px 25px 10px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    margin-bottom: 82px;
+    cursor: pointer;
+    position: relative;
+}
+
+.dateContainer{
+    position: absolute;
+    width: 214px;
+    height: 52px;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(217, 217, 217, 1);
+    padding: 5px 15px;
+    border-radius: 20px 0 20px 0;
+    color: rgba(26, 53, 122, 1);
+    font-size: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addImgIconContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.svgContainer{
+    width: 80px;
+    height: 80px;
+}
+
+.svgContainer svg{
+    width: 100%;
+    height: 100%;
+}
+
+.titleContainer{
+    width: 100%;
+    height: max-content;
+}
+
+.titleContainer textarea{
+    resize: none;
+    overflow: hidden;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: rgba(26, 53, 122, 1);
+    margin-bottom: 20px;
+}
+
+.titleContainer textarea:focus{
+    outline: none;
+    border: none;
+}
+
+
+.actionContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-right: 20px;
+}
+
+.backBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #1A357A;
+    cursor: pointer;
+}
+
+
+.backBtn:hover{
+    opacity: 0.7;
+}
+
+.btnActionContainer{
+    display: flex;
+    gap: 10px;
+}
+
+
+
+
+
+

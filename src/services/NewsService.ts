@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {NewsItemInterface} from "../types/newsType";
+import {newsChangeRequestProps, NewsItemInterface} from "../types/newsType";
 import {endpointsPath} from "../routes";
 
 
@@ -28,7 +28,32 @@ export const newsAPI = createApi({
                     ...e
                 }
             })
-        })
+        }),
+        fetchAmountOfNews: build.query<number, any>({
+            query: ()=>({
+                url: endpointsPath.newsAmount,
+            })
+        }),
+        changeNews: build.mutation<any, newsChangeRequestProps>({
+            query: (e)=>({
+                url : endpointsPath.news,
+                method: "PUT",
+                body: {...e}
+            })
+        }),
+        createNews: build.mutation<any, Omit<newsChangeRequestProps, "id">>({
+            query: (e)=>({
+                url : endpointsPath.news,
+                method: "POST",
+                body: {...e}
+            })
+        }),
+        deleteNews: build.mutation<number, number>({
+            query: (id) => ({
+                url: `${endpointsPath.news}/${id}`,
+                method: "DELETE",
+            }),
+        }),
     })
 
 })

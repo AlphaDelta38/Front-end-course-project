@@ -96,7 +96,7 @@ const DoctorPage = () => {
     useEffect(()=>{
         if(Doctors && Doctors.length > 0){
             const DoctorsArray: DoctorsCardsInterface[] = [];
-            let roles: string[] = [];
+            let specialities: string[] = [];
 
             Doctors.forEach((value)=>{
                 let totalNumber = 0;
@@ -106,9 +106,10 @@ const DoctorPage = () => {
 
                 const raiting = totalNumber / value.raitings.length
 
-                value.roles.forEach((value)=>{
-                    roles.push(value.role)
-                })
+                if(value.speciality && value.speciality.name !== "none"){
+                    specialities.push(value.speciality.name)
+                }
+
 
                 const bookedTimes: string[] = [];
                 value.appointments.filter((value)=>{
@@ -126,14 +127,15 @@ const DoctorPage = () => {
 
             })
 
-            const uniqueArray = new Set(roles)
-            roles = [];
+            const uniqueArray = new Set(specialities)
+            specialities = [];
 
             uniqueArray.forEach((value)=>{
-                roles.push(value)
+                specialities.push(value)
             })
 
-            setRolesFilterArray(roles);
+
+            setRolesFilterArray(specialities);
             setDoctorCardsArray(DoctorsArray.filter((value)=>value.speciality && value.speciality.name !== "none" ))
         }
     }, [Doctors])
@@ -235,9 +237,8 @@ const DoctorPage = () => {
             DoctorsArray = DoctorsArray.filter((value)=>from <= value.raitings && to >= value.raitings)
         }
         if(filtersAcitvity.type !== "all"){
-            DoctorsArray = DoctorsArray.filter((value)=>value.roles.some((value)=>value.role === filtersAcitvity.type))
+            DoctorsArray = DoctorsArray.filter((value)=>value.speciality.name === filtersAcitvity.type)
         }
-
 
 
         setDoctorCardsArray(DoctorsArray.filter((value)=>value.speciality && value.speciality.name !== "none" ))
@@ -273,8 +274,6 @@ const DoctorPage = () => {
 
         }
     }, [chooseSettingsForAppointments.chosenDate])
-
-
 
 
 

@@ -760,7 +760,7 @@
     flex-direction: column;
     position: relative;
     box-shadow: 15px 25px 20px 5px #00000040;
-    border-radius: 0 0 24px 24px;
+    border-radius: 24px;
 
 }
 

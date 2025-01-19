@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import cl from '../../modules/AdminPanel/AdminPanel.module.css'
 import {
     chosenAttribute,
@@ -7,22 +7,23 @@ import {
     sideBarAdminPanelElements,
     underSection
 } from "../../types/adminPanelType";
-import DoctorManagementSection from "./DoctorManagementSection";
 
 
 const AdminPanel = () => {
 
+    let lastAdminPanelPath = localStorage.getItem("lastAdminPanelPath");
+    let lastMainSectionPath = (lastAdminPanelPath && mainSections[lastAdminPanelPath.split(" ")[0] as keyof typeof  mainSections]) || mainSections.doctor
+    let lastChosenAttribute = (lastAdminPanelPath && chosenAttribute[lastAdminPanelPath.split(" ")[1] as keyof typeof  chosenAttribute]) || chosenAttribute.management
+
+
     const [menuIsActive, setMenuIsActive] = useState<boolean | null>(null);
     const [menuActivities, setMenuActivities] = useState<sectionActivities>({
-        mainSection: mainSections.doctor,
+        mainSection: lastMainSectionPath,
         underSection: underSection.actions,
-        chosenAttribute: chosenAttribute.management,
+        chosenAttribute: lastChosenAttribute,
         chosenUnderSection: underSection.actions,
-        chosenMainSection: mainSections.doctor,
+        chosenMainSection: lastMainSectionPath,
     })
-
-
-
 
 
     function changeMenuActive(){
@@ -65,6 +66,24 @@ const AdminPanel = () => {
     }
 
 
+
+    const element = useMemo(()=>{
+
+        const element = sideBarAdminPanelElements.find((value)=>value.mainSection === menuActivities.chosenMainSection)
+            ?.underSections
+            .find((value)=>value.name === menuActivities.chosenUnderSection)
+            ?.attributes.find((value)=>value.attribute === menuActivities.chosenAttribute)
+            if(element?.element){
+               // @ts-ignore
+                return ()=><element.element/>
+            }
+        return () => <></>
+    }, [menuActivities.chosenMainSection, menuActivities.chosenUnderSection, menuActivities.chosenAttribute])
+
+
+    useEffect(() => {
+        localStorage.setItem("lastAdminPanelPath", menuActivities.mainSection + " " + menuActivities.chosenAttribute)
+    }, [menuActivities.chosenAttribute, menuActivities.chosenMainSection]);
 
     return (
         <div className={cl.container}>
@@ -136,7 +155,7 @@ const AdminPanel = () => {
                                                 {sValue.attributes.map((value, index) =>
                                                     <li
                                                         style={
-                                                            menuActivities.chosenAttribute === value.toLowerCase()
+                                                            menuActivities.chosenAttribute === value.attribute.toLowerCase()
                                                             && menuActivities.chosenMainSection === mainSections[mValue.mainSection.toLowerCase() as keyof typeof mainSections]
                                                             && menuActivities.chosenUnderSection === underSection[sValue.name.toLowerCase() as keyof  typeof  underSection]
                                                                 ? {
@@ -148,14 +167,14 @@ const AdminPanel = () => {
                                                         onClick={() => changeSectionActivities({
                                                             mainSection: mainSections[mValue.mainSection.toLowerCase() as keyof typeof mainSections],
                                                             underSection: underSection[sValue.name.toLowerCase() as keyof  typeof  underSection],
-                                                            chosenAttribute: chosenAttribute[value.toLowerCase() as keyof typeof chosenAttribute] || null,
+                                                            chosenAttribute: chosenAttribute[value.attribute.toLowerCase() as keyof typeof chosenAttribute] || null,
                                                             chosenUnderSection:  underSection[sValue.name.toLowerCase() as keyof  typeof  underSection],
                                                             chosenMainSection: mainSections[mValue.mainSection.toLowerCase() as keyof typeof mainSections],
                                                         }, true)
                                                         }
                                                         key={index}
                                                     >
-                                                        {value}
+                                                        <span>{value.attribute}</span>
                                                     </li>
                                                 )}
                                             </ul>
@@ -166,7 +185,9 @@ const AdminPanel = () => {
                         </ul>
                     </div>
                 </div>
-                <DoctorManagementSection/>
+                {
+                    element()
+                }
             </div>
         </div>
     );

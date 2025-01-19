@@ -7,6 +7,7 @@ import {dateConvert} from "../../utils/Date";
 import {errorSlice} from "../../store/reducers/ErrorSlice";
 import {messageType} from "../PopupMessage/PopupMessageItem";
 import {useAppDispatch} from "../../hooks/redux";
+import QuillForm from "../additionalComponents/QuillForm";
 
 const NewsPage = () => {
 
@@ -56,7 +57,7 @@ const NewsPage = () => {
                     {currentNews?.title || "Error Title"}
                 </h1>
                 <div className={cl.textContent}>
-                    {currentNews?.text || "none"}
+                    <QuillForm toolbarActive={false} readonly={true} value={currentNews?.text || ""}/>
                 </div>
             </div>
             <div className={cl.rightColumn}>

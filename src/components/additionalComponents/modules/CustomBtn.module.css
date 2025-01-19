@@ -1,0 +1,65 @@
+
+
+
+.customBtn{
+    width: 100%;
+    height: 100%;
+}
+
+.customBtn:first-letter{
+    text-transform: uppercase;
+}
+
+
+.customBtn span:first-letter{
+    text-transform: uppercase;
+}
+
+
+.update,
+.delete,
+.create{
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    user-select: none;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+}
+
+
+.create{
+    background-color: #05bf7b;
+}
+
+
+.update{
+    background-color: #16aaff;
+}
+
+.delete{
+    background-color: #d92550;
+}
+
+
+
+.create:hover{
+    box-shadow: 0 0.125rem 0.625rem rgba(58, 196, 125, 0.4), 0 0.0625rem 0.125rem rgba(58, 196, 125, 0.5);
+}
+
+.update:hover{
+    box-shadow: 0 0.125rem 0.625rem rgba(22, 170, 255, 0.4), 0 0.0625rem 0.125rem rgba(22, 170, 255, 0.5);
+}
+
+.delete:hover{
+    box-shadow: 0 0.125rem 0.625rem rgba(217, 37, 80, 0.5), 0 0.0625rem 0.125rem rgba(217, 37, 80, 0.6);
+}
+
+

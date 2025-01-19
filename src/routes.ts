@@ -35,5 +35,6 @@ export enum endpointsPath{
     news = "/news",
     doctors ="/doctors",
     doctorsAmount = "/doctors/get/amount",
+    newsAmount = "/news/get/amount",
     appointments="/appointments",
 }

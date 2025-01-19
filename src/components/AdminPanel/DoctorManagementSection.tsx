@@ -16,11 +16,10 @@ import {errorSlice} from "../../store/reducers/ErrorSlice";
 import {messageType} from "../PopupMessage/PopupMessageItem";
 import {useAppDispatch} from "../../hooks/redux";
 import {specialityInterface} from "../../types/specialityType";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
-
-
-
+import Loader from "../additionalComponents/loader";
+import EntriesSelect from "./entriesSelect";
+import PaginationBar from "./PaginationBar";
+import CustomBtn, {CustomBtnTypes} from "../additionalComponents/CustomBtn";
 
 
 const validationYupSchemaDoctorCreate = yup.object().shape({
@@ -71,10 +70,10 @@ const DoctorManagementSection = () => {
         role:"doctor"
     })
 
-    const {data: Amount} = doctorAPI.useGetAmountDoctorsQuery({})
+    const {data: Amount, refetch: AmountRefetch} = doctorAPI.useGetAmountDoctorsQuery({})
     const {data: Speciality} = specialityAPI.useGetAllSpecialityQuery({})
     const {data: Roles} = rolesAPI.useGetAllRolesQuery({})
-    const [createDoctor, { isLoading, isSuccess, error: doctorErrors }] = doctorAPI.useCreateDoctorMutation()
+    const [createDoctor, {  isLoading: createIsLoading, isSuccess, error: doctorErrors }] = doctorAPI.useCreateDoctorMutation()
     const [updateDoctor, { isLoading:updateIsLoading, isSuccess:updateIsSuccess, error: updatedDoctorErrors }] = doctorAPI.useUpdateDoctorMutation()
     const [deleteDoctor, { isLoading:deleteIsLoading, isSuccess: deleteIsSuccess, error: deleteDoctorErrors }] = doctorAPI.useDeleteDoctorMutation()
 
@@ -265,6 +264,7 @@ const DoctorManagementSection = () => {
             }
 
             DoctorRefetch()
+            AmountRefetch()
         }catch (e: any){
             const errorMessage = e?.message || "An unexpected error occurred";
             dispatch(errorSlice.actions.setErrors({message: errorMessage, type:messageType.errorType}))
@@ -284,6 +284,7 @@ const DoctorManagementSection = () => {
                 throw new Error("failed to delete doctor");
             }
             DoctorRefetch()
+            AmountRefetch()
         }catch (e:any){
             const errorMessage = e?.message || "An unexpected error occurred";
             dispatch(errorSlice.actions.setErrors({message:e, type:messageType.errorType}))
@@ -397,16 +398,7 @@ const DoctorManagementSection = () => {
                 </div>
                 <div className={cl.tableContainer}>
                     <div className={cl.chooseAdditionalActionsContainer}>
-                        <div className={cl.chooseAmountContainer}>
-                            Show
-                            <select onChange={(e)=>changeHowManyDoctors(e.target.value)} className={cl.chooseAmountSelect}>
-                                <option>10</option>
-                                <option>25</option>
-                                <option>50</option>
-                                <option>100</option>
-                            </select>
-                            entries
-                        </div>
+                        <EntriesSelect textBeforeSelect={"Show"} textAfterSelect={"entries"} options={["10","25", "50", "100"]} setState={changeHowManyDoctors}/>
                         <div className={cl.searchContainer}>
                             Search:
                             <input value={searchInputValue} onChange={(e)=>setSearchInputValue(e.target.value)}  className={cl.searchInput}/>
@@ -565,8 +557,8 @@ const DoctorManagementSection = () => {
                                 <td>{value.office_number}</td>
                                 <td>
                                     <div className={cl.actionsButton}>
-                                        <button onClick={()=>setViewDoctorData(value.id)} className={cl.viewBtn}>View</button>
-                                        <button onClick={()=>deleteDoctorRequest(value.id)} className={cl.deleteBtn}>Delete</button>
+                                        <CustomBtn  styles={{maxWidth:"100px", height: "42px"}} onClick={()=>setViewDoctorData(value.id)} type={CustomBtnTypes.update}>View</CustomBtn>
+                                        <CustomBtn  styles={{maxWidth:"100px", height: "42px"}} onClick={()=>deleteDoctorRequest(value.id)} type={CustomBtnTypes.delete}/>
                                     </div>
                                 </td>
                             </tr>
@@ -604,33 +596,33 @@ const DoctorManagementSection = () => {
                         </tr>
                         </thead>
                     </table>
+                    <Loader isLoading={deleteIsLoading} isChildElement={true}/>
                     <div className={cl.paginationPanelContainer}>
                         <div className={cl.statusInfoContainer}>
                             <div className={cl.statusInfoText}>{`Showing ${searchState && (searchState.limit * (searchState.page-1)) + 1} to ${searchState?.limit} of ${Amount || 0} entries`}</div>
                         </div>
-                        <div className={cl.paginationButtonsContainer}>
-                            <ul className={cl.paginationPanel}>
-                                <li>
-                                    <a onClick={()=>setSearchState({...searchState!, page: searchState!.page - 1})} className={searchState?.page === 1 ? cl.disabled : cl.none}>Previous</a >
-                                </li>
-                                {searchState && Amount && Array.from({length: Math.ceil(Amount/searchState.limit)}).map((value, index) =>
-                                    <li onClick={()=>setSearchState({...searchState, page: index+1})} key={index}>
-                                        <a style={searchState.page === index +1 ? {backgroundColor:"#3f6ad8", borderColor:"#007bff", color:"white"} : {}} >{index + 1}</a>
-                                    </li>
-                                )}
-                                <li>
-                                    <a
-                                        onClick={()=>setSearchState({...searchState!, page: searchState!.page + 1})}
-                                        className={searchState && Amount && searchState.page === Math.ceil(Amount/searchState.limit) ? cl.disabled : cl.none}
-                                    >
-                                        Next
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        <PaginationBar
+                            previousPageFunc={()=>{
+                                setSearchState({...searchState!, page: searchState!.page - 1})
+                                console.log("1231")
+                            }}
+                            setPageFunc={(page: number)=>{
+                                if(searchState){
+                                    setSearchState({...searchState, page: page})
+                                }
+                            }}
+                            nextPageFunc={()=>{
+                                setSearchState({...searchState!, page: searchState!.page + 1})
+                            }}
+                            currentPage={ searchState && searchState.page || 1}
+                            amount={Amount && Amount || 1}
+                            limit={searchState && searchState.limit || 1}
+                            style={{justifyContent:"end"}}
+                        />
                     </div>
                 </div>
             </div>
+
             <div className={cl.manageDataContainer}>
                 <div className={cl.dataChangeContainer}>
                     <div className={cl.headerOfDataSettings}>
@@ -801,10 +793,11 @@ const DoctorManagementSection = () => {
                             </tbody>
                         </table>
                         <div className={cl.btnActionsContaner}>
-                            <button onClick={()=>doctorController()} style={doctorDataState && doctorDataState.id ? {backgroundColor:"#80bdff"} : {}} className={cl.viewBtn}>{doctorDataState && doctorDataState.id ? "Update" : "Create"}</button>
-                            <button style={doctorDataState && doctorDataState.id ? {} : {pointerEvents: "none"}} onClick={()=>deleteDoctorRequest()} className={cl.deleteBtn}>Delete</button>
+                            <CustomBtn onClick={()=>doctorController()} styles={{maxWidth:"76px"}} type={doctorDataState && doctorDataState.id ? CustomBtnTypes.update : CustomBtnTypes.create}/>
+                            <CustomBtn type={CustomBtnTypes.delete} styles={doctorDataState && doctorDataState.id ? {maxWidth:"110px"} : {pointerEvents: "none", maxWidth:"110px"}} onClick={()=>deleteDoctorRequest()}/>
                         </div>
                     </div>
+                    <Loader isLoading={createIsLoading || updateIsLoading || deleteIsLoading} isChildElement={true}/>
                 </div>
             </div>
         </div>

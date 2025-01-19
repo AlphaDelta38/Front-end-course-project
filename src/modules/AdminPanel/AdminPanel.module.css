@@ -466,6 +466,9 @@
     margin: .1rem 0;
 }
 
+.underList li span:first-letter{
+    text-transform: uppercase;
+}
 
 
 .underList li:hover {
