@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import cl from '../../modules/PopupMessage/PopupContainer.module.css'
 import PopupMessageItem, {messageType} from "./PopupMessageItem";
-import {useAppSelector} from "../../hooks/redux";
-import {errorState} from "../../store/reducers/ErrorSlice";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {errorSlice, errorState} from "../../store/reducers/ErrorSlice";
+import ReactDOM from "react-dom/client";
 
 
 
@@ -10,15 +11,32 @@ import {errorState} from "../../store/reducers/ErrorSlice";
 const PopupContainer = () => {
 
     const errors = useAppSelector(state => state.errorReducer)
-    const [errorsState, setErrorsState] = useState<errorState>()
+    const errorContainerRef = useRef<HTMLDivElement | null>(null)
+    const dispatch = useAppDispatch()
+
 
     useEffect(() => {
-        setErrorsState(errors)
+        if(errorContainerRef.current && errors.messages.length > 0){
+            errors.messages.forEach((value,index)=>{
+                const container = document.createElement("div")
+                errorContainerRef.current?.appendChild(container)
+
+                const root = ReactDOM.createRoot(container)
+
+                const unmountAndRemove = () => {
+                    root.unmount();
+                    container.remove()
+                };
+
+                root.render(<PopupMessageItem delay={index} key={index} message={value.message} type={value.type} selfDestroyFunc={unmountAndRemove}/>)
+            })
+            dispatch(errorSlice.actions.deleteAll())
+        }
     }, [errors]);
 
     return (
-        <div className={cl.container}>
-            {errorsState && errorsState.messages.map((value, index)=><PopupMessageItem key={index} message={value.message} type={value.type} delay={index}/>)}
+        <div ref={errorContainerRef} className={cl.container}>
+
         </div>
     );
 };

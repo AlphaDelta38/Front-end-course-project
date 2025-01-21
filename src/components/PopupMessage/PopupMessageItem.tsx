@@ -8,6 +8,7 @@ interface  PopupMessageItemInterface{
     message: string;
     type: messageType,
     delay?: number,
+    selfDestroyFunc: ()=>void
 }
 
 
@@ -20,16 +21,12 @@ export enum messageType{
 interface  styleInterface{
     errorType: CSSProperties
     successType: CSSProperties
+
 }
 
 
-const PopupMessageItem = ({message,type, delay=0}:PopupMessageItemInterface ) => {
-
-
+const PopupMessageItem = ({message,type, delay=0,selfDestroyFunc}:PopupMessageItemInterface ) => {
     const [isVisible, setIsVisible] = useState(false)
-    const dispatch = useAppDispatch()
-    const {deleteFirst} = errorSlice.actions
-
 
     useEffect(() => {
         const showTimeout = setTimeout(() => {
@@ -38,7 +35,7 @@ const PopupMessageItem = ({message,type, delay=0}:PopupMessageItemInterface ) =>
 
         const hideTimeout = setTimeout(() => {
             setIsVisible(false);
-            dispatch(deleteFirst())
+            selfDestroyFunc()
         }, delay * 1000 + 4000);
 
 

@@ -35,6 +35,10 @@ export const errorSlice = createSlice({
             const temp = [...state.messages]
             temp.shift()
             state.messages = temp;
+        },
+        deleteAll(state: errorState){
+            const temp:messageInterface[] = []
+            state.messages = temp;
         }
     }
 })
