@@ -9,16 +9,11 @@ import PopupContainer from "./components/PopupMessage/PopupContainer";
 import Footer from "./components/GeneralPage/Footer";
 import FunctionalButton from "./components/additionalComponents/functionalButton";
 
+
 function App() {
 
     const data = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch()
-
-
-    useEffect(() => {
-        console.log(data);
-
-    }, [data]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -26,6 +21,7 @@ function App() {
             dispatch(checkLogin())
         }
     }, []);
+
 
   return (
     <div className="App">

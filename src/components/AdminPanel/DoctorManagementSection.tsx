@@ -20,6 +20,7 @@ import Loader from "../additionalComponents/loader";
 import EntriesSelect from "./entriesSelect";
 import PaginationBar from "./PaginationBar";
 import CustomBtn, {CustomBtnTypes} from "../additionalComponents/CustomBtn";
+import {deBounceWithConfirmation} from "../../utils/deBounce";
 
 
 const validationYupSchemaDoctorCreate = yup.object().shape({
@@ -558,13 +559,13 @@ const DoctorManagementSection = () => {
                                 <td>
                                     <div className={cl.actionsButton}>
                                         <CustomBtn  styles={{maxWidth:"100px", height: "42px"}} onClick={()=>setViewDoctorData(value.id)} type={CustomBtnTypes.update}>View</CustomBtn>
-                                        <CustomBtn  styles={{maxWidth:"100px", height: "42px"}} onClick={()=>deleteDoctorRequest(value.id)} type={CustomBtnTypes.delete}/>
+                                        <CustomBtn  styles={{maxWidth:"100px", height: "42px"}} onClick={()=>deBounceWithConfirmation(()=>deleteDoctorRequest(value.id))} type={CustomBtnTypes.delete}/>
                                     </div>
                                 </td>
                             </tr>
                         )
                         :
-                            <tr style={{display:"flex", justifyContent:"center", margin:"20px", fontSize:"26px"}}>not found</tr>
+                            <tr style={{display:"flex", justifyContent:"center", margin:"20px", fontSize:"26px"}}><td>not found</td></tr>
                         }
                         </tbody>
                         <thead>
@@ -793,8 +794,8 @@ const DoctorManagementSection = () => {
                             </tbody>
                         </table>
                         <div className={cl.btnActionsContaner}>
-                            <CustomBtn onClick={()=>doctorController()} styles={{maxWidth:"76px"}} type={doctorDataState && doctorDataState.id ? CustomBtnTypes.update : CustomBtnTypes.create}/>
-                            <CustomBtn type={CustomBtnTypes.delete} styles={doctorDataState && doctorDataState.id ? {maxWidth:"110px"} : {pointerEvents: "none", maxWidth:"110px"}} onClick={()=>deleteDoctorRequest()}/>
+                            <CustomBtn onClick={()=>deBounceWithConfirmation(()=>doctorController())} styles={{maxWidth:"76px"}} type={doctorDataState && doctorDataState.id ? CustomBtnTypes.update : CustomBtnTypes.create}/>
+                            <CustomBtn type={CustomBtnTypes.delete} styles={doctorDataState && doctorDataState.id ? {maxWidth:"110px"} : {pointerEvents: "none", maxWidth:"110px"}} onClick={()=>deBounceWithConfirmation(()=>deleteDoctorRequest())}/>
                         </div>
                     </div>
                     <Loader isLoading={createIsLoading || updateIsLoading || deleteIsLoading} isChildElement={true}/>

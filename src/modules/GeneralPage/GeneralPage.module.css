@@ -567,13 +567,21 @@
 }
 
 .geoLocation__info table tr{
-    flex: 20% 0 0;
-    width: 20%;
+    flex: 100% 0 0;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: end;
     position: relative;
     padding-right: 45px;
+    margin-bottom: 34px;
+}
+
+.geoLocation__info table tr th{
+    display: flex;
+    margin-right: 100px;
+    flex: 15% 0 0;
+    width: 15%;
 }
 
 
@@ -592,6 +600,7 @@
 .geoLocation__info table tr:nth-child(5){
     padding-left: 8px;
 }
+
 
 
 

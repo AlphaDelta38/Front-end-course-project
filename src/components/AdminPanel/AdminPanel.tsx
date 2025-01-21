@@ -118,10 +118,10 @@ const AdminPanel = () => {
                     <div className={cl.sideBarContent}>
                         <ul>
                             {sideBarAdminPanelElements.map((mValue, mIndex)=>
-                                <>
-                                    <li key={mIndex} className={cl.heading}>{mValue.mainSection}</li>
+                                <React.Fragment key={`reactContainer-uniqueKey ${mIndex}`}>
+                                    <li key={`Main-uniqueKey ${mIndex}`} className={cl.heading}>{mValue.mainSection}</li>
                                     {mValue.underSections.map((sValue, sIndex) =>
-                                        <li key={sIndex} style={
+                                        <li  key={`underLi-uniqueKey ${sIndex}`} style={
                                             menuActivities.mainSection === mainSections[mValue.mainSection.toLowerCase() as keyof typeof mainSections]
                                             && menuActivities.underSection === underSection[sValue.name.toLowerCase() as keyof  typeof  underSection] ? {
                                                 fontWeight: "700",
@@ -172,7 +172,7 @@ const AdminPanel = () => {
                                                             chosenMainSection: mainSections[mValue.mainSection.toLowerCase() as keyof typeof mainSections],
                                                         }, true)
                                                         }
-                                                        key={index}
+                                                        key={`underList-uniqueKey ${index}`}
                                                     >
                                                         <span>{value.attribute}</span>
                                                     </li>
@@ -180,7 +180,7 @@ const AdminPanel = () => {
                                             </ul>
                                         </li>
                                     )}
-                                </>
+                                </React.Fragment>
                             )}
                         </ul>
                     </div>

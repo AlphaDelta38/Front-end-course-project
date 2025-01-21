@@ -327,38 +327,44 @@ const GeneralPage = () => {
                         <h2>Find us on the map</h2>
                         <div className={cl.geoLocation__info}>
                             <table>
-                                <tr>
-                                    <svg className={cl.info__iconsGeoLocation}>
-                                        <use xlinkHref={"/sprite.svg#GeoLocationICon"}></use>
-                                    </svg>
-                                </tr>
-                                <td>
-                                    <div style={{maxWidth: "320px"}}>
-                                        Kharkiv, Molochna Street 48, Building 2
-                                    </div>
-                                </td>
-
-                                <tr>
-                                    <svg className={cl.info__iconsPhone}>
-                                        <use xlinkHref={"/sprite.svg#PhoneIcon"}></use>
-                                    </svg>
-                                </tr>
-                                <td>
-                                    <div style={{maxWidth: "340px"}}>
-                                        +38 (067) 123-45-67 +38 (050) 234-56-78 +38 (063) 345-67-89
-                                    </div>
-                                </td>
-
-                                <tr>
-                                    <svg className={cl.info__iconsEmail}>
-                                        <use xlinkHref={"/sprite.svg#EmailIcon"}></use>
-                                    </svg>
-                                </tr>
-                                <td>health.rebalance@gmail.com</td>
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                            <svg className={cl.info__iconsGeoLocation}>
+                                                <use xlinkHref={"/sprite.svg#GeoLocationICon"}></use>
+                                            </svg>
+                                        </th>
+                                        <td>
+                                            <div style={{maxWidth: "320px"}}>
+                                                Kharkiv, Molochna Street 48, Building 2
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style={{marginLeft:"2px"}}>
+                                            <svg className={cl.info__iconsPhone}>
+                                                <use xlinkHref={"/sprite.svg#PhoneIcon"}></use>
+                                            </svg>
+                                        </th>
+                                        <td>
+                                            <div style={{maxWidth: "340px"}}>
+                                                +38 (067) 123-45-67 +38 (050) 234-56-78 +38 (063) 345-67-89
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style={{marginLeft:"12px"}}>
+                                            <svg className={cl.info__iconsEmail}>
+                                                <use xlinkHref={"/sprite.svg#EmailIcon"}></use>
+                                            </svg>
+                                        </th>
+                                        <td>health.rebalance@gmail.com</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                         <div className={cl.info__navigation}>
-                            <a href={"https://maps.app.goo.gl/67xguLNwFvBy5X7d7"}  rel={"noreferrer"} target="_blank">
+                            <a href={"https://maps.app.goo.gl/67xguLNwFvBy5X7d7"} rel={"noreferrer"} target="_blank">
                                 <button className={cl.infoNavigation__button}>Find us</button>
                             </a>
                             <div className={cl.socialMediaContainer}>

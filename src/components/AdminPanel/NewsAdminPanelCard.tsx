@@ -1,6 +1,7 @@
 import React from 'react';
 import cl from '../../modules/AdminPanel/NewsAdminPanelCard.module.css'
 import {dateConvert} from "../../utils/Date";
+import {deBounceWithConfirmation} from "../../utils/deBounce";
 
 
 interface NewsAdminPanelCardInterface{
@@ -32,7 +33,7 @@ const NewsAdminPanelCard = ({imgLink, date, title,changeCallback, deleteCallback
             <img width={"100%"} height={"100%"} src={imgLink} alt={"doctor img"}/>
             <div className={cl.actionsContainer}>
                 <button onClick={()=>changeHandler()}>Change</button>
-                <button onClick={()=>deleteHandler()}>Delete</button>
+                <button onClick={()=>deBounceWithConfirmation(()=>deleteHandler())}>Delete</button>
             </div>
             <div className={cl.title}>
                 {title}

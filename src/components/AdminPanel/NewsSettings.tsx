@@ -10,6 +10,7 @@ import {useAppDispatch} from "../../hooks/redux";
 import {errorSlice} from "../../store/reducers/ErrorSlice";
 import {messageType} from "../PopupMessage/PopupMessageItem";
 import Loader from "../additionalComponents/loader";
+import {deBounceWithConfirmation} from "../../utils/deBounce";
 
 
 interface  newsStateInterface{
@@ -115,9 +116,9 @@ const NewsSettings = ({id,image_link,title,text,createdAt, backFunc,deleteFunc}:
                         Back
                     </button>
                     <div className={cl.btnActionContainer}>
-                        <CustomBtn onClick={()=>newsState.id ? updateNewsHandler() : createNewsHandler()} type={newsState.id ? CustomBtnTypes.update : CustomBtnTypes.create}/>
+                        <CustomBtn onClick={()=>newsState.id ? deBounceWithConfirmation(()=>updateNewsHandler()) : createNewsHandler()} type={newsState.id ? CustomBtnTypes.update : CustomBtnTypes.create}/>
                         {newsState.id &&
-                            <CustomBtn onClick={()=>deleteNewsHandler()}  type={CustomBtnTypes.delete} styles={{maxWidth:"100px"}}/>
+                            <CustomBtn onClick={()=>deBounceWithConfirmation(()=>deleteNewsHandler())}  type={CustomBtnTypes.delete} styles={{maxWidth:"100px"}}/>
                         }
                     </div>
                 </div>
