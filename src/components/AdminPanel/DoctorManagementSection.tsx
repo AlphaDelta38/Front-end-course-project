@@ -3,24 +3,28 @@ import cl from '../../modules/AdminPanel/DoctorManagementSection.module.css'
 import InputWithLabel from "../additionalComponents/inputWithLabel";
 import {generateRandomColorWithCross} from "../../utils/Color";
 import {cleanSpaces, containsSubstring} from "../../utils/Text";
-import SortIcon from "./SortIcon";
 import {dateConvert} from "../../utils/Date";
 import {specialityAPI} from "../../services/SpecialityService";
 import {rolesAPI} from "../../services/RolesService";
 import {doctorAPI} from "../../services/DoctorService";
 import {roleControllerEnumAction, rolesAdminPanelInterface} from "../../types/rolesType";
 import {createDoctor, doctorAdminPanelDataInterface, DoctorsItemInerface} from "../../types/doctorsType";
-import {searchForwardsEnum, searchObjectsInterface, searchTypeEnum} from "../../types/adminPanelType";
+import {
+    AdminTableDataType,
+    searchForwardsEnum,
+    searchObjectsInterface,
+    searchTypeEnum
+} from "../../types/adminPanelType";
 import * as yup from "yup";
 import {errorSlice} from "../../store/reducers/ErrorSlice";
 import {messageType} from "../PopupMessage/PopupMessageItem";
 import {useAppDispatch} from "../../hooks/redux";
 import {specialityInterface} from "../../types/specialityType";
 import Loader from "../additionalComponents/loader";
-import EntriesSelect from "./entriesSelect";
 import PaginationBar from "./PaginationBar";
 import CustomBtn, {CustomBtnTypes} from "../additionalComponents/CustomBtn";
 import {deBounceWithConfirmation} from "../../utils/deBounce";
+import AdminTable from "./AdminTable";
 
 
 const validationYupSchemaDoctorCreate = yup.object().shape({
@@ -49,9 +53,13 @@ const validationYupSchemaDoctorCreate = yup.object().shape({
 const DoctorManagementSection = () => {
 
 
-    const [searchState, setSearchState] = useState<searchObjectsInterface>()
-    const [searchInputValue, setSearchInputValue] = useState<string>("")
-    const [itemsRenderMassive, setItemsRenderMassive] = useState<DoctorsItemInerface[]>()
+    const [searchState, setSearchState] = useState<searchObjectsInterface>({
+        limit: 10,
+        page: 1,
+        searchForward: searchForwardsEnum.UP,
+        searchType: searchTypeEnum.id
+    })
+
     const [roleMenuActive, setRoleMenuActive] = useState<boolean>(false);
     const [passwordActive, setPasswordActive] = useState<boolean>(false);
     const [doctorDataState, setDoctorDataState] = useState<doctorAdminPanelDataInterface>({
@@ -98,11 +106,6 @@ const DoctorManagementSection = () => {
     }
 
 
-    function changeHowManyDoctors(value: string){
-        if(searchState){
-            setSearchState({...searchState, limit: Number(value)})
-        }
-    }
 
     function checkSortIconActive(type:searchTypeEnum, forward: searchForwardsEnum){
         return type === searchState?.searchType && forward === searchState.searchForward;
@@ -293,85 +296,8 @@ const DoctorManagementSection = () => {
     }
 
 
-    useEffect(()=>{
-        if(Doctors && !itemsRenderMassive){
-            setSearchState({
-                limit: 10,
-                page: 1,
-                searchForward: searchForwardsEnum.UP,
-                searchType:searchTypeEnum.id
-            })
-        }
-
-    },[Doctors])
 
 
-
-
-    useEffect(()=>{
-        if(Doctors){
-            let doctorsMassive: DoctorsItemInerface[] = [...Doctors];
-            if(cleanSpaces(searchInputValue).length >= 1){
-                doctorsMassive = doctorsMassive.filter((value)=>Object.entries(value).some(value=>{
-                    if(typeof value[1] === "object" && value[1] && value[1]?.name){
-                        return containsSubstring(value[1].name.toString(), cleanSpaces(searchInputValue))
-                    }else if(value[1] && value[1].toString() !== undefined && value[0] !== "gender" && value[0] !== "image_link"){
-                        if(value[0] !== "date_of_birth"){
-                            return containsSubstring(value[1].toString(), cleanSpaces(searchInputValue))
-                        }else{
-                            return containsSubstring(dateConvert(value[1].toString()), cleanSpaces(searchInputValue))
-                        }
-                    }
-                }))
-            }
-
-            if(searchState?.searchForward === searchForwardsEnum.UP){
-                if(searchState?.searchType === searchTypeEnum.id){
-                    doctorsMassive.sort((a,b)=> a.id - b.id)
-                }else if(searchState?.searchType === searchTypeEnum.birthday){
-                    doctorsMassive.sort((a,b)=> new Date(a.date_of_birth).getTime() - new Date(b.date_of_birth).getTime())
-                }else if(searchState?.searchType === searchTypeEnum.phone){
-                    doctorsMassive.sort((a,b)=> a.phone.toLowerCase().localeCompare(b.phone.toLowerCase()))
-                }else if(searchState?.searchType === searchTypeEnum.office_number) {
-                    doctorsMassive.sort((a, b) => Number(a.office_number) - Number(b.office_number))
-                }else if(searchState?.searchType === searchTypeEnum.email) {
-                    doctorsMassive.sort((a, b) => a.email.toLowerCase().localeCompare(b.email.toLowerCase()))
-                }else if(searchState?.searchType === searchTypeEnum.speciality) {
-                    doctorsMassive.sort((a, b) =>{
-                        if(a.speciality && b.speciality){
-                            a.speciality.name.toLowerCase().localeCompare(b.speciality.name.toLowerCase())
-                        }
-                        return 0;
-                    })
-                }else if(searchState?.searchType === searchTypeEnum.fullname) {
-                    doctorsMassive.sort((a, b) => (a.first_name + " " + a.last_name).toLowerCase().localeCompare((b.first_name + " " + b.last_name).toLowerCase()))
-                }
-            }else{
-                if(searchState?.searchType === searchTypeEnum.id){
-                    doctorsMassive.sort((a,b)=> b.id - a.id)
-                }else if(searchState?.searchType === searchTypeEnum.birthday){
-                    doctorsMassive.sort((a,b)=> new Date(b.date_of_birth).getTime() - new Date(a.date_of_birth).getTime())
-                }else if(searchState?.searchType === searchTypeEnum.phone){
-                    doctorsMassive.sort((a,b)=> b.phone.toLowerCase().localeCompare(a.phone.toLowerCase()))
-                }else if(searchState?.searchType === searchTypeEnum.office_number) {
-                    doctorsMassive.sort((a, b) => Number(b.office_number) - Number(a.office_number))
-                }else if(searchState?.searchType === searchTypeEnum.email) {
-                    doctorsMassive.sort((a, b) => b.email.toLowerCase().localeCompare(a.email.toLowerCase()))
-                }else if(searchState?.searchType === searchTypeEnum.speciality) {
-                    doctorsMassive.sort((a, b) =>{
-                        if(a.speciality && b.speciality){
-                           return b.speciality.name.toLowerCase().localeCompare(a.speciality.name.toLowerCase())
-                        }
-                        return 0
-                    })
-                }else if(searchState?.searchType === searchTypeEnum.fullname) {
-                    doctorsMassive.sort((a, b) => (b.first_name + " " + b.last_name).toLowerCase().localeCompare((a.first_name + " " + a.last_name).toLowerCase()))
-                }
-            }
-            setItemsRenderMassive(doctorsMassive)
-        }
-
-    }, [searchInputValue, searchState?.searchType, searchState?.searchForward, searchState?.limit, Doctors])
 
 
     const memoizedObject = useMemo(() => {
@@ -386,6 +312,46 @@ const DoctorManagementSection = () => {
 
 
 
+
+    const dataOfAdminTable: AdminTableDataType = [
+        {
+            value: "#",
+            searchType: searchTypeEnum.id,
+            key: [searchTypeEnum.id]
+        },
+        {
+            value: "Full name",
+            searchType: searchTypeEnum.first_name,
+            key: [searchTypeEnum.first_name, searchTypeEnum.last_name]
+        },
+        {
+            value: "email",
+            searchType: searchTypeEnum.email,
+            key: [searchTypeEnum.email]
+        },
+        {
+            value: "birthday",
+            searchType: searchTypeEnum.date_of_birth,
+            key: [searchTypeEnum.date_of_birth]
+        },
+        {
+            value: "speciality",
+            searchType: searchTypeEnum.speciality,
+            key: [searchTypeEnum.speciality]
+        },
+        {
+            value: "phone",
+            searchType: searchTypeEnum.phone,
+            key: [searchTypeEnum.phone]
+        },
+        {
+            value: "office number",
+            searchType: searchTypeEnum.office_number,
+            key: [searchTypeEnum.office_number]
+        },
+    ]
+
+
     return (
         <div className={cl.container}>
             <div className={cl.doctorSearchContainer}>
@@ -398,205 +364,18 @@ const DoctorManagementSection = () => {
                     </h1>
                 </div>
                 <div className={cl.tableContainer}>
-                    <div className={cl.chooseAdditionalActionsContainer}>
-                        <EntriesSelect textBeforeSelect={"Show"} textAfterSelect={"entries"} options={["10","25", "50", "100"]} setState={changeHowManyDoctors}/>
-                        <div className={cl.searchContainer}>
-                            Search:
-                            <input value={searchInputValue} onChange={(e)=>setSearchInputValue(e.target.value)}  className={cl.searchInput}/>
-                        </div>
-                    </div>
-                    <table className={cl.doctorTable}>
-                        <thead>
-                        <tr className={cl.rowOfTHead}>
-                            <th>
-                                <span>#</span>
-                                <div className={cl.sortSvgIconContainer}>
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.UP}
-                                        searchType={searchTypeEnum.id}
-                                        sortDirection={searchForwardsEnum.UP}
-                                        isActive={checkSortIconActive(searchTypeEnum.id,searchForwardsEnum.UP)}
-                                        onClick={searchStateChange}
-                                    />
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.DOWN}
-                                        searchType={searchTypeEnum.id}
-                                        sortDirection={searchForwardsEnum.DOWN}
-                                        isActive={checkSortIconActive(searchTypeEnum.id,searchForwardsEnum.DOWN)}
-                                        onClick={searchStateChange}
-                                    />
-                                </div>
-                            </th>
-                            <th>
-                                <span>Full name</span>
-                                <div className={cl.sortSvgIconContainer}>
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.UP}
-                                        searchType={searchTypeEnum.fullname}
-                                        sortDirection={searchForwardsEnum.UP}
-                                        isActive={checkSortIconActive(searchTypeEnum.fullname,searchForwardsEnum.UP)}
-                                        onClick={searchStateChange}
-                                    />
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.DOWN}
-                                        searchType={searchTypeEnum.fullname}
-                                        sortDirection={searchForwardsEnum.DOWN}
-                                        isActive={checkSortIconActive(searchTypeEnum.fullname,searchForwardsEnum.DOWN)}
-                                        onClick={searchStateChange}
-                                    />
-                                </div>
-                            </th>
-                            <th>
-                                <span>email</span>
-                                <div className={cl.sortSvgIconContainer}>
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.UP}
-                                        searchType={searchTypeEnum.email}
-                                        sortDirection={searchForwardsEnum.UP}
-                                        isActive={checkSortIconActive(searchTypeEnum.email,searchForwardsEnum.UP)}
-                                        onClick={searchStateChange}
-                                    />
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.DOWN}
-                                        searchType={searchTypeEnum.email}
-                                        sortDirection={searchForwardsEnum.DOWN}
-                                        isActive={checkSortIconActive(searchTypeEnum.email,searchForwardsEnum.DOWN)}
-                                        onClick={searchStateChange}
-                                    />
-                                </div>
-                            </th>
-                            <th>
-                                <span>birthday</span>
-                                <div className={cl.sortSvgIconContainer}>
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.UP}
-                                        searchType={searchTypeEnum.birthday}
-                                        sortDirection={searchForwardsEnum.UP}
-                                        isActive={checkSortIconActive(searchTypeEnum.birthday,searchForwardsEnum.UP)}
-                                        onClick={searchStateChange}
-                                    />
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.DOWN}
-                                        searchType={searchTypeEnum.birthday}
-                                        sortDirection={searchForwardsEnum.DOWN}
-                                        isActive={checkSortIconActive(searchTypeEnum.birthday,searchForwardsEnum.DOWN)}
-                                        onClick={searchStateChange}
-                                    />
-                                </div>
-                            </th>
-                            <th>
-                                <span>speciality</span>
-                                <div className={cl.sortSvgIconContainer}>
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.UP}
-                                        searchType={searchTypeEnum.speciality}
-                                        sortDirection={searchForwardsEnum.UP}
-                                        isActive={checkSortIconActive(searchTypeEnum.speciality,searchForwardsEnum.UP)}
-                                        onClick={searchStateChange}
-                                    />
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.DOWN}
-                                        searchType={searchTypeEnum.speciality}
-                                        sortDirection={searchForwardsEnum.DOWN}
-                                        isActive={checkSortIconActive(searchTypeEnum.speciality,searchForwardsEnum.DOWN)}
-                                        onClick={searchStateChange}
-                                    />
-                                </div>
-                            </th>
-                            <th>
-                                <span>phone</span>
-                                <div className={cl.sortSvgIconContainer}>
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.UP}
-                                        searchType={searchTypeEnum.phone}
-                                        sortDirection={searchForwardsEnum.UP}
-                                        isActive={checkSortIconActive(searchTypeEnum.phone,searchForwardsEnum.UP)}
-                                        onClick={searchStateChange}
-                                    />
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.DOWN}
-                                        searchType={searchTypeEnum.phone}
-                                        sortDirection={searchForwardsEnum.DOWN}
-                                        isActive={checkSortIconActive(searchTypeEnum.phone,searchForwardsEnum.DOWN)}
-                                        onClick={searchStateChange}
-                                    />
-                                </div>
-                            </th>
-                            <th>
-                                <span>office number</span>
-                                <div className={cl.sortSvgIconContainer}>
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.UP}
-                                        searchType={searchTypeEnum.office_number}
-                                        sortDirection={searchForwardsEnum.UP}
-                                        isActive={checkSortIconActive(searchTypeEnum.office_number,searchForwardsEnum.UP)}
-                                        onClick={searchStateChange}
-                                    />
-                                    <SortIcon
-                                        arrowDirection={searchForwardsEnum.DOWN}
-                                        searchType={searchTypeEnum.office_number}
-                                        sortDirection={searchForwardsEnum.DOWN}
-                                        isActive={checkSortIconActive(searchTypeEnum.office_number,searchForwardsEnum.DOWN)}
-                                        onClick={searchStateChange}
-                                    />
-                                </div>
-                            </th>
-                            <th>
-                                <span>actions</span>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {itemsRenderMassive && itemsRenderMassive?.length !== 0 ? itemsRenderMassive.map((value, index) =>
-                            <tr key={value.id} className={cl.rowOfTBody}>
-                                <td>{value.id}</td>
-                                <td>{value.first_name + " " + value.last_name}</td>
-                                <td>{value.email}</td>
-                                <td>{dateConvert(value.date_of_birth.toString())}</td>
-                                <td>{value.speciality ? value.speciality.name : "none"}</td>
-                                <td>{value.phone}</td>
-                                <td>{value.office_number}</td>
-                                <td>
-                                    <div className={cl.actionsButton}>
-                                        <CustomBtn  styles={{maxWidth:"100px", height: "42px"}} onClick={()=>setViewDoctorData(value.id)} type={CustomBtnTypes.update}>View</CustomBtn>
-                                        <CustomBtn  styles={{maxWidth:"100px", height: "42px"}} onClick={()=>deBounceWithConfirmation(()=>deleteDoctorRequest(value.id))} type={CustomBtnTypes.delete}/>
-                                    </div>
-                                </td>
-                            </tr>
-                        )
-                        :
-                            <tr style={{display:"flex", justifyContent:"center", margin:"20px", fontSize:"26px"}}><td>not found</td></tr>
-                        }
-                        </tbody>
-                        <thead>
-                        <tr className={cl.rowOfTHead}>
-                            <th>
-                                <span>#</span>
-                            </th>
-                            <th>
-                                <span>Full name</span>
-                            </th>
-                            <th>
-                                <span>email</span>
-                            </th>
-                            <th>
-                                <span>birthday</span>
-                            </th>
-                            <th>
-                                <span>speciality</span>
-                            </th>
-                            <th>
-                            <span>phone</span>
-                            </th>
-                            <th>
-                                <span>office number</span>
-                            </th>
-                            <th>
-                                <span>actions</span>
-                            </th>
-                        </tr>
-                        </thead>
-                    </table>
+                    <AdminTable
+                        viewBtnOnClick={setViewDoctorData}
+                        deleteBtnOnClick={deleteDoctorRequest}
+                        checkSortIconActive={checkSortIconActive}
+                        onClickSortIconChange={searchStateChange}
+                        TableData={dataOfAdminTable}
+                        searchState={searchState}
+                        setSearchState={setSearchState}
+                        massiveOfRenderData={Doctors || []}
+                        searchParamsException={[searchTypeEnum.gender,searchTypeEnum.image_link]}
+                        unitedKeyForSorting={[searchTypeEnum.first_name, searchTypeEnum.last_name]}
+                    />
                     <Loader isLoading={deleteIsLoading} isChildElement={true}/>
                     <div className={cl.paginationPanelContainer}>
                         <div className={cl.statusInfoContainer}>
@@ -605,7 +384,6 @@ const DoctorManagementSection = () => {
                         <PaginationBar
                             previousPageFunc={()=>{
                                 setSearchState({...searchState!, page: searchState!.page - 1})
-                                console.log("1231")
                             }}
                             setPageFunc={(page: number)=>{
                                 if(searchState){
