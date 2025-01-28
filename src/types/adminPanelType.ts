@@ -18,6 +18,7 @@ export enum mainSections{
     doctor ="doctor",
     patient ="patient",
     news ="news",
+    diagnoses="diagnoses"
 }
 
 export enum underSection{
@@ -98,7 +99,21 @@ export const sideBarAdminPanelElements: sideBarAdminPanelElementsInterFace[] = [
             },
         ],
     },
-
+    {
+        svgIconPath: "HeartBeatIcon",
+        mainSection: mainSections.diagnoses,
+        underSections: [
+            {
+                name: underSection.actions,
+                attributes: [
+                    {
+                        attribute: chosenAttribute.management,
+                        element: NewsManagementSection
+                    },
+                ],
+            },
+        ],
+    },
 ];
 
 
@@ -114,6 +129,8 @@ export enum searchTypeEnum{
     last_name = "last_name",
     gender = "gender",
     image_link= "image_link",
+    insurance_number="insurance_number",
+
 }
 
 export enum searchForwardsEnum{

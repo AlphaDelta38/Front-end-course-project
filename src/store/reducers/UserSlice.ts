@@ -1,7 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppDispatch} from "../store";
 import {checkLogin, UserLogin, UserRegister} from "./ActionCreator";
-import {IUser} from "../../types/userType";
 import {roleInterface} from "../../types/doctorsType";
 
 

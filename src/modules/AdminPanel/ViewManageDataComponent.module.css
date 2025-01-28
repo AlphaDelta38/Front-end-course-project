@@ -1,0 +1,130 @@
+
+
+.container{
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+    padding: 1rem;
+    transition: all .2s;
+    border: 1px solid rgba(26, 54, 126, 0.125);
+    border-radius: .25rem
+}
+
+
+.content{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.inputViewBox{
+    flex: 48% 0 1;
+    display: flex;
+    gap: 20px;
+    min-width: 300px;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.inputViewBox label{
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    width: 30%;
+    word-wrap: normal;
+    text-wrap: nowrap;
+    word-break: normal;
+    font-weight: 600;
+    color: #325CC8;
+    text-transform: lowercase;
+}
+
+.inputViewBox input{
+    max-width: 70%;
+    width: 100%;
+    height: clamp(26px, 1.5vw, 32px);
+    font-size: clamp(16px, 1.5vw, 24px);
+    outline: none;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.inputViewBox input:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(128, 189, 255, 0.5);
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+.inputViewBox input:disabled {
+    background-color: #f0f0f0;
+    color: #a0a0a0;
+    border: 1px solid #d0d0d0;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+
+
+.inputViewBox input[type="checkbox"]{
+    max-width: 40px;
+    border: 1px solid #00a8ff;
+    height: 28px;
+}
+
+
+
+.headerOfDataSettings{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.headerOfDataChangeContainer{
+    color: #1A357A;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+
+
+.clearDataBtn{
+    cursor: pointer;
+    position: relative;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+    font-size: 1rem;
+    font-weight: 500;
+    outline: none !important;
+    background: none;
+    border: none;
+    color: #6c757d;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+.clearDataBtn:hover{
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+
+.btnContainer{
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
+    gap: 20px;
+}
+
+
+@media (max-width: 1620px) {
+    .inputViewBox{
+        flex: 100% 1 1;
+        max-width: 100%;
+    }
+}
+

@@ -1,4 +1,4 @@
-import React, {CSSProperties, FC, ReactNode} from 'react';
+import React, {ButtonHTMLAttributes, CSSProperties, FC, HTMLInputTypeAttribute, ReactNode} from 'react';
 import cl from './modules/CustomBtn.module.css'
 
 
@@ -13,6 +13,7 @@ export enum CustomBtnTypes {
 
 interface CustomBtnInterface{
     type:CustomBtnTypes,
+    btnType?: 'button' | 'submit' | 'reset';
     onClick?:()=>void,
     styles?: CSSProperties
     children?: ReactNode;
@@ -21,9 +22,9 @@ interface CustomBtnInterface{
 
 
 
-const CustomBtn: FC<CustomBtnInterface> = ({styles,type,onClick,children }) => {
+const CustomBtn: FC<CustomBtnInterface> = ({styles,type,onClick,children,btnType }) => {
     return (
-        <button onClick={onClick} style={styles} className={`${cl.customBtn} ${cl[type]}`}>
+        <button type={btnType || "button"} onClick={onClick} style={styles} className={`${cl.customBtn} ${cl[type]}`}>
             {children || type}
         </button>
     );

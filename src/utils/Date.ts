@@ -15,3 +15,10 @@ export function dateConvert(date: string){
 
     return formattedDate
 }
+
+
+
+export function convertToInputTypeDate(isoDate: string){
+    const formattedDate = isoDate.split("T")[0];
+    return formattedDate
+}
