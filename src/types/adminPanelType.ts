@@ -1,8 +1,9 @@
 
 import DoctorManagementSection from "../components/AdminPanel/DoctorManagementSection";
-import React from "react";
+import React, {CSSProperties} from "react";
 import NewsManagementSection from "../components/AdminPanel/NewsManagementSection";
 import PatientManagementSection from "../components/AdminPanel/PatientManagementSection";
+import DiagnosesManagementSection from "../components/AdminPanel/DiagnosesManagementSection";
 
 
 export interface sectionActivities{
@@ -108,7 +109,7 @@ export const sideBarAdminPanelElements: sideBarAdminPanelElementsInterFace[] = [
                 attributes: [
                     {
                         attribute: chosenAttribute.management,
-                        element: NewsManagementSection
+                        element: DiagnosesManagementSection
                     },
                 ],
             },
@@ -130,7 +131,7 @@ export enum searchTypeEnum{
     gender = "gender",
     image_link= "image_link",
     insurance_number="insurance_number",
-
+    diagnosis="diagnosis"
 }
 
 export enum searchForwardsEnum{
@@ -155,6 +156,7 @@ interface AdminTableDataInterface{
     value: string,
     searchType: searchTypeEnum
     key: string[],
+    styles?: {data?: CSSProperties, headers?: CSSProperties}
 }
 
 

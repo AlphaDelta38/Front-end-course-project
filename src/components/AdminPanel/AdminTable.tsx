@@ -28,10 +28,11 @@ interface AdminTableInterface{
     massiveOfRenderData: any[]
     searchParamsException: string[]
     unitedKeyForSorting?: string[]
+    firstBtnName?: string
 }
 
 
-const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onClickSortIconChange,TableData,setSearchState,searchState,massiveOfRenderData,searchParamsException,unitedKeyForSorting}:AdminTableInterface) => {
+const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onClickSortIconChange,TableData,setSearchState,searchState,massiveOfRenderData,searchParamsException,unitedKeyForSorting,firstBtnName}:AdminTableInterface) => {
 
     const [itemsRenderMassive, setItemsRenderMassive] = useState<any[]>([]);
     const [searchInputValue, setSearchInputValue] = useState("");
@@ -135,7 +136,7 @@ const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onCli
                 <thead>
                 <tr className={cl.rowOfTHead}>
                     {TableData.map((value, index) =>
-                        <th key={index}>
+                        <th style={value?.styles?.headers ? value.styles.headers  : {}} key={index}>
                             <span>{value.value}</span>
                             <div className={cl.sortSvgIconContainer}>
                                 <SortIcon
@@ -162,13 +163,13 @@ const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onCli
                 {itemsRenderMassive && itemsRenderMassive?.length !== 0 ? itemsRenderMassive.map((value, index) =>
                         <tr key={value["id"] || index} className={cl.rowOfTBody}>
                             {TableData.map((valueUn, indexUn) =>
-                                <td key={indexUn}>{stringHandler(valueUn.key, value) || "none"}</td>
+                                <td style={valueUn?.styles?.data ? valueUn.styles.data : {}} key={indexUn}>{stringHandler(valueUn.key, value) || "none"}</td>
                             )}
                             <td>
                                 <div className={cl.actionsButton}>
                                     <CustomBtn styles={{maxWidth: "100px", height: "42px"}}
                                                onClick={()=>viewBtnOnClick(value["id"])}
-                                               type={CustomBtnTypes.update}>View</CustomBtn>
+                                               type={CustomBtnTypes.update}>{firstBtnName || "View"}</CustomBtn>
                                     <CustomBtn styles={{maxWidth: "100px", height: "42px"}}
                                                onClick={()=>deBounceWithConfirmation(()=>deleteBtnOnClick(value["id"]))}
                                                type={CustomBtnTypes.delete}/>
@@ -185,7 +186,7 @@ const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onCli
                 <thead>
                 <tr className={cl.rowOfTHead}>
                     {TableData.map((value, index) =>
-                        <th key={`underHead-${index}`}>
+                        <th style={value?.styles?.headers ? value.styles.headers  : {}} key={`underHead-${index}`}>
                             <span>{value.value}</span>
                         </th>
                     )}
