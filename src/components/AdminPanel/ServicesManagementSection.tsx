@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-import cl from '../../modules/AdminPanel/DiagnosesManagementSection.module.css'
+import cl from '../../modules/AdminPanel/ServicesManagementSection.module.css'
+import Loader from "../additionalComponents/loader";
+import CustomBtn, {CustomBtnTypes} from "../additionalComponents/CustomBtn";
 import AdminTable from "./AdminTable";
+import PaginationBar from "./PaginationBar";
+import SoloInputModalWindow from "../additionalComponents/soloInputModalWindow";
 import {
     AdminTableDataType,
     searchForwardsEnum,
     searchObjectsInterface,
     searchTypeEnum
 } from "../../types/adminPanelType";
-import {diagnosesAPI} from "../../services/DiagnosesService";
-import PaginationBar from "./PaginationBar";
-import SoloInputModalWindow from "../additionalComponents/soloInputModalWindow";
-import CustomBtn, {CustomBtnTypes} from "../additionalComponents/CustomBtn";
-import Loader from "../additionalComponents/loader";
 import {useAppDispatch} from "../../hooks/redux";
 import {errorSlice} from "../../store/reducers/ErrorSlice";
 import {messageType} from "../PopupMessage/PopupMessageItem";
+import {serviceAPI} from "../../services/ServicesService";
 
 
 interface soloInputFieldState{
@@ -24,8 +24,8 @@ interface soloInputFieldState{
 }
 
 
-const DiagnosesManagementSection = () => {
 
+const ServicesManagementSection = () => {
 
     const [searchState, setSearchState] = useState<searchObjectsInterface>({
         limit: 10,
@@ -35,16 +35,16 @@ const DiagnosesManagementSection = () => {
     })
 
 
-    const {data: Diagnoses, refetch: DiagnoseRefetch} = diagnosesAPI.useGetAllDiagnosesQuery({
+    const {data: Services, refetch: ServiceRefetch} = serviceAPI.useFetchAllServiceQuery({
         limit: searchState.limit || 10,
         page: searchState.page || 1,
     })
 
-    const {data: Amount,refetch: AmountRefetch} = diagnosesAPI.useGetAmountQuery(0)
+    const {data: Amount,refetch: AmountRefetch} = serviceAPI.useGetServiceAmountQuery(0)
 
-    const [createDiagnose,{isLoading: isLoadingCreate}] = diagnosesAPI.useCreateDiagnoseMutation({})
-    const [updateDiagnose,{isLoading: isLoadingUpdate}] = diagnosesAPI.useUpdateDiagnoseMutation({})
-    const [deleteDiagnose,{isLoading: isLoadingDelete}] = diagnosesAPI.useDeleteDiagnoseMutation({})
+    const [createService,{isLoading: isLoadingCreate}] = serviceAPI.useCreateServiceMutation({})
+    const [updateService,{isLoading: isLoadingUpdate}] = serviceAPI.useUpdateServiceMutation({})
+    const [deleteService,{isLoading: isLoadingDelete}] = serviceAPI.useDeleteServiceMutation({})
 
     const dispatch = useAppDispatch()
 
@@ -60,23 +60,23 @@ const DiagnosesManagementSection = () => {
     }
 
     function checkSortIconChange(type: searchTypeEnum, forward: searchForwardsEnum){
-            setSearchState({...searchState, searchType: type, searchForward: forward})
+        setSearchState({...searchState, searchType: type, searchForward: forward})
     }
 
     async function createOrUpdateFunc(value: string){
         try {
             let response;
             if(soloInputFieldState.typeOfRequest === "POST"){
-                response = await createDiagnose(value)
+                response = await createService(value)
             }else if(soloInputFieldState.typeOfRequest === "PUT" && soloInputFieldState.id){
-                response = await updateDiagnose({
+                response = await updateService({
                     id: soloInputFieldState.id,
-                    diagnosis: value,
+                    service: value,
                 })
             }
-
+            console.log(response)
             if(!response?.error){
-                DiagnoseRefetch()
+                ServiceRefetch()
                 AmountRefetch()
                 setSoloInputState({...soloInputFieldState,id: null, typeOfRequest: null, active: false})
                 dispatch(errorSlice.actions.setErrors({message:"Action has been success", type: messageType.successType}))
@@ -84,6 +84,7 @@ const DiagnosesManagementSection = () => {
                 throw new Error("Server Error")
             }
         }catch (e){
+            console.log(e)
             dispatch(errorSlice.actions.setErrors({message: typeof e === "string" ? e : "Server Error", type: messageType.errorType}))
         }
     }
@@ -91,9 +92,9 @@ const DiagnosesManagementSection = () => {
 
     async function deleteDiagnoseRequest(id: number){
         try {
-            const hasDeleted = await deleteDiagnose(id)
+            const hasDeleted = await deleteService(id)
             if(hasDeleted){
-                DiagnoseRefetch()
+                ServiceRefetch()
                 AmountRefetch()
                 dispatch(errorSlice.actions.setErrors({message:"Action has been success", type: messageType.successType}))
             }
@@ -122,17 +123,15 @@ const DiagnosesManagementSection = () => {
             },
         },
         {
-            value: "Name of diagnosis",
-            searchType: searchTypeEnum.diagnosis,
-            key: [searchTypeEnum.diagnosis],
+            value: "Name of services",
+            searchType: searchTypeEnum.service,
+            key: [searchTypeEnum.service],
             styles: {
                 headers: {maxWidth: "40%", flex: "0 1 40%"},
                 data: {maxWidth: "40%", flex: "0 1 40%"},
             },
         },
     ]
-
-
 
 
 
@@ -162,7 +161,7 @@ const DiagnosesManagementSection = () => {
                         TableData={dataOfAdminTable}
                         searchState={searchState}
                         setSearchState={setSearchState}
-                        massiveOfRenderData={Diagnoses ? Diagnoses : []}
+                        massiveOfRenderData={Services ? Services : []}
                         searchParamsException={[]}
                         firstBtnName={"Update"}
                     />
@@ -203,4 +202,4 @@ const DiagnosesManagementSection = () => {
     );
 };
 
-export default DiagnosesManagementSection;
+export default ServicesManagementSection;

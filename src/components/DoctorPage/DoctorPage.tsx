@@ -61,7 +61,7 @@ const DoctorPage = () => {
     const navigate = useNavigate();
 
     const {data: Doctors, error: doctorsError, refetch} = doctorAPI.useFetchAllDoctorsQuery({limit: 30, role:"doctor"})
-    const {data: Services, error: ServicesError} = serviceAPI.useFetchAllServiceQuery("")
+    const {data: Services, error: ServicesError} = serviceAPI.useFetchAllServiceQuery({})
     const [createAppointments, { isLoading, isSuccess, error: appoinmentsError }] = doctorAPI.useCreateAppointmentsMutation();
 
     const {id: UserId} = useAppSelector(state => state.userReducer)

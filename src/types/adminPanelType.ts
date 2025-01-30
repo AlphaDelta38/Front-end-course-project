@@ -4,6 +4,7 @@ import React, {CSSProperties} from "react";
 import NewsManagementSection from "../components/AdminPanel/NewsManagementSection";
 import PatientManagementSection from "../components/AdminPanel/PatientManagementSection";
 import DiagnosesManagementSection from "../components/AdminPanel/DiagnosesManagementSection";
+import ServicesManagementSection from "../components/AdminPanel/ServicesManagementSection";
 
 
 export interface sectionActivities{
@@ -19,7 +20,8 @@ export enum mainSections{
     doctor ="doctor",
     patient ="patient",
     news ="news",
-    diagnoses="diagnoses"
+    diagnoses="diagnoses",
+    services="services",
 }
 
 export enum underSection{
@@ -115,6 +117,21 @@ export const sideBarAdminPanelElements: sideBarAdminPanelElementsInterFace[] = [
             },
         ],
     },
+    {
+        svgIconPath: "HeartOfCapsuleIcon",
+        mainSection: mainSections.services,
+        underSections: [
+            {
+                name: underSection.actions,
+                attributes: [
+                    {
+                        attribute: chosenAttribute.management,
+                        element: ServicesManagementSection
+                    },
+                ],
+            },
+        ],
+    },
 ];
 
 
@@ -131,7 +148,8 @@ export enum searchTypeEnum{
     gender = "gender",
     image_link= "image_link",
     insurance_number="insurance_number",
-    diagnosis="diagnosis"
+    diagnosis="diagnosis",
+    service="service",
 }
 
 export enum searchForwardsEnum{

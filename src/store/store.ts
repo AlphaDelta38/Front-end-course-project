@@ -8,7 +8,7 @@ import {serviceAPI} from "../services/ServicesService";
 import {rolesAPI} from "../services/RolesService";
 import {specialityAPI} from "../services/SpecialityService";
 import {patientSAPI} from "../services/PatientService";
-import {diagnosesAPI} from "../services/Diagnoses";
+import {diagnosesAPI} from "../services/DiagnosesService";
 
 
 const rootReducer = combineReducers({
