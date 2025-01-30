@@ -42,4 +42,5 @@ export enum endpointsPath{
     diagnosesAmount="/diagnoses/get/amount",
     doctorsAmount = "/doctors/get/amount",
     newsAmount = "/news/get/amount",
+    specialityAmount = "/speciality/get/amount",
 }

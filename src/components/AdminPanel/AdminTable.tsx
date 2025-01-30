@@ -42,7 +42,9 @@ const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onCli
 
         massive.forEach(item => {
                 if(!isNaN(objectValues[item])){
-                    str += objectValues[item].toString()
+                    if(objectValues[item]){
+                        str += objectValues[item].toString()
+                    }
                 }else if(!isNaN(new Date(objectValues[item]).getTime())){
                     str = dateConvert(objectValues[item].toString())
                 }else if(typeof objectValues[item] === "string"){

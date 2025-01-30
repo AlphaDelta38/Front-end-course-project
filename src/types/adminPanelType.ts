@@ -5,6 +5,7 @@ import NewsManagementSection from "../components/AdminPanel/NewsManagementSectio
 import PatientManagementSection from "../components/AdminPanel/PatientManagementSection";
 import DiagnosesManagementSection from "../components/AdminPanel/DiagnosesManagementSection";
 import ServicesManagementSection from "../components/AdminPanel/ServicesManagementSection";
+import SpecialityManagementSection from "../components/AdminPanel/SpecialityManagementSection";
 
 
 export interface sectionActivities{
@@ -22,6 +23,7 @@ export enum mainSections{
     news ="news",
     diagnoses="diagnoses",
     services="services",
+    speciality="speciality",
 }
 
 export enum underSection{
@@ -132,6 +134,21 @@ export const sideBarAdminPanelElements: sideBarAdminPanelElementsInterFace[] = [
             },
         ],
     },
+    {
+        svgIconPath: "SpecialityIcon",
+        mainSection: mainSections.speciality,
+        underSections: [
+            {
+                name: underSection.actions,
+                attributes: [
+                    {
+                        attribute: chosenAttribute.management,
+                        element: SpecialityManagementSection
+                    },
+                ],
+            },
+        ],
+    },
 ];
 
 
@@ -150,6 +167,7 @@ export enum searchTypeEnum{
     insurance_number="insurance_number",
     diagnosis="diagnosis",
     service="service",
+    specialityTitleField="name"
 }
 
 export enum searchForwardsEnum{
