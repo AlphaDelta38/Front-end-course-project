@@ -9,6 +9,7 @@ import {useNavigate} from "react-router-dom";
 import {routesEnum} from "../../types/routes.type";
 import {errorSlice} from "../../store/reducers/ErrorSlice";
 import {messageType} from "../PopupMessage/PopupMessageItem";
+import {appointmentsAPI} from "../../services/AppointmentsService";
 
 
 interface filtersAcitvityInterface{
@@ -62,7 +63,7 @@ const DoctorPage = () => {
 
     const {data: Doctors, error: doctorsError, refetch} = doctorAPI.useFetchAllDoctorsQuery({limit: 30, role:"doctor"})
     const {data: Services, error: ServicesError} = serviceAPI.useFetchAllServiceQuery({})
-    const [createAppointments, { isLoading, isSuccess, error: appoinmentsError }] = doctorAPI.useCreateAppointmentsMutation();
+    const [createAppointments, { isLoading, isSuccess, error: appoinmentsError }] = appointmentsAPI.useCreateAppointmentsMutation();
 
     const {id: UserId} = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch()
@@ -276,6 +277,10 @@ const DoctorPage = () => {
     }, [chooseSettingsForAppointments.chosenDate])
 
 
+
+    useEffect(()=>{
+        setChooseSettingsForAppointments({...chooseSettingsForAppointments, chosenDate: new Date().toISOString().split("T")[0]})
+    }, [chooseSettingsForAppointments.menuActive])
 
     return (
         <div className={cl.container}>

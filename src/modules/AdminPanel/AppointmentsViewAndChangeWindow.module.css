@@ -1,0 +1,415 @@
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+
+.content{
+    padding: 1rem;
+    max-width: 800px;
+    max-height: 780px;
+    width: 100%;
+    background-color: #FFF;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+    transition: all .2s;
+    border: 1px solid rgba(26, 54, 126, 0.125);
+    border-radius: 24px;
+    overflow-y: auto;
+}
+
+.row{
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    row-gap: 20px;
+    flex-direction: column;
+}
+
+.titleContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.titleContainer h2{
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1A357A;
+    margin-bottom: 1rem;
+}
+
+.itemContainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.itemContainer label{
+    flex: 20% 0 1;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: black;
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.selectedContainer{
+    flex: 80% 0 1;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.photoContainer{
+    aspect-ratio: 1;
+    width: 50px;
+    background-color: #a5a4a4;
+    border-radius: 50%;
+    margin-right: 1rem;
+    overflow: hidden;
+}
+
+.photoContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dataContainer{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+}
+
+.dataContainer h2{
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #3f6ad8;
+}
+
+.deleteBtnContainer{
+    margin-left: 30px;
+}
+
+.closeBtn{
+    border: none;
+    background: none;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.closeBtn span{
+    display: block;
+    width: 24px;
+    height: 2px;
+    position: absolute;
+    background-color: black;
+    transform: rotate(-135deg);
+}
+
+.closeBtn span:before{
+    content: "";
+    display: block;
+    width: 24px;
+    height: 2px;
+    position: absolute;
+    background-color: black;
+    transform: rotate(90deg);
+}
+
+
+.closeBtn:hover{
+    opacity: 0.7;
+}
+
+.chooseContainer{
+    flex: 100% 0 1;
+    height: 46px;
+    background-color: rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.chooseTheObject{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.chooseTheObject svg{
+    width: 100%;
+    height: 100%;
+}
+
+
+.chooseTheObject:hover svg{
+    fill: red;
+    transition: 0.2s ease;
+}
+
+.searchContainerActive,
+.searchContainer{
+    width: 100%;
+    height: 240px;
+    top: 100%;
+    margin-top: 8px;
+    background: #FFFFFF;
+    position: absolute;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+    border: 1px solid rgba(26, 54, 126, 0.125);
+    z-index: 99;
+}
+
+
+.searchContainerActive{
+    animation: enterMenu 0.3s ease;
+    opacity: 1;
+}
+
+.searchContainer{
+    animation: exitMenu 0.3s ease ;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.menuSearchContainer{
+    width: 100%;
+    height: 38px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+
+.search{
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    padding-right: 2rem;
+    padding-left: 2.5rem;
+    font-size: 1.5rem;
+    color: #3f6ad8;
+}
+
+.search:focus{
+    outline: none;
+}
+
+.searchIconContainer{
+    width: 25px;
+    height: 25px;
+    margin-top: 6px;
+    margin-left: 6px;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.searchIconContainer svg{
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: black;
+    stroke-width: 2px;
+    stroke-miterlimit: 10;
+}
+
+.searchItemsContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-height: 196px;
+    height: 100%;
+    overflow-y: auto;
+    row-gap: 0.5rem;
+}
+
+.searchItemsContainer__item{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+}
+
+.searchItemsContainer__item:hover{
+    background-color: #e0f3ff;
+}
+
+
+.item__photoContainer{
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+    background-color: #a5a4a4;
+}
+
+.item__photoContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 5;
+}
+
+.item__dataContainer{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.item__dataContainer h2{
+    font-size: 1rem;
+    padding-left: 0.5rem;
+    font-weight: 600;
+    color: #3f6ad8;
+}
+
+
+.dateContainer{
+    width: 100%;
+    height: 100%;
+    padding-left: 86px;
+}
+
+.dateContainer select{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+.dateContainer select:focus{
+    outline: none;
+}
+
+
+.dateContainer select option{
+    font-size: 1.25rem;
+
+}
+
+
+.inputDateType{
+    width: 100%;
+    height: 100%;
+    font-size: 1.25rem;
+    color: #3f6ad8;
+    border: none;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.08);
+    padding: 0.5rem 1rem;
+}
+
+.inputDateType:focus{
+    outline: none;
+}
+
+
+.prescriptionInput{
+    width: 100%;
+    height: 100%;
+    font-size: 1.25rem;
+    color: #3f6ad8;
+    font-weight: 600;
+    border: none;
+}
+
+.prescriptionInput:focus{
+    outline: none;
+}
+
+.additionalContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 0 1rem;
+}
+
+.appointmentsStatusContainer{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.appointmentsStatusContainer input{
+    width: 24px;
+    height: 24px;
+}
+
+.appointmentsStatusContainer label {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.btnContainer{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+
+
+@keyframes enterMenu {
+    0%{
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+@keyframes exitMenu {
+    0%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+}
+
+
+@media (max-width:600px) {
+    .itemContainer{
+        flex-direction: column;
+    }
+    .selectedContainer{
+        padding-left: 0 !important;
+    }
+    .dateContainer{
+        padding-left: 0 !important;
+    }
+}

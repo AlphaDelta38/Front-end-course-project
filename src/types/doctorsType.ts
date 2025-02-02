@@ -62,6 +62,8 @@ export interface createAppointments{
     patient_id: number,
     doctor_id: number,
     service_id: number,
+    notes?: string,
+    prescription?: string,
     date: string,
     time: string,
     status: boolean,

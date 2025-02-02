@@ -68,6 +68,17 @@ const SpecialityManagementSection = () => {
         setSearchState({...searchState, searchType: type, searchForward: forward})
     }
 
+
+
+    function changeSoloInputState(id?: number){
+        if(id){
+            setSoloInputState({...soloInputFieldState, typeOfRequest: "PUT", active: true,id: id})
+        }else{
+            setSoloInputState({...soloInputFieldState, typeOfRequest: "POST", active: true})
+        }
+    }
+
+
     async function createOrUpdateFunc(value: string){
         try {
             let response;
@@ -95,6 +106,7 @@ const SpecialityManagementSection = () => {
     }
 
 
+
     async function deleteDiagnoseRequest(id: number){
         try {
             const hasDeleted = await deleteSpeciality(id)
@@ -105,14 +117,6 @@ const SpecialityManagementSection = () => {
             }
         }catch (e){
 
-        }
-    }
-
-    function changeSoloInputState(id?: number){
-        if(id){
-            setSoloInputState({...soloInputFieldState, typeOfRequest: "PUT", active: true,id: id})
-        }else{
-            setSoloInputState({...soloInputFieldState, typeOfRequest: "POST", active: true})
         }
     }
 
@@ -142,6 +146,7 @@ const SpecialityManagementSection = () => {
 
 
 
+
     return (
         <div className={cl.container}>
             <Loader isLoading={isLoadingDelete || isLoadingUpdate} isChildElement={true}/>
@@ -152,7 +157,7 @@ const SpecialityManagementSection = () => {
                             <svg className={cl.PCandPhoneIcon}>
                                 <use xlinkHref={"/sprite.svg#PCAndPhoneIcon"}></use>
                             </svg>
-                            Diagnoses Management
+                            Speciality Management
                         </h1>
                     </div>
                     <CustomBtn styles={{maxWidth: "200px"}} onClick={() => {

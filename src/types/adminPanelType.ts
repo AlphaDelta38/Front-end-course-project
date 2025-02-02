@@ -6,6 +6,7 @@ import PatientManagementSection from "../components/AdminPanel/PatientManagement
 import DiagnosesManagementSection from "../components/AdminPanel/DiagnosesManagementSection";
 import ServicesManagementSection from "../components/AdminPanel/ServicesManagementSection";
 import SpecialityManagementSection from "../components/AdminPanel/SpecialityManagementSection";
+import AppointmentsManagementSection from "../components/AdminPanel/AppointmentsManagementSection";
 
 
 export interface sectionActivities{
@@ -24,6 +25,7 @@ export enum mainSections{
     diagnoses="diagnoses",
     services="services",
     speciality="speciality",
+    appointments="appointments",
 }
 
 export enum underSection{
@@ -149,6 +151,21 @@ export const sideBarAdminPanelElements: sideBarAdminPanelElementsInterFace[] = [
             },
         ],
     },
+    {
+        svgIconPath: "TimerIcon",
+        mainSection: mainSections.appointments,
+        underSections: [
+            {
+                name: underSection.actions,
+                attributes: [
+                    {
+                        attribute: chosenAttribute.management,
+                        element: AppointmentsManagementSection
+                    },
+                ],
+            },
+        ],
+    },
 ];
 
 
@@ -167,7 +184,13 @@ export enum searchTypeEnum{
     insurance_number="insurance_number",
     diagnosis="diagnosis",
     service="service",
-    specialityTitleField="name"
+    specialityTitleField="name",
+    doctor="doctor",
+    patient="patient",
+    services="services",
+    date="date",
+    time="time",
+    status ="status",
 }
 
 export enum searchForwardsEnum{

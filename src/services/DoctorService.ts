@@ -26,13 +26,6 @@ export const doctorAPI = createApi({
                 }
             })
         }),
-        createAppointments: build.mutation<any, createAppointments>({
-            query: (newAppointments) => ({
-                url: endpointsPath.appointments,
-                method: "POST",
-                body: newAppointments,
-            }),
-        }),
         createDoctor: build.mutation<DoctorsItemInerface, createDoctor>({
             query: (newDoctor) => ({
                 url: endpointsPath.doctors,

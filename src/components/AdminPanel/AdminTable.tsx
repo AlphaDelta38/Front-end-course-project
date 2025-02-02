@@ -12,6 +12,7 @@ import CustomBtn, {CustomBtnTypes} from "../additionalComponents/CustomBtn";
 import {cleanSpaces, containsSubstring} from "../../utils/Text";
 import EntriesSelect from "./entriesSelect";
 import {deBounceWithConfirmation} from "../../utils/deBounce";
+import {sortForwards} from "../../services/NewsService";
 
 
 
@@ -29,19 +30,36 @@ interface AdminTableInterface{
     searchParamsException: string[]
     unitedKeyForSorting?: string[]
     firstBtnName?: string
+    additionalFunctionForSorting?: (a:any, b: any, )=>number | null
 }
 
 
-const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onClickSortIconChange,TableData,setSearchState,searchState,massiveOfRenderData,searchParamsException,unitedKeyForSorting,firstBtnName}:AdminTableInterface) => {
+const AdminTable = ({
+                        deleteBtnOnClick,
+                        viewBtnOnClick,
+                        checkSortIconActive,
+                        onClickSortIconChange,
+                        TableData,
+                        setSearchState,
+                        searchState,
+                        massiveOfRenderData,
+                        searchParamsException,
+                        unitedKeyForSorting,
+                        firstBtnName,
+                        additionalFunctionForSorting,
+}:AdminTableInterface) => {
 
     const [itemsRenderMassive, setItemsRenderMassive] = useState<any[]>([]);
     const [searchInputValue, setSearchInputValue] = useState("");
 
-    function stringHandler(massive: string[], objectValues: any){
+    function stringHandler(massive: string[], objectValues: any, searchTypeEnum?: string) {
         let str = ""
-
         massive.forEach(item => {
-                if(!isNaN(objectValues[item])){
+                if(typeof objectValues[item] === "boolean"){
+                    str += `${objectValues[item]}`
+                }else if(searchTypeEnum && massive.every(itemTwo=>searchTypeEnum !== itemTwo)){
+                    str += objectValues[searchTypeEnum][item]
+                }else if(!isNaN(objectValues[item])){
                     if(objectValues[item]){
                         str += objectValues[item].toString()
                     }
@@ -65,13 +83,35 @@ const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onCli
 
     useEffect(()=>{
         if(massiveOfRenderData){
+            const optimizationSearchWithKey: string[] = [];
+
             let massive = [...massiveOfRenderData]
             if(cleanSpaces(searchInputValue).length >= 1){
-                massive = massive.filter((value)=>Object.entries(value).some(value=>{
-                    if(typeof value[1] === "object" && value[1] && Object.entries(value[1]) && Object.entries(value[1])[1]){
-                        return containsSubstring(Object.entries(value[1])[1][1].toString(), cleanSpaces(searchInputValue))
+                massive = massive.filter((value1)=>Object.entries(value1).some(value=>{
+                    if(typeof value[1] === "boolean"){
+                        return containsSubstring(`${value[1]}`, cleanSpaces(searchInputValue))
+                    }else if(typeof value[1] === "object" && value[1] && Object.keys(value[1]).length > 0 ){
+                        const massiveOfObjects = Object.entries(value[1])
+                        let str = ""
+                        for (let i = 0; i < Object.entries(value[1]).length; i++) {
+                                str += massiveOfObjects[i][1].toString()
+                                str += " "
+                        }
+                        return containsSubstring(cleanSpaces(str), cleanSpaces(searchInputValue))
                     }else if(value[1] && value[1].toString() !== undefined && !searchParamsException.some((value)=>value === value[0])){
                         if(isNaN(new Date(value[1].toString()).getTime())){
+                            const checkKey = TableData.find(item=>item.searchType === `${value[0]}`)?.key
+                            if((checkKey ? checkKey.length >= 1 : false) && !optimizationSearchWithKey.includes(value[0])){
+                                if(checkKey){
+                                    let str = ""
+                                    for (let i = 0; i < checkKey.length; i++) {
+                                        str += value1[checkKey[i]]
+                                        str += " "
+                                    }
+
+                                    return containsSubstring(str, cleanSpaces(searchInputValue))
+                                }
+                            }
                             return containsSubstring(value[1].toString(), cleanSpaces(searchInputValue))
                         }else{
                             return containsSubstring(dateConvert(value[1].toString()), cleanSpaces(searchInputValue))
@@ -82,22 +122,51 @@ const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onCli
 
             if(searchState.searchForward === searchForwardsEnum.UP){
                 massive.sort((a,b)=>{
+
+                    if(additionalFunctionForSorting){
+                        const firstCheck = additionalFunctionForSorting(a[searchState.searchType],b[searchState.searchType])
+                        if(firstCheck !== null){
+                            return firstCheck
+                        }
+
+                    }
+
                     if(unitedKeyForSorting && unitedKeyForSorting.some((value)=>value === a[searchState.searchType])){
-                          return stringHandler(unitedKeyForSorting,a).localeCompare(stringHandler(unitedKeyForSorting,b))
+                        return stringHandler(unitedKeyForSorting,a).localeCompare(stringHandler(unitedKeyForSorting,b))
                     }else if(!isNaN(a[searchState.searchType])){
                         return Number(a[searchState.searchType] - b[searchState.searchType])
                     }else if(!isNaN(new Date(a[searchState.searchType]).getTime())){
-                          return new Date(a[searchState.searchType]).getTime() - new Date(b[searchState.searchType]).getTime()
+                        return new Date(a[searchState.searchType]).getTime() - new Date(b[searchState.searchType]).getTime()
                     }else if(isNaN(a[searchState.searchType]) && typeof a[searchState.searchType] !== "object"){
-                          return a[searchState.searchType].toLowerCase().localeCompare(b[searchState.searchType].toLowerCase())
+                        return a[searchState.searchType].toLowerCase().localeCompare(b[searchState.searchType].toLowerCase())
                     }else if(typeof a[searchState.searchType] === "object"){
-                          if(typeof Object.entries(a[searchState.searchType])[1][1] === "string"){
-                              return  Object.entries(a[searchState.searchType])[1][1]!.toString().localeCompare(Object.entries(b[searchState.searchType])[1][1]!.toString())
-                          }
+                        let strFirst = ""
+                        let strSecond = ""
+
+                        for (let i = 0; i < Object.entries(a[searchState.searchType]).length; i++) {
+                            const currentItemFirst = Object.entries(a[searchState.searchType])[i][1]
+                            const currentItemSecond = Object.entries(b[searchState.searchType])[i][1]
+                            if(typeof currentItemFirst === "string" && typeof currentItemSecond === "string"){
+                                strFirst += currentItemFirst
+                                strFirst += " "
+                                strSecond += currentItemSecond
+                                strSecond += " "
+                            }
+                        }
+                        return strFirst.localeCompare(strSecond)
                     }
                 })
             }else{
                 massive.sort((a,b)=>{
+
+                    if(additionalFunctionForSorting){
+                        const firstCheck = additionalFunctionForSorting(b[searchState.searchType],a[searchState.searchType])
+                        if(firstCheck !== null) {
+                            return firstCheck
+                        }
+                    }
+
+
                     if(unitedKeyForSorting && unitedKeyForSorting.some((value)=>value === a[searchState.searchType])){
                         return stringHandler(unitedKeyForSorting,b).localeCompare(stringHandler(unitedKeyForSorting,a))
                     }else if(!isNaN(a[searchState.searchType])){
@@ -107,9 +176,22 @@ const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onCli
                     }else if(isNaN(a[searchState.searchType]) && typeof a[searchState.searchType] !== "object"){
                         return b[searchState.searchType].toLowerCase().localeCompare(a[searchState.searchType].toLowerCase())
                     }else if(typeof a[searchState.searchType] === "object"){
-                        if(typeof Object.entries(a[searchState.searchType])[1][1] === "string"){
-                            return  Object.entries(b[searchState.searchType])[1][1]!.toString().localeCompare(Object.entries(a[searchState.searchType])[1][1]!.toString())
+                        let strFirst = ""
+                        let strSecond = ""
+
+                        for (let i = 0; i < Object.entries(a[searchState.searchType]).length; i++) {
+                            const currentItemFirst = Object.entries(a[searchState.searchType])[i][1]
+                            const currentItemSecond = Object.entries(b[searchState.searchType])[i][1]
+                            if(typeof currentItemFirst === "string" && typeof currentItemSecond === "string"){
+                                strFirst += currentItemFirst
+                                strFirst += " "
+                                strSecond += currentItemSecond
+                                strSecond += " "
+                            }
+
                         }
+                        return strSecond.localeCompare(strFirst)
+
                     }
                 })
             }
@@ -165,7 +247,7 @@ const AdminTable = ({deleteBtnOnClick,viewBtnOnClick, checkSortIconActive, onCli
                 {itemsRenderMassive && itemsRenderMassive?.length !== 0 ? itemsRenderMassive.map((value, index) =>
                         <tr key={value["id"] || index} className={cl.rowOfTBody}>
                             {TableData.map((valueUn, indexUn) =>
-                                <td style={valueUn?.styles?.data ? valueUn.styles.data : {}} key={indexUn}>{stringHandler(valueUn.key, value) || "none"}</td>
+                                <td style={valueUn?.styles?.data ? valueUn.styles.data : {}} key={indexUn}>{stringHandler(valueUn.key, value, valueUn.searchType) || "none"}</td>
                             )}
                             <td>
                                 <div className={cl.actionsButton}>
