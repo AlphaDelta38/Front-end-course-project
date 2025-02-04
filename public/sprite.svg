@@ -24,7 +24,7 @@
         </g>
     </symbol>
 
-    <symbol id="StarIcon" width="40" height="35" viewBox="0 0 40 35" fill="none">
+    <symbol id="StarIcon" width="100%" height="100%" viewBox="0 0 40 35" fill="none">
         <path d="M20 0L26.4656 10.5458L39.0211 13.1287L30.4616 22.2292L31.7557 34.3713L20 29.45L8.2443 34.3713L9.53838 22.2292L0.97887 13.1287L13.5344 10.5458L20 0Z" fill="#FFDA47"/>
     </symbol>
 

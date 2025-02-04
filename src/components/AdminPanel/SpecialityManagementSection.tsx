@@ -148,7 +148,7 @@ const SpecialityManagementSection = () => {
 
 
     return (
-        <div className={cl.container}>
+        <div  className={cl.container}>
             <Loader isLoading={isLoadingDelete || isLoadingUpdate} isChildElement={true}/>
             <div className={cl.content}>
                 <div className={cl.createBtnContainer}>

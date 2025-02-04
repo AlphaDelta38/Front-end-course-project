@@ -104,6 +104,8 @@ const AppointmentsViewAndChangeWindow = ({id,callBackCloseWindow,callbackDelete,
     const [createAppointment, ] = appointmentsAPI.useCreateAppointmentsMutation()
     const [updateAppointment, ] = appointmentsAPI.useUpdateAppointmentMutation()
 
+
+
     const dispatch = useAppDispatch()
 
 
@@ -127,6 +129,8 @@ const AppointmentsViewAndChangeWindow = ({id,callBackCloseWindow,callbackDelete,
             prescription: null,
         })
     }
+
+
 
     async function createAndUpdateRequest(){
         try {
@@ -268,7 +272,9 @@ const AppointmentsViewAndChangeWindow = ({id,callBackCloseWindow,callbackDelete,
                 notes: Appointment.notes || null,
             })
         }
+
     }, [Appointment])
+
 
 
 
@@ -323,8 +329,7 @@ const AppointmentsViewAndChangeWindow = ({id,callBackCloseWindow,callbackDelete,
                                             <use xlinkHref={"./sprite.svg#AddCloudIcon"}></use>
                                         </svg>
                                     </div>
-                                    <div
-                                        className={menuActivities.doctorSearchActive ? cl.searchContainerActive : cl.searchContainer}>
+                                    <div  className={menuActivities.doctorSearchActive ? cl.searchContainerActive : cl.searchContainer}>
                                         <div className={cl.menuSearchContainer}>
                                             <div className={cl.searchIconContainer}>
                                                 <svg>
@@ -388,8 +393,7 @@ const AppointmentsViewAndChangeWindow = ({id,callBackCloseWindow,callbackDelete,
                                             <use xlinkHref={"./sprite.svg#AddCloudIcon"}></use>
                                         </svg>
                                     </div>
-                                    <div
-                                        className={menuActivities.patientSearchActive ? cl.searchContainerActive : cl.searchContainer}>
+                                    <div  className={menuActivities.patientSearchActive ? cl.searchContainerActive : cl.searchContainer}>
                                         <div className={cl.menuSearchContainer}>
                                             <div className={cl.searchIconContainer}>
                                                 <svg>
@@ -446,8 +450,7 @@ const AppointmentsViewAndChangeWindow = ({id,callBackCloseWindow,callbackDelete,
                                             <use xlinkHref={"./sprite.svg#AddCloudIcon"}></use>
                                         </svg>
                                     </div>
-                                    <div
-                                        className={menuActivities.serviceSearchActive ? cl.searchContainerActive : cl.searchContainer}>
+                                    <div  className={menuActivities.serviceSearchActive ? cl.searchContainerActive : cl.searchContainer}>
                                         <div className={cl.menuSearchContainer}>
                                             <div className={cl.searchIconContainer}>
                                                 <svg>
@@ -501,8 +504,7 @@ const AppointmentsViewAndChangeWindow = ({id,callBackCloseWindow,callbackDelete,
                                             <use xlinkHref={"./sprite.svg#AddCloudIcon"}></use>
                                         </svg>
                                     </div>
-                                    <div
-                                        className={menuActivities.diagnosesSearchActive ? cl.searchContainerActive : cl.searchContainer}>
+                                    <div  className={menuActivities.diagnosesSearchActive ? cl.searchContainerActive : cl.searchContainer}>
                                         <div className={cl.menuSearchContainer}>
                                             <div className={cl.searchIconContainer}>
                                                 <svg>

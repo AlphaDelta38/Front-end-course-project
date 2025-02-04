@@ -12,7 +12,7 @@ import CustomBtn, {CustomBtnTypes} from "../additionalComponents/CustomBtn";
 import {cleanSpaces, containsSubstring} from "../../utils/Text";
 import EntriesSelect from "./entriesSelect";
 import {deBounceWithConfirmation} from "../../utils/deBounce";
-import {sortForwards} from "../../services/NewsService";
+
 
 
 
@@ -94,8 +94,8 @@ const AdminTable = ({
                         const massiveOfObjects = Object.entries(value[1])
                         let str = ""
                         for (let i = 0; i < Object.entries(value[1]).length; i++) {
-                                str += massiveOfObjects[i][1].toString()
-                                str += " "
+                                    str += massiveOfObjects[i][1].toString()
+                                    str += " "
                         }
                         return containsSubstring(cleanSpaces(str), cleanSpaces(searchInputValue))
                     }else if(value[1] && value[1].toString() !== undefined && !searchParamsException.some((value)=>value === value[0])){

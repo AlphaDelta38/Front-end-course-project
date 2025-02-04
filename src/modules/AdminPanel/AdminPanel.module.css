@@ -276,12 +276,18 @@
     transform: translate3d(0,0,0);
 }
 
+.sideBarContainerActive .listItem__chevronIconContainer {
+    opacity: 0;
+}
+
+.sideBarContainerActive:hover .listItem__chevronIconContainer {
+    opacity: 1;
+}
+
 
 .text{
     display: block;
 }
-
-
 
 
 @keyframes enterForHover {

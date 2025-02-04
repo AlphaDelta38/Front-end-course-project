@@ -1,5 +1,4 @@
 
-
 .container{
     display: flex;
     justify-content: center;
@@ -13,7 +12,6 @@
     z-index: 99;
 }
 
-
 .content{
     padding: 1rem;
     max-width: 800px;
@@ -24,17 +22,9 @@
     transition: all .2s;
     border: 1px solid rgba(26, 54, 126, 0.125);
     border-radius: 24px;
-    overflow-y: auto;
 }
 
-.row{
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-    display: flex;
-    row-gap: 20px;
-    flex-direction: column;
-}
+
 
 .titleContainer{
     display: flex;
@@ -48,6 +38,58 @@
     color: #1A357A;
     margin-bottom: 1rem;
 }
+
+
+
+
+.closeBtn{
+    border: none;
+    background: none;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.closeBtn span{
+    display: block;
+    width: 24px;
+    height: 2px;
+    position: absolute;
+    background-color: black;
+    transform: rotate(-135deg);
+}
+
+.closeBtn span:before{
+    content: "";
+    display: block;
+    width: 24px;
+    height: 2px;
+    position: absolute;
+    background-color: black;
+    transform: rotate(90deg);
+}
+
+
+.closeBtn:hover{
+    opacity: 0.7;
+}
+
+
+.row{
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    row-gap: 20px;
+    flex-direction: column;
+}
+
+
+
+
 
 .itemContainer{
     display: flex;
@@ -87,6 +129,7 @@
     object-fit: cover;
 }
 
+
 .dataContainer{
     width: 100%;
     display: flex;
@@ -101,8 +144,11 @@
     color: #3f6ad8;
 }
 
+
+
 .deleteBtnContainer{
     margin-left: 30px;
+    gap: 20px;
 }
 
 .closeBtn{
@@ -139,6 +185,7 @@
 .closeBtn:hover{
     opacity: 0.7;
 }
+
 
 .chooseContainer{
     flex: 100% 0 1;
@@ -315,67 +362,11 @@
 
 }
 
-
-.inputDateType{
-    width: 100%;
-    height: 100%;
-    font-size: 1.25rem;
-    color: #3f6ad8;
-    border: none;
-    user-select: none;
-    background-color: rgba(0, 0, 0, 0.08);
-    padding: 0.5rem 1rem;
-}
-
-.inputDateType:focus{
-    outline: none;
-}
-
-
-.prescriptionInput{
-    width: 100%;
-    height: 100%;
-    font-size: 1.25rem;
-    color: #3f6ad8;
-    font-weight: 600;
-    border: none;
-}
-
-.prescriptionInput:focus{
-    outline: none;
-}
-
-.additionalContainer{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-    padding: 0 1rem;
-}
-
-.appointmentsStatusContainer{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.appointmentsStatusContainer input{
-    width: 24px;
-    height: 24px;
-}
-
-.appointmentsStatusContainer label {
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
 .btnContainer{
     display: flex;
-    gap: 10px;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
 }
-
 
 @keyframes enterMenu {
     0%{
