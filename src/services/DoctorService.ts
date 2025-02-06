@@ -16,7 +16,16 @@ export interface fetchALlDDoctorsProps{
 
 export const doctorAPI = createApi({
     reducerPath: "doctorAPI",
-    baseQuery: fetchBaseQuery({baseUrl: `${process.env.REACT_APP_SERVER_HOST}`}),
+    baseQuery: fetchBaseQuery({
+        baseUrl: `${process.env.REACT_APP_SERVER_HOST}`,
+        prepareHeaders: (headers, { getState }) => {
+            const token = localStorage.getItem("token")
+            if(token){
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+            return headers;
+        },
+    }),
     endpoints: (build)=>({
         fetchAllDoctors: build.query<DoctorsItemInerface[], fetchALlDDoctorsProps>({
             query: (e)=>({

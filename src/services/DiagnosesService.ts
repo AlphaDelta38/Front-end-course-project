@@ -6,7 +6,16 @@ import {fetchAllPropsInterface} from "./NewsService";
 
 export const diagnosesAPI = createApi({
     reducerPath: "diagnosesAPI",
-    baseQuery: fetchBaseQuery({baseUrl: `${process.env.REACT_APP_SERVER_HOST}`}),
+    baseQuery: fetchBaseQuery({
+        baseUrl: `${process.env.REACT_APP_SERVER_HOST}`,
+        prepareHeaders: (headers, { getState }) => {
+            const token = localStorage.getItem("token")
+            if(token){
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+            return headers;
+        },
+    }),
     endpoints: (build)=>({
         getAllDiagnoses: build.query<DiagnosesType[], fetchAllPropsInterface>({
             query: (e)=>({

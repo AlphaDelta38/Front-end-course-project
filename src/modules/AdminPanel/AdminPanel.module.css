@@ -389,12 +389,13 @@
     white-space: nowrap;
     margin: .1rem 0;
     cursor: pointer;
+    transition: all 0.3s ;
 }
 
 .listItem a:hover{
     background: #e0f3ff;
     text-decoration: none;
-    transition: font-weight 0.2s ;
+    transition: all 0.3s ;
 }
 
 .listItem__chevronIconContainer{

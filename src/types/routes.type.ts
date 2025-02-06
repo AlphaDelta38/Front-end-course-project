@@ -12,3 +12,10 @@ export enum routesEnum{
     doctors= "/doctors",
     admin= "/admin",
 }
+
+
+
+export interface routes{
+    role_id: number
+    routes: string[]
+}

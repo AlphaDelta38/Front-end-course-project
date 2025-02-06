@@ -11,6 +11,7 @@ import {patientSAPI} from "../services/PatientService";
 import {diagnosesAPI} from "../services/DiagnosesService";
 import {appointmentsAPI} from "../services/AppointmentsService";
 import {ratingAPI} from "../services/RatingService";
+import {routeAccessAPI} from "../services/RouteAccessService";
 
 
 
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
     [specialityAPI.reducerPath]: specialityAPI.reducer,
     [appointmentsAPI.reducerPath]: appointmentsAPI.reducer,
     [ratingAPI.reducerPath]: ratingAPI.reducer,
+    [routeAccessAPI.reducerPath]: routeAccessAPI.reducer,
 })
 
 
@@ -45,7 +47,8 @@ export  const setupStore = () =>{
                 diagnosesAPI.middleware,
                 specialityAPI.middleware,
                 appointmentsAPI.middleware,
-                ratingAPI.middleware
+                ratingAPI.middleware,
+                routeAccessAPI.middleware,
             ),
     })
 }

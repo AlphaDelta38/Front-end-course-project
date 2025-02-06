@@ -1,0 +1,92 @@
+.container{
+    width: 100%;
+    padding: 1rem;
+}
+
+.content{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+
+.tableContainer{
+    width: 100%;
+    max-height: 1000px;
+    display: flex;
+    padding: 1.25rem;
+    table-layout: fixed;
+    position: relative;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: #FFFFFF;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+    transition: all .2s;
+    border: 1px solid rgba(26, 54, 126, 0.125);
+    border-radius: .25rem;
+}
+
+.paginationPanelContainer{
+    display: flex;
+    margin-right: -15px;
+    margin-left: -15px;
+    position: relative;
+}
+
+.statusInfoContainer{
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    position: relative;
+    flex: 1 1 35%;
+}
+
+.paginationButtonsContainer{
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    position: relative;
+    flex: 1 1 65%;
+}
+
+.statusInfoText{
+    padding-top: 0.85rem;
+    white-space: nowrap;
+    font-size: .88rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: left;
+}
+
+.createBtnContainer{
+    padding: 1rem 0;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.headOfSearch{
+    width: 100%;
+    display: flex;
+    position: relative;
+    justify-content: start;
+    padding: 0 10px 0 20px;
+    align-items: center;
+    height: 56px;
+}
+
+
+.textOfHead{
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    margin-bottom: 0 !important;
+}
+
+.PCandPhoneIcon{
+    width: 26px;
+    height: 26px;
+    margin-right: 20px;
+}

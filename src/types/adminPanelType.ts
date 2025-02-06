@@ -8,6 +8,8 @@ import ServicesManagementSection from "../components/AdminPanel/ServicesManageme
 import SpecialityManagementSection from "../components/AdminPanel/SpecialityManagementSection";
 import AppointmentsManagementSection from "../components/AdminPanel/AppointmentsManagementSection";
 import RatingManagementSection from "../components/AdminPanel/RatingManagementSection";
+import RoleAccessSection from "../components/AdminPanel/RoleAccessSection";
+import RolesManagementSection from "../components/AdminPanel/RolesManagementSection";
 
 
 export interface sectionActivities{
@@ -28,6 +30,7 @@ export enum mainSections{
     speciality="speciality",
     appointments="appointments",
     rating="rating",
+    roles="roles"
 }
 
 export enum underSection{
@@ -41,6 +44,7 @@ export enum chosenAttribute{
     update ="update",
     delete ="delete",
     management="management",
+    access="access",
 }
 
 
@@ -183,6 +187,25 @@ export const sideBarAdminPanelElements: sideBarAdminPanelElementsInterFace[] = [
             },
         ],
     },
+    {
+        svgIconPath: "RoleIcon",
+        mainSection: mainSections.roles,
+        underSections: [
+            {
+                name: underSection.actions,
+                attributes: [
+                    {
+                        attribute: chosenAttribute.management,
+                        element: RolesManagementSection
+                    },
+                    {
+                        attribute: chosenAttribute.access,
+                        element: RoleAccessSection
+                    },
+                ],
+            },
+        ],
+    },
 ];
 
 
@@ -208,7 +231,8 @@ export enum searchTypeEnum{
     date="date",
     time="time",
     status ="status",
-    rating="rating"
+    rating="rating",
+    role="role",
 }
 
 export enum searchForwardsEnum{

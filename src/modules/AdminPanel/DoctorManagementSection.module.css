@@ -500,7 +500,7 @@
 
 
 .addRoleMenu{
-    width: 140px;
+    min-width: 140px;
     min-height: 50px;
     max-height: 300px;
     overflow: hidden;
@@ -554,11 +554,6 @@
     pointer-events: none;
     opacity: 0.8;
 }
-
-
-
-
-
 
 
 @media (max-width: 1200px){

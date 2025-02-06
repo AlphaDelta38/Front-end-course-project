@@ -6,7 +6,16 @@ import {fetchAllPropsInterface} from "./NewsService";
 
 export const ratingAPI =  createApi({
     reducerPath: "ratingAPI",
-    baseQuery: fetchBaseQuery({baseUrl: `${process.env.REACT_APP_SERVER_HOST}`}),
+    baseQuery: fetchBaseQuery({
+        baseUrl: `${process.env.REACT_APP_SERVER_HOST}`,
+        prepareHeaders: (headers, { getState }) => {
+            const token = localStorage.getItem("token")
+            if(token){
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+            return headers;
+        },
+    }),
     endpoints: (build)=>({
         createRating: build.mutation<ratingItem, Omit<ratingItem, "doctor" | "patient" | "id">>({
             query: (data)=>({

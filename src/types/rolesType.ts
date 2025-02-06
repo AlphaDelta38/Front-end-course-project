@@ -1,11 +1,10 @@
-
-
-
+import {routes} from "./routes.type";
 
 
 export interface RoleInterface {
     id: number,
     role: string
+    routeAccess?: routes
 }
 
 

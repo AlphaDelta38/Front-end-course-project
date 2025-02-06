@@ -30,6 +30,7 @@
 
 .chosenValueAndChevronContainer h2{
     color: #3f6ad8;
+    font-size: inherit;
 }
 
 .chosenValueAndChevronContainer:hover h2{
