@@ -4,6 +4,7 @@ import AuthPage from "./components/AuthPage/AuthPage";
 import NewsPage from "./components/NewsPage/NewsPage";
 import DoctorPage from "./components/DoctorPage/DoctorPage";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 
 
@@ -13,7 +14,9 @@ export const loginRoutes = [
     {path: routesEnum.other, element: GeneralPage},
     {path: routesEnum.news, element: NewsPage},
     {path: routesEnum.doctors, element: DoctorPage},
-    {path: routesEnum.admin, element: AdminPanel},
+    {path: routesEnum.profilePersonalData, element: ProfilePage},
+    {path: routesEnum.profileAppointmentsHistory, element: ProfilePage},
+    {path: routesEnum.profileAChangePassword, element: ProfilePage},
 ]
 
 
@@ -27,6 +30,10 @@ export const unLoginRoutes = [
 ]
 
 
+export const onlyForDoctors = [
+    {path: routesEnum.admin, element: AdminPanel},
+]
+
 
 export enum endpointsPath{
     speciality = "/speciality",
@@ -39,6 +46,8 @@ export enum endpointsPath{
     diagnoses="/diagnoses",
     rating="/ratings",
     routes="/routes",
+    doctorUpdateSelf="/doctors/updateSelf",
+    patientUpdateSelf="/patients/updateSelf",
     ratingAmount="/ratings/get/amount",
     serviceAmount="/services/get/amount",
     patientsAmount="/patients/get/amount",
@@ -49,4 +58,6 @@ export enum endpointsPath{
     specialityAmount = "/speciality/get/amount",
     appointmentsAmount= "/appointments/get/amount",
     appointmentsBookedTime= "/appointments/get/bookedTime",
+    doctorPasswordUpdate = "/doctors/updateSelf/password",
+    patientPasswordUpdate = "/patients/updateSelf/password"
 }

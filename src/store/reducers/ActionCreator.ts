@@ -41,11 +41,14 @@ export const UserRegister =  createAsyncThunk(
                 email: decoded.email,
                 address: decoded.address,
                 office_number: decoded.office_number || "",
-                speciality: decoded.speciality || "",
                 image_link: decoded.image_link || "",
                 roles: decoded.roles || [],
                 insurance_number: decoded.insurance_number || "",
 
+            }
+
+            if(decoded.speciality){
+                filtered["speciality"] = decoded.speciality
             }
 
             localStorage.setItem("token", response.data.token);
@@ -83,11 +86,14 @@ export const UserLogin =  createAsyncThunk(
                 email: decoded.email,
                 address: decoded.address,
                 office_number: decoded.office_number || "",
-                speciality: decoded.speciality || "",
                 image_link: decoded.image_link || "",
                 roles: decoded.roles || [],
                 insurance_number: decoded.insurance_number || "",
 
+            }
+
+            if(decoded.speciality){
+                filtered["speciality"] = decoded.speciality
             }
 
             localStorage.setItem("token", response.data.token);
@@ -134,11 +140,14 @@ export const checkLogin =  createAsyncThunk(
                 email: decoded.email,
                 address: decoded.address,
                 office_number: decoded.office_number || "",
-                speciality: decoded.speciality || "",
                 image_link: decoded.image_link || "",
                 roles: decoded.roles || [],
                 insurance_number: decoded.insurance_number || "",
 
+            }
+
+            if(decoded.speciality){
+                filtered["speciality"] = decoded.speciality
             }
 
             localStorage.setItem("token", response.data.token);

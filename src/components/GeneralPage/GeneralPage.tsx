@@ -206,21 +206,23 @@ const GeneralPage = () => {
                     </div>
                 </div>
                 <div className={cl.lastNewsContainer}>
-                    {News &&
+                    {News && News.length > 0 ?
                         <div className={cl.lastNews__content}>
                             <small className={cl.lastNews__date}>
-                                {dateConvert(News[0].createdAt)}
+                                {dateConvert(News[0]?.createdAt)}
                             </small>
                             <div className={cl.lastNews__photoContainer}>
-                                <img onClick={()=>navigate(`/news/${News[0].id}`)} width="100%" height="100%" src={`${News[0].image_link}`} alt={"photo of last news"}/>
+                                <img onClick={()=>navigate(`/news/${News[0].id}`)} width="100%" height="100%" src={`${News[0]?.image_link}`} alt={"photo of last news"}/>
                             </div>
                             <div className={cl.lastNews_textContainer}>
-                                <QuillForm toolbarActive={false} readonly={true} value={News[0].text}/>
+                                <QuillForm toolbarActive={false} readonly={true} value={News[0]?.text || ""}/>
                             </div>
                             <button onClick={()=>navigate(`/news/${News[0].id}`)} className={cl.lastNews__button}>
                                 Learn more
                             </button>
                         </div>
+                        :
+                        <div className={cl.newsNotFound}><h2>No one News</h2></div>
                     }
                 </div>
             </div>
@@ -399,6 +401,7 @@ const GeneralPage = () => {
                                         </div>
                                     </div>
                                 )}
+                                {News && News.length === 0 && <div className={cl.newsNotFound}><h2>No one News</h2></div>}
                             </div>
                         </div>
                     </div>

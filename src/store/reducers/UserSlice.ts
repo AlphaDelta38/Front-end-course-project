@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {checkLogin, UserLogin, UserRegister} from "./ActionCreator";
 import {roleInterface} from "../../types/doctorsType";
+import {errorState} from "./ErrorSlice";
 
 
 export interface UserState{
@@ -16,7 +17,10 @@ export interface UserState{
 
     ///Additional for doctors
     office_number?: string,
-    speciality?: string,
+    speciality?: {
+        id: number,
+        name: string,
+    },
     image_link?: string,
     roles?: roleInterface[],
 
@@ -44,6 +48,19 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
+        logOut(state: UserState, action: PayloadAction<void>){
+            const newState = {
+                id: 0,
+                first_name: '',
+                last_name: '',
+                date_of_birth: '',
+                gender: '',
+                phone: '',
+                email: '',
+                address: '',
+            };
+            return newState;
+        },
     },
     extraReducers: (builder)=>{
 

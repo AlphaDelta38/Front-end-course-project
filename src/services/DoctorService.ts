@@ -1,6 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {createAppointments, createDoctor, DoctorsItemInerface, updateServiceInterface} from "../types/doctorsType";
 import {endpointsPath} from "../routes";
+import {userPasswordUpdate} from "../types/userType";
 
 
 
@@ -55,10 +56,24 @@ export const doctorAPI = createApi({
                 method: "DELETE",
             }),
         }),
+        updateSelf: build.mutation<number, Omit<updateServiceInterface, "id">>({
+            query: ({newDoctor}) => ({
+                url: endpointsPath.doctorUpdateSelf,
+                method: "PUT",
+                body: newDoctor,
+            }),
+        }),
         getAmountDoctors: build.query<number, any>({
             query: () => ({
                 url: endpointsPath.doctorsAmount,
                 method: "GET",
+            }),
+        }),
+        passwordUpdateSelf: build.mutation<number,userPasswordUpdate>({
+            query: (data)=>({
+                url: endpointsPath.doctorPasswordUpdate,
+                method: "PUT",
+                body: data
             }),
         }),
     })

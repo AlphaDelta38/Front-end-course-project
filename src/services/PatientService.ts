@@ -2,6 +2,7 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {fetchAllPropsInterface} from "./NewsService";
 import {createPatientRequestInterface, PatientsInterface, viewDataReturnOnSubmitInterface} from "../types/patientsType";
 import {endpointsPath} from "../routes";
+import {userPasswordUpdate} from "../types/userType";
 
 
 
@@ -58,6 +59,20 @@ export const patientSAPI = createApi({
                 url: endpointsPath.patients,
                 method: "PUT",
                 body: {...data}
+            }),
+        }),
+        UpdateForSelf: build.mutation<number,Omit<viewDataReturnOnSubmitInterface, "id">>({
+            query: (data)=>({
+                url: endpointsPath.patientUpdateSelf,
+                method: "PUT",
+                body: data
+            }),
+        }),
+        passwordUpdateSelf: build.mutation<number,userPasswordUpdate>({
+            query: (data)=>({
+                url: endpointsPath.patientPasswordUpdate,
+                method: "PUT",
+                body: data
             }),
         }),
     })

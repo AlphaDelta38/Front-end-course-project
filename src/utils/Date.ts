@@ -2,7 +2,8 @@
 
 
 export function dateConvert(date: string){
-    if(date.length === 0){
+
+    if(!date){
         return ""
     }
 
@@ -21,4 +22,12 @@ export function dateConvert(date: string){
 export function convertToInputTypeDate(isoDate: string){
     const formattedDate = isoDate.split("T")[0];
     return formattedDate
+}
+
+export function formatDateForInput(dateString: string): string {
+    if(dateString === ""){
+        return ""
+    }
+    const date = new Date(dateString);
+    return date.toISOString().split("T")[0];
 }

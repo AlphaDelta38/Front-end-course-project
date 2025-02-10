@@ -375,6 +375,7 @@ const AppointmentsViewAndChangeWindow = ({id,callBackCloseWindow,callbackDelete,
                                                 Patient && Patient.find((value) => value.id === dataState.patientId)!.first_name
                                                 + " " +
                                                 Patient.find((value) => value.id === dataState.patientId)!.last_name
+                                                + " #" + dataState.patientId
                                             }
                                         </h2>
                                         <span>{(Patient && Patient.find((value) => value.id === dataState.patientId)?.address) ?? "none"}</span>
@@ -413,7 +414,7 @@ const AppointmentsViewAndChangeWindow = ({id,callBackCloseWindow,callbackDelete,
                                                     <div className={cl.item__photoContainer}>
                                                     </div>
                                                     <div className={cl.item__dataContainer}>
-                                                        <h2>{value.first_name + " " + value.last_name}</h2>
+                                                        <h2>{value.first_name + " " + value.last_name + "  #" + value.id}</h2>
                                                         <span>{value?.address || "none"}</span>
                                                     </div>
                                                 </div>

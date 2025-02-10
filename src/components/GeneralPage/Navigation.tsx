@@ -2,7 +2,7 @@ import React from 'react';
 import cl from '../../modules/GeneralPage/Navigation.module.css'
 import {gsap} from "gsap";
 import {ScrollToPlugin} from "gsap/ScrollToPlugin";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate, useNavigation} from "react-router-dom";
 import {routesEnum} from "../../types/routes.type";
 import {useAppSelector} from "../../hooks/redux";
 
@@ -25,6 +25,8 @@ const Navigation = () => {
     const {id: UserId, email} = useAppSelector(state => state.userReducer)
     const location = useLocation()
     const currentLocation = location.pathname.split("/")[1]
+    const navigate = useNavigate()
+
 
     return (
         <div id="Navigation" style={currentLocation === "admin" ? {display:"none"} : {}} className={cl.container}>
@@ -62,7 +64,7 @@ const Navigation = () => {
                     </div>
                 }
                 {UserId !== 0 &&
-                    <div className={cl.profileContainer}>
+                    <div onClick={()=>navigate(routesEnum.profilePersonalData)} className={cl.profileContainer}>
                         <div className={cl.circle}>
                             <svg height={"32px"} width={"36px"} fill={"white"}>
                                 <use xlinkHref={"/sprite.svg#HumanIcon"}></use>

@@ -13,3 +13,9 @@ export interface IUser{
     address: string,
 }
 
+
+
+export interface userPasswordUpdate{
+    currentPassword: string;
+    newPassword: string;
+}

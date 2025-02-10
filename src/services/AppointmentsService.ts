@@ -54,9 +54,10 @@ export const appointmentsAPI =  createApi({
                 method: "DELETE",
             }),
         }),
-        getAppointmentsAmount: build.query<number, any>({
-            query: () => ({
+        getAppointmentsAmount: build.query<number, Omit<fetchAllPropsInterface, "all" | "limit" | "page" | "sortForward">>({
+            query: (params) => ({
                 url: endpointsPath.appointmentsAmount,
+                params: params
             }),
         }),
         getAppointmentsBookedTime: build.query<string[], bookedTimeRequestInterface>({

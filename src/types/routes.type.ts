@@ -11,6 +11,10 @@ export enum routesEnum{
     news= "/news/:id",
     doctors= "/doctors",
     admin= "/admin",
+    profile= "/profile",
+    profilePersonalData= "/profile/personalData",
+    profileAppointmentsHistory= "/profile/appointmentsHistory",
+    profileAChangePassword= "/profile/changePassword",
 }
 
 

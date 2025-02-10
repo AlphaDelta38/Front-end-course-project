@@ -15,6 +15,8 @@ export interface fetchAllPropsInterface{
     page?: number,
     all?: string,
     sortForward?:sortForwards,
+    id?: number
+    type?: string
 }
 
 

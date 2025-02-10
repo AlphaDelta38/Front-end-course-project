@@ -1,0 +1,492 @@
+
+
+.container{
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 36px;
+}
+
+
+.content{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.navigationContainer{
+    width: 100%;
+    background-color: #E8E9F1;
+}
+
+.navigationContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding: 0 64px 24px 64px;
+    max-width: 1440px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navigationContainer h2{
+    font-size: 64px;
+    font-weight: 600;
+    letter-spacing: -2px;
+    color: #1A357A;
+    margin-bottom: 27px;
+}
+
+
+.btnContainer{
+    display: flex;
+    gap: 40px;
+}
+
+
+
+
+.navigationBtnActive,
+.navigationBtn{
+    font-weight: 500;
+    font-size: 24px;
+    padding: 9px 18px;
+    color: #325CC8;
+    background-color: #FFFFFF;
+    border: 3px solid #325CC8;
+    border-radius: 32px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.navigationBtn:hover{
+    background-color: #1A357A;
+    color: #FFFFFF;
+    border: 3px solid #1A357A;
+}
+
+
+.navigationBtnActive{
+    background-color: #1A357A;
+    color: #FFFFFF;
+    border: 3px solid #1A357A;
+}
+
+
+.ChangebleContentContainer{
+    max-width: 1440px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.textAndLogOutContainer{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.logOutBtn{
+    padding: 4px 18px;
+    background-color: #FFFFFF;
+    border: 3px solid #898989;
+    font-weight: 500;
+    color: #898989;
+    font-size: 24px;
+    border-radius: 34px;
+    cursor: pointer;
+    margin-top: 26px;
+}
+
+
+.logOutBtn:hover{
+    opacity: 0.7;
+}
+
+.personalDataContainer{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    padding: 32px 102px 32px 102px;
+}
+
+.profileFirstDataContainer{
+    flex: 30% 0 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.profilePhoto{
+    margin-left: 36px;
+    aspect-ratio: 1;
+    width: 184px;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+.fullname{
+    color: #1A357A;
+    font-size: 26px;
+    font-weight: 600;
+    max-width: 184px;
+    width: 100%;
+    margin-left: 36px;
+    text-align: center;
+    position: relative;
+}
+
+
+.emailContainer{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 16px;
+    justify-content: start;
+    min-width: 184px;
+}
+
+.EmailSvgIconContainer{
+    height: 22px;
+    width: 22px;
+    display: flex;
+    align-items: center;
+}
+
+.EmailSvgIconContainer svg{
+    width: 100%;
+    height: 100%;
+    fill: #325CC8;
+}
+
+
+.email{
+    width: 184px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #325CC8;
+    text-align: center;
+}
+
+.speciality{
+    left: 50%;
+    transform: translateX(-50%);
+    top: -10px;
+    font-size: 0.85rem;
+    position: absolute;
+}
+
+.dataContainerWithSaveBtn{
+    flex: 70% 0 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.changeDataContainer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 14px;
+    column-gap: 52px;
+}
+
+.inputFieldContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+}
+
+.inputFieldContainer label{
+    color: #A2A2A2;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 6px;
+    margin-left: 16px;
+}
+
+.inputFieldContainer input{
+    border: 3px solid #7B9ABB;
+    border-radius: 34px;
+    background-color: #FFFFFF;
+    height: 48px;
+    max-width: 266px;
+    width: 100%;
+    padding: 12px 0 12px 27px;
+    color: #1A357A;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.inputFieldContainer input:focus{
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.saveBtnContainer{
+    margin-top: 35px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.saveBtnContainer button{
+    width: 102px;
+    height: 60px;
+    background-color: #325CC8;
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 34px;
+    cursor: pointer;
+}
+
+.saveBtnContainer button:hover{
+    opacity: 0.7;
+}
+
+.appointmentHistoryContainer{
+    padding: 64px;
+    width: 100%;
+}
+
+
+.customTable{
+    border: 2px solid #B5B5B5;
+    background-color: #E2F5FF;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+}
+
+.customTable thead{
+    width: 100%;
+    border-bottom: 2px solid #B5B5B5;
+    border-radius: 20px 20px 0 0;
+}
+
+.customTable tbody{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 20px 20px;
+
+}
+
+
+.customTable tbody tr,
+.customTable thead tr{
+    width: 100%;
+    display: flex;
+}
+
+.customTable tbody tr{
+    border-bottom: 2px solid #B5B5B5;
+}
+
+.customTable tbody tr:last-child{
+    border-bottom: none;
+}
+
+.customTable tbody td,
+.customTable thead th{
+    min-width: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #898989;
+    font-weight: 500;
+    font-size: 20px;
+    padding: 8px 0;
+    border-right: 2px solid #B5B5B5;
+}
+
+
+.customTable tbody td:last-child,
+.customTable thead th:last-child{
+    border-right: none;
+    max-width: 70px;
+    min-width: 100px;
+}
+
+
+.customTable tbody td{
+    color: #1A357A;
+    min-height: 70px;
+    height: 100%;
+    padding: 0;
+}
+
+.moreBtn{
+    width: 84px;
+    height: 46px;
+    background-color: #325CC8;
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 34px;
+    cursor: pointer;
+}
+
+.moreBtn:hover{
+    opacity: 0.7;
+}
+
+.searchContainer{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.search{
+    display: block;
+    width: 177px;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    margin-left: 6px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    border-radius: 14px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+}
+
+.search:focus{
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(128, 189, 255, 0.5);
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.paginationPanelContainer{
+    margin-top: 12px;
+    display: flex;
+    margin-right: -6px;
+    margin-left: -6px;
+    position: relative;
+}
+
+.statusInfoContainer{
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    position: relative;
+    flex: 1 1 35%;
+}
+
+.paginationButtonsContainer{
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    position: relative;
+    flex: 1 1 65%;
+}
+
+.statusInfoText{
+    padding-top: 0.85rem;
+    white-space: nowrap;
+    font-size: .88rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: left;
+}
+
+
+.createBtnContainer{
+    padding: 1rem 0rem;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.headOfSearch{
+    width: 100%;
+    display: flex;
+    position: relative;
+    justify-content: start;
+    padding: 0 10px 0 20px;
+    align-items: center;
+    height: 56px;
+}
+
+
+.textOfHead{
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    margin-bottom: 0 !important;
+}
+
+
+.changePasswordContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 64px;
+    row-gap: 40px;
+}
+
+.changePasswordFieldsContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+}
+
+.changePasswordBtnContainer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.closeVisionIconWithInput{
+    position: relative;
+    max-width: 280px;
+}
+
+
+
+.iconEyeContainer{
+    width: 28px;
+    height: 28px;
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 12px;
+    right: 0;
+    cursor: pointer;
+}
+
+.iconEyeContainer svg{
+    width: 100%;
+    height: 100%;
+    fill: black;
+}

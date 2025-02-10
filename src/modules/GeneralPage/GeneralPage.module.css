@@ -814,3 +814,17 @@
     z-index: -1;
     border-radius: 0 0 24px 24px;
 }
+
+
+.newsNotFound{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.newsNotFound h2{
+    color: #3f6ad8;
+    font-size: 36px;
+}
