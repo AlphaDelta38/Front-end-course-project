@@ -1,0 +1,496 @@
+
+
+
+.container{
+    width: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding:0 68px ;
+}
+
+.content{
+    width: 100%;
+    display: flex;
+}
+
+.doctorContainer{
+    max-width: 326px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.photoWithNameContainer{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    border-radius: 20px 20px 0 0 ;
+}
+
+.doctorPhoto{
+    height: 222px;
+    width: 100%;
+    border-radius: 20px 20px 0 0 ;
+    overflow: hidden;
+}
+
+.doctorPhoto img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.doctorName{
+    width: 100%;
+    background-color: #1A357A;
+}
+
+.doctorName{
+    font-weight: 600;
+    line-height: 46px;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 9px 0;
+}
+
+
+.doctorDataContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 11px 24px 36px 22px;
+    align-items: center;
+    background-color: #EAEBF1;
+}
+
+.doctorPositionContainer{
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.doctorPositionContainer span{
+    font-size: clamp(16px,28px,28px);
+    line-height: 40px;
+    font-weight: 600;
+
+}
+
+.doctorPositionContainer span:first-child{
+    color: #898989;
+}
+
+.doctorPositionContainer span:last-child{
+    color: #325CC8;
+}
+
+.doctorDataContainer br{
+    display: block;
+    content: "";
+    max-width: 269px;
+    width: 100%;
+    border: 2px solid #B5B5B5;
+    margin-bottom: 6px;
+}
+
+
+.doctorRating{
+    width: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: start;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.doctorRating svg{
+    width: 30px;
+    height: 30px;
+    fill: yellow;
+}
+
+
+.doctorRating span{
+    color: #325CC8;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+
+
+.doctorData{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+.doctorData tbody{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.doctorData tbody tr{
+    display: flex;
+    width: 100%;
+}
+
+.doctorData tbody th{
+    max-width: 52%;
+    min-width: fit-content;
+    text-align: left;
+    color: #1A357A;
+    font-size: clamp(16px, 20px, 20px);
+    word-break: break-all;
+    text-wrap: wrap;
+}
+
+.doctorData tbody td{
+    flex: 48% 1 1 ;
+    text-align: right;
+    color: #1A357A;
+    font-size: clamp(16px, 20px, 20px);
+    word-break: break-all;
+    text-wrap: wrap;
+}
+
+.setRatingContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.setRatingContainer span{
+    color: #787878;
+    font-size: 20px;
+    font-weight: 600;
+    text-wrap: nowrap;
+}
+
+.starsContainer{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+.star{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.star svg{
+    width: 100%;
+    height: 100%;
+    fill: rgba(128, 128, 128, 0.6);
+}
+
+
+.star:hover svg,
+.star:hover ~ .star svg{
+    fill: yellow !important;
+}
+
+.starsContainer:hover .star:not(:hover):not(:hover ~ .star) svg {
+    fill: rgba(128, 128, 128, 0.6) !important;
+}
+
+.AppointmentDataContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: start;
+    justify-content: start;
+    margin-left: 44px;
+    margin-top: 20px;
+}
+
+.doctorRecommendationContainer{
+    width: 100%;
+    display: flex;
+    align-content: start;
+}
+
+
+.doctorRecommendation{
+    max-width: 664px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: start;
+}
+
+
+.btnContainer{
+    flex: 1 1;
+    display: flex;
+    justify-content: end;
+}
+
+.prescriptionContainer,
+.notesContainer{
+    width: 100%;
+    display: flex;
+    align-content: start;
+    justify-content: start;
+    flex-direction: column;
+}
+
+.prescriptionContainer h2,
+.notesContainer h2{
+    font-size: 32px;
+    font-weight: 600;
+    color: #787878;
+    line-height: 46px;
+    border-bottom: 3px #B5B5B580 solid;
+}
+
+
+
+.notesTextContainer{
+    display: flex;
+    margin-top: 40px;
+    align-content: start;
+}
+
+
+.quatationMark{
+    display: inline;
+    font-size: 96px;
+    color: #325CC8;
+    user-select: none;
+    line-height: 80px;
+    margin-right: 30px;
+}
+
+
+.text{
+    flex-wrap: wrap;
+    word-break: break-all;
+    color: #1A357A;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+}
+
+
+
+.tabletsMark{
+    width: 52px;
+    height: 46px;
+    margin-right: 30px;
+}
+
+.tabletsMark svg{
+    width: 100%;
+    height: 100%;
+}
+
+.returnBtn{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 42px;
+    padding: 0 22px;
+    width: 100%;
+    text-align: center;
+    border: 3px solid #898989;
+    color: #898989;
+    font-size: 24px;
+    font-weight: 500;
+    border-radius: 34px;
+    cursor: pointer;
+}
+
+.returnBtn:hover{
+    opacity: 0.7;
+}
+
+.patientAndAppointmentDataContainer{
+    width: 100%;
+    display: flex;
+    gap: clamp(20px, 76px, 76px);
+    justify-content: space-between;
+    align-content: start;
+    background-color: #F7F7FC;
+    padding: 24px;
+    margin-top: 72px;
+}
+
+.dataColum{
+    border-top: 3px #B5B5B580 solid;
+    padding-top: 16px;
+    flex: 1 1;
+    display: flex;
+    align-content: start;
+    flex-wrap: wrap;
+    row-gap: 4px;
+}
+
+.dataColum span{
+    color: #1A357A;
+    font-size: clamp(16px, 18px, 20px);
+    font-weight: 600;
+    text-wrap: wrap;
+    word-break: break-word;
+}
+
+.dataColum span:nth-child(odd){
+    flex: 55% 1 1;
+    text-align: start;
+}
+
+.dataColum span:nth-child(even){
+    flex: 45% 1 1;
+    text-align: start;
+    height: 30px;
+}
+
+.moreBtn{
+    width: 100%;
+    border-radius: 34px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: #325CC8;
+    margin-top: 12px;
+    border: none;
+    cursor: pointer;
+    padding: 2px 0;
+}
+
+.moreBtn:hover{
+    opacity: 0.7;
+}
+
+.modalWindowContainer{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.moreInfoContainer{
+    width: 1200px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background-color: #E2F5FF;
+}
+
+
+.closeBtnContainer{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+
+.closeBtn{
+    border: none;
+    background: none;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-right: 16px;
+}
+
+.closeBtn span{
+    display: block;
+    width: 24px;
+    height: 2px;
+    position: absolute;
+    background-color: black;
+    transform: rotate(-135deg);
+}
+
+.closeBtn span:before{
+    content: "";
+    display: block;
+    width: 24px;
+    height: 2px;
+    position: absolute;
+    background-color: black;
+    transform: rotate(90deg);
+}
+
+
+.closeBtn:hover{
+    opacity: 0.7;
+}
+
+.moreInfoContainer table{
+    width: 100%;
+    margin-top: 16px;
+
+    padding: 0 32px 50px 32px;
+}
+
+.moreInfoContainer tbody{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 16px;
+    justify-content: space-between;
+}
+
+
+.moreInfoContainer  tr{
+    display: flex;
+    flex: 45% 0 1;
+}
+
+
+.moreInfoContainer th{
+    flex: 45% 1 1;
+    text-wrap: wrap;
+    word-break: break-word;
+    color: #1A357A;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: start;
+}
+
+.moreInfoContainer td{
+    flex: 55% 1 1;
+    text-wrap: wrap;
+    word-break: break-word;
+}
+
+.moreInfoContainer td input{
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 24px;
+    font-weight: 600;
+    color: #1A357A;
+    padding-left: 32px;
+    border-radius: 34px;
+    padding-right: 20px;
+    border: none;
+}
+
+.moreInfoContainer td input:focus{
+    outline: none;
+}
+

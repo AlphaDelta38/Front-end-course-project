@@ -15,6 +15,7 @@ export enum routesEnum{
     profilePersonalData= "/profile/personalData",
     profileAppointmentsHistory= "/profile/appointmentsHistory",
     profileAChangePassword= "/profile/changePassword",
+    appointment= "/appointment/:id",
 }
 
 

@@ -5,6 +5,7 @@ import NewsPage from "./components/NewsPage/NewsPage";
 import DoctorPage from "./components/DoctorPage/DoctorPage";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
+import AppointmentPage from "./components/AppointmentPage/AppointmentPage";
 
 
 
@@ -17,6 +18,7 @@ export const loginRoutes = [
     {path: routesEnum.profilePersonalData, element: ProfilePage},
     {path: routesEnum.profileAppointmentsHistory, element: ProfilePage},
     {path: routesEnum.profileAChangePassword, element: ProfilePage},
+    {path: routesEnum.appointment, element: AppointmentPage},
 ]
 
 

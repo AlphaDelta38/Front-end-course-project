@@ -25,6 +25,11 @@ export const specialityAPI = createApi({
                 }
             })
         }),
+        getOneSpeciality: build.query<specialityInterface, number>({
+            query: (id)=>({
+                url: `${endpointsPath.speciality}/${id}`,
+            })
+        }),
         createSpeciality: build.mutation<specialityInterface, string>({
             query: (value)=>({
                 url: endpointsPath.speciality,

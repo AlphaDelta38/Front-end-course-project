@@ -31,3 +31,20 @@ export function formatDateForInput(dateString: string): string {
     const date = new Date(dateString);
     return date.toISOString().split("T")[0];
 }
+
+
+export function calculateAge(birthDate: string): number {
+    const birth = new Date(birthDate);
+    const today = new Date();
+
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    const dayDiff = today.getDate() - birth.getDate();
+
+    // Коррекция возраста, если день рождения еще не наступил в этом году
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
+    }
+
+    return age;
+}

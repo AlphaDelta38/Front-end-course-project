@@ -472,7 +472,9 @@ const ProfilePage = () => {
                                             <td>{value.time}</td>
                                             <td>{value.status ? "Completed" : "In progres"}</td>
                                             <td>
-                                                <button className={cl.moreBtn}>More</button>
+                                                <Link  to={`/appointment/${value.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
+                                                    <button className={cl.moreBtn}>More</button>
+                                                </Link>
                                             </td>
                                         </tr>
                                     )
