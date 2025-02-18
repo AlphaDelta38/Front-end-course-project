@@ -168,8 +168,7 @@ const DiagnosesManagementSection = () => {
                     />
                     <div className={cl.paginationPanelContainer}>
                         <div className={cl.statusInfoContainer}>
-                            <div
-                                className={cl.statusInfoText}>{`Showing ${searchState && (searchState.limit * (searchState.page - 1)) + 1} to ${searchState?.limit * searchState.page} of ${Amount || 0} entries`}</div>
+                            <div className={cl.statusInfoText}>{`Showing ${searchState && (searchState.limit * (searchState.page - 1)) + 1} to ${searchState?.limit * searchState.page} of ${Amount || 0} entries`}</div>
                         </div>
                         <PaginationBar
                             previousPageFunc={() => {
