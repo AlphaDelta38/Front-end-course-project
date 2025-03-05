@@ -39,10 +39,10 @@ const Footer = () => {
                                 <small>Instagram</small>
                             </div>
                             <div className={cl.SocialIcon}>
-                                <svg  className={cl.iconHover}  width={"36px"} height={"52px"}>
+                                <svg  className={cl.iconHover} stroke={"#7B9ABB"} width={"36px"} height={"52px"}>
                                     <use xlinkHref={"/sprite.svg#facebookIcon"}></use>
                                 </svg>
-                                <svg  className={cl.iconHover}  width={"54px"} height={"56px"}>
+                                <svg  className={cl.iconHover} stroke={"#7B9ABB"} width={"54px"} height={"56px"}>
                                     <use xlinkHref={"/sprite.svg#instagramIcon"}></use>
                                 </svg>
                             </div>

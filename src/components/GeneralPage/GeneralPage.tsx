@@ -14,7 +14,7 @@ import {dateConvert} from "../../utils/Date";
 import QuillForm from "../additionalComponents/QuillForm";
 
 
-interface cordinateData{
+export interface cordinateData{
     startX: number,
     lastPosition: number,
     canStart: string,
@@ -82,7 +82,7 @@ const GeneralPage = () => {
 
 
 
-    function onMouseDown(event: React.MouseEvent){
+    function onMouseDown(event: React.MouseEvent | React.TouchEvent){
 
         if(cordinateData.canStart !== "start"){
             return;
@@ -98,26 +98,55 @@ const GeneralPage = () => {
             }
         }
 
-        setcordinateData({startX: event.clientX, lastPosition: translateValue, canStart: "stop"})
+
+        let coordinate: number | undefined;
+
+        if ("touches" in event) {
+            coordinate = event.touches[0]?.clientX;
+        } else {
+            coordinate = event.clientX;
+        }
+
+        setcordinateData({startX: coordinate, lastPosition: translateValue, canStart: "stop"})
 
         document.body.style.userSelect = 'none';
         if(sliderTapeRef.current){
             sliderTapeRef.current.style.transition = "none";
         }
         window.addEventListener("mousemove", move);
+        window.addEventListener("touchmove", move);
         window.addEventListener("mouseup", onMouseUp);
+        window.addEventListener("touchend", onMouseUp);
     }
 
 
-    const move = useCallback((e: MouseEvent)=>{
+    const move = useCallback((e: MouseEvent | TouchEvent)=>{
+
+        let coordinate: number | undefined;
+
+        if ("touches" in e) {
+            coordinate = e.touches[0]?.clientX;
+        } else {
+            coordinate = e.clientX;
+        }
+
         const startPosition = cordinateDataRef.current?.startX;
         const currentPosition = cordinateDataRef.current?.lastPosition;
+
         if(startPosition){
-            sliderTapeRef.current?.style.setProperty("transform",`translateX(${currentPosition!+(e.clientX - startPosition)}px)`);
+            sliderTapeRef.current?.style.setProperty("transform",`translateX(${currentPosition!+(coordinate - startPosition)}px)`);
         }
     }, [])
 
-    function onMouseUp(e: React.MouseEvent | MouseEvent){
+    function onMouseUp(e: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent){
+
+        let coordinate: number | undefined;
+
+        if ("changedTouches" in e) {
+            coordinate = e.changedTouches[0]?.clientX;
+        } else {
+            coordinate = e.clientX;
+        }
 
         if(cordinateDataRef.current?.canStart !== "stop"){
             return;
@@ -143,7 +172,7 @@ const GeneralPage = () => {
             }else  if(translateValue > 0){
                 sliderTapeRef.current?.style.setProperty("transform",`translateX(${0}px)`);
             }else{
-                if((cordinateData.startX - e.clientX) > 0){
+                if((cordinateData.startX - coordinate) > 0){
                     const xFactor = Math.ceil(translateValue/(itemWidth!+40)!*-1)
                     sliderTapeRef.current?.style.setProperty("transform",`translateX(${((itemWidth!+40)*-1) * xFactor}px)`);
                 }else{
@@ -160,7 +189,9 @@ const GeneralPage = () => {
         }
         setcordinateData({...cordinateData, canStart: "start"})
         window.removeEventListener("mousemove", move);
+        window.removeEventListener("touchmove", move);
         window.removeEventListener("mouseup", onMouseUp);
+        window.removeEventListener("touchend", onMouseUp);
     }
 
 
@@ -172,7 +203,9 @@ const GeneralPage = () => {
 
         return ()=>{
             window.removeEventListener("mousemove", move);
+            window.removeEventListener("touchmove", move);
             window.removeEventListener("mouseup", onMouseUp);
+            window.removeEventListener("touchend", onMouseUp);
         }
     }, []);
 
@@ -194,15 +227,17 @@ const GeneralPage = () => {
         <div className={cl.container}>
             <div className={cl.container__SheduleSection}>
                 <div className={cl.sheduleContainer}>
-                    <h3>MEDICAL CENTER</h3>
-                    <h1>YOUR HEALTH <span className={cl.OurSpan}>OUR</span> MISSION</h1>
-                    <div className={cl.shedulesBtnContainer}>
-                        <button onClick={() => navigate("/doctors")} className={cl.shedules_button}>
-                            Schedule now
-                        </button>
-                        <button onClick={() => scrollToSection("#ourDoctors")} className={cl.shedules_button}>
-                            Our doctors
-                        </button>
+                    <div className={cl.generalSectionInfoContainer}>
+                        <h3>MEDICAL CENTER</h3>
+                        <h1>YOUR HEALTH <br/> <span className={cl.OurSpan}>OUR</span> MISSION</h1>
+                        <div className={cl.shedulesBtnContainer}>
+                            <button onClick={() => navigate("/doctors")} className={cl.shedules_button}>
+                                Schedule now
+                            </button>
+                            <button onClick={() => scrollToSection("#ourDoctors")} className={cl.shedules_button}>
+                                Our doctors
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className={cl.lastNewsContainer}>
@@ -212,10 +247,11 @@ const GeneralPage = () => {
                                 {dateConvert(News[0]?.createdAt)}
                             </small>
                             <div className={cl.lastNews__photoContainer}>
-                                <img onClick={()=>navigate(`/news/${News[0].id}`)} width="100%" height="100%" src={`${News[0]?.image_link}`} alt={"photo of last news"}/>
+                                <img onClick={() => navigate(`/news/${News[0].id}`)} width="100%" height="100%"
+                                     src={`${News[0]?.image_link}`} alt={"photo of last news"}/>
                             </div>
                             <div className={cl.lastNews_textContainer}>
-                                <QuillForm toolbarActive={false} readonly={true} value={News[0]?.text || ""}/>
+                                {News[0]?.title}
                             </div>
                             <button onClick={()=>navigate(`/news/${News[0].id}`)} className={cl.lastNews__button}>
                                 Learn more
@@ -350,7 +386,7 @@ const GeneralPage = () => {
                                         </th>
                                         <td>
                                             <div style={{maxWidth: "340px"}}>
-                                                +38 (067) 123-45-67 +38 (050) 234-56-78 +38 (063) 345-67-89
+                                                +38 (067) 123-45-67  <br/> +38 (050) 234-56-78 <br/> +38 (063) 345-67-89
                                             </div>
                                         </td>
                                     </tr>
@@ -387,8 +423,8 @@ const GeneralPage = () => {
                     <p>Latest news and current updates for our clients:</p>
                     <div className={cl.sliderContainer}>
                         <div ref={sliderRef} className={cl.slider}>
-                            <div ref={sliderTapeRef} onMouseDown={(event) => onMouseDown(event)}
-                                 onMouseUp={(e) => onMouseUp(e)} className={cl.sliderTape}>
+                            <div ref={sliderTapeRef} onTouchStart={(event) => onMouseDown(event)} onMouseDown={(event) => onMouseDown(event)}
+                                 onMouseUp={(e) => onMouseUp(e)} className={cl.sliderTape} onTouchEnd={(e) => onMouseUp(e)}>
                                 {newsCardArray.map((value, index) =>
                                     <div   ref={itemRef} key={index} className={cl.slider__newsCardItem}>
                                         <img className={cl.backGroundItemImg} width={"100%"} height={"100%"}

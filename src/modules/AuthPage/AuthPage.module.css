@@ -3,7 +3,7 @@
 .container{
     max-width: 1480px;
     width: 100%;
-    height: calc(100vh - 176px);
+    height: calc(100% - 176px);
     margin-right: auto;
     margin-left: auto;
     padding-left: 15px;

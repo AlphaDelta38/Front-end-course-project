@@ -41,6 +41,8 @@ enum EnumAppointmnetsFilters{
 
 const DoctorPage = () => {
 
+
+    const [filterModalWindowActive, setFilterModalWindowActive] = useState<boolean>(false);
     const [doctorCardsArray, setDoctorCardsArray] = useState<DoctorsCardsInterface[]>([])
     const [rolesFilterArray, setRolesFilterArray] = useState<string[]>([])
     const [filtersAcitvity, setFiltersActivity] = useState<filtersAcitvityInterface>({rating: "all", type:"all", menuListTypeActive:"none"})
@@ -92,6 +94,12 @@ const DoctorPage = () => {
 
     }
 
+
+
+    function filterModalWindowController(state: boolean){
+        setFilterModalWindowActive(state)
+        window.scrollTo({top: 160, behavior: "smooth"})
+    }
 
 
     useEffect(()=>{
@@ -202,6 +210,34 @@ const DoctorPage = () => {
         }
     }
 
+    useEffect(()=>{
+        const html = document.querySelector("html")
+
+        const closeWindow = () =>{
+            if(window.innerWidth > 997){
+                setFilterModalWindowActive(false)
+                if(html){
+                    html.style.overflow="visible"
+                }
+            }
+        }
+
+        window.addEventListener("resize", closeWindow);
+
+        if(filterModalWindowActive){
+            if(html){
+                html.style.overflow="hidden"
+            }
+        }else{
+            if(html){
+                html.style.overflow="visible"
+            }
+        }
+
+        return ()=>{
+            window.removeEventListener("resize", closeWindow)
+        }
+    },[filterModalWindowActive])
 
     useEffect(()=>{
         let DoctorsArray: DoctorsCardsInterface[] = [];
@@ -343,6 +379,84 @@ const DoctorPage = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className={cl.openFilterContainer}>
+                                <button onClick={()=>filterModalWindowController(true)} className={cl.openMobileFilter}>
+                                    Filters
+                                </button>
+                                <div style={filterModalWindowActive ? {display: "flex"} : {}} className={cl.filterModalMenu}>
+                                    <div className={cl.closeBtnContainer}>
+                                        <button onClick={() => filterModalWindowController(false)}
+                                                className={cl.openMobileFilter}>
+                                            Close filters
+                                        </button>
+                                    </div>
+                                    <div className={cl.mobileChooseActionContainer}>
+                                        <div className={cl.doctorTypeChooseContainer}>
+                                            <div className={cl.circle}>
+                                                <svg width={"34px"} height={"32px"}>
+                                                    <use xlinkHref={"/sprite.svg#HumanIcon"}></use>
+                                                </svg>
+                                            </div>
+                                            <div className={cl.chooseTextContainer}>
+                                                <h2>Doctor type:</h2>
+                                                <div className={cl.buttonChooseContainer}>
+                                                    <button onClick={() => changeState("typeActive", "")}
+                                                            className={cl.chooseBtn}>{filtersAcitvity.type === "all" ? "All doctors" : filtersAcitvity.type}</button>
+                                                    <div
+                                                        style={filtersAcitvity.menuListTypeActive === "type" ? {transform: "rotate(180deg)"} : {}}
+                                                        className={cl.shevronContainer}>
+                                                        <svg width={"24px"} height={"14px"}>
+                                                            <use xlinkHref={"/sprite.svg#ShevronIcon"}></use>
+                                                        </svg>
+                                                    </div>
+                                                    <div
+                                                        style={filtersAcitvity.menuListTypeActive === "type" ? {} : {display: "none"}}
+                                                        className={cl.upDownList}>
+                                                        <button
+                                                            style={filtersAcitvity.type === "all" ? {color: "#325CC8"} : {}}
+                                                            onClick={() => changeState("type", "all")}
+                                                            className={cl.actionButtonList}>All doctors
+                                                        </button>
+                                                        {rolesFilterArray && rolesFilterArray.map((value, index) =>
+                                                            <button
+                                                                style={filtersAcitvity.type === value ? {color: "#325CC8"} : {}}
+                                                                key={index} onClick={() => changeState("type", value)}
+                                                                className={cl.actionButtonList}>{value}</button>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={cl.doctorTypeChooseContainer}>
+                                            <div className={cl.circle}>
+                                                <svg width={"34px"} height={"34px"}>
+                                                    <use xlinkHref={"/sprite.svg#SmileIcon"}></use>
+                                                </svg>
+                                            </div>
+                                            <div className={cl.chooseTextContainer}>
+                                                <h2>Doctor rating:</h2>
+                                                <div className={cl.buttonChooseContainer}>
+                                                    <button onClick={() => changeState("ratingType", "")} className={cl.chooseBtn}>{filtersAcitvity.rating === "all" ? "All rating" : filtersAcitvity.rating}</button>
+                                                    <div style={filtersAcitvity.menuListTypeActive === "rating" ? {transform: "rotate(180deg)"} : {}} className={cl.shevronContainer}>
+                                                        <svg width={"24px"} height={"14px"}>
+                                                            <use xlinkHref={"/sprite.svg#ShevronIcon"}></use>
+                                                        </svg>
+                                                    </div>
+                                                    <div style={filtersAcitvity.menuListTypeActive === "rating" ? {} : {display: "none"}} className={cl.upDownList}>
+                                                        <button style={filtersAcitvity.rating === "all" ? {color: "#325CC8"} : {}} onClick={() => changeState("rating", "all")} className={cl.actionButtonList}>All rating
+                                                        </button>
+                                                        {ratingConstant && ratingConstant.map((value, index) =>
+                                                            <button style={filtersAcitvity.rating === value ? {color: "#325CC8"} : {}} key={index} onClick={() => changeState("rating", value)} className={cl.actionButtonList}>{value}</button>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -351,7 +465,16 @@ const DoctorPage = () => {
                         <div key={index} className={cl.OurDoctosItem}>
                             <div className={cl.OurDoctosItem__photoContainer}>
                                 <img width={"100%"} height={"100%"} src={`${value.image_link}`} alt={"doctor img"}/>
-                                <button  onClick={()=>changeAppointmentsState(EnumAppointmnetsFilters.menuActive, index)} className={cl.bookBtn}>Book</button>
+                                <button
+                                    onClick={() => changeAppointmentsState(EnumAppointmnetsFilters.menuActive, index)}
+                                    className={cl.bookBtn}>Book
+                                </button>
+                                <div className={cl.mobileRaiting}>
+                                    <svg className={cl.raiting__starIcon}>
+                                        <use xlinkHref={"/sprite.svg#StarIcon"}></use>
+                                    </svg>
+                                    {value.raitings}
+                                </div>
                             </div>
                             <div className={cl.OurDoctosItem__infoContainer}>
                                 <h2>{`${value.first_name} ${value.last_name}`}</h2>
@@ -374,46 +497,56 @@ const DoctorPage = () => {
                 </div>
                 {
                     chooseSettingsForAppointments.menuActive &&
-                        <div className={cl.bookMenuContainer}>
-                            <div className={cl.bookMenuActive}>
-                                <div className={cl.bookMenuHeader}>
-                                    {`${doctorCardsArray[chooseSettingsForAppointments.doctorId].first_name} ${doctorCardsArray[chooseSettingsForAppointments.doctorId].last_name}`}
+                    <div className={cl.bookMenuContainer}>
+                        <div className={cl.bookMenuActive}>
+                            <div className={cl.bookMenuHeader}>
+                                {`${doctorCardsArray[chooseSettingsForAppointments.doctorId].first_name} ${doctorCardsArray[chooseSettingsForAppointments.doctorId].last_name}`}
+                            </div>
+                            <div className={cl.bookMeniContentContainer}>
+                                <div className={cl.specialityBox}>
+                                    {doctorCardsArray[chooseSettingsForAppointments.doctorId].speciality.name}
                                 </div>
-                                <div className={cl.bookMeniContentContainer}>
-                                    <div className={cl.specialityBox}>
-                                        {doctorCardsArray[chooseSettingsForAppointments.doctorId].speciality.name}
-                                    </div>
-                                    <div className={cl.chooseActionsContainer}>
-                                        <div className={cl.actionContainer}>
-                                            <div className={cl.textDay}>
-                                                day:
-                                            </div>
-                                            <div className={cl.chosenDayContainer}>
-                                                <input defaultValue={toDay} onChange={(e)=>changeAppointmentsState(EnumAppointmnetsFilters.date, e.target.value )} type={"date"}  min={new Date().toISOString().split('T')[0]}  className={cl.dataChoose}/>
-                                            </div>
+                                <div className={cl.chooseActionsContainer}>
+                                    <div className={cl.actionContainer}>
+                                        <div className={cl.textDay}>
+                                            day:
                                         </div>
-                                        <div className={cl.actionContainer}>
-                                            <div className={cl.textDay}>
-                                                services:
-                                            </div>
-                                            <div className={cl.chosenDayContainer}>
-                                                <button onClick={()=>changeAppointmentsState(EnumAppointmnetsFilters.listActivity, "")}>{chooseSettingsForAppointments.chosenService}</button>
-                                                <div style={chooseSettingsForAppointments.typeOfListActivity ? {transform: "rotate(180deg)"} : {}} className={cl.shevronContainer}>
-                                                    <svg width={"17px"} height={"10px"}>
-                                                        <use xlinkHref={"/sprite.svg#SmallShevronIcon"}></use>
-                                                    </svg>
-                                                </div>
-                                                <div style={chooseSettingsForAppointments.typeOfListActivity ? {} : {display: "none"}} className={cl.appointmentsListContainer}>
-                                                    {services && services.map((value)=><div onClick={()=>changeAppointmentsState(EnumAppointmnetsFilters.service, value.service)} key={value.id}>{value.service}</div>)}
-                                                </div>
-                                            </div>
+                                        <div className={cl.chosenDayContainer}>
+                                            <input defaultValue={toDay}
+                                                   onChange={(e) => changeAppointmentsState(EnumAppointmnetsFilters.date, e.target.value)}
+                                                   type={"date"} min={new Date().toISOString().split('T')[0]}
+                                                   className={cl.dataChoose}/>
                                         </div>
                                     </div>
-                                    <div className={cl.ChooseTimeContainer}>
-                                        {booketTimeState && timeToAppointmentsConstant.map((value, index) =>
+                                    <div className={cl.actionContainer}>
+                                        <div className={cl.textDay}>
+                                            services:
+                                        </div>
+                                        <div className={cl.chosenDayContainer}>
                                             <button
-                                                disabled={booketTimeState.some((e)=>e === value)}
-                                                onClick={()=>changeAppointmentsState(EnumAppointmnetsFilters.time, value)}
+                                                onClick={() => changeAppointmentsState(EnumAppointmnetsFilters.listActivity, "")}>{chooseSettingsForAppointments.chosenService}</button>
+                                            <div
+                                                style={chooseSettingsForAppointments.typeOfListActivity ? {transform: "rotate(180deg)"} : {}}
+                                                className={cl.shevronContainer}>
+                                                <svg width={"17px"} height={"10px"}>
+                                                    <use xlinkHref={"/sprite.svg#SmallShevronIcon"}></use>
+                                                </svg>
+                                            </div>
+                                            <div
+                                                style={chooseSettingsForAppointments.typeOfListActivity ? {} : {display: "none"}}
+                                                className={cl.appointmentsListContainer}>
+                                                {services && services.map((value) => <div
+                                                    onClick={() => changeAppointmentsState(EnumAppointmnetsFilters.service, value.service)}
+                                                    key={value.id}>{value.service}</div>)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={cl.ChooseTimeContainer}>
+                                    {booketTimeState && timeToAppointmentsConstant.map((value, index) =>
+                                            <button
+                                                disabled={booketTimeState.some((e) => e === value)}
+                                                onClick={() => changeAppointmentsState(EnumAppointmnetsFilters.time, value)}
                                                 style={booketTimeState.some((e)=>e === value)
                                                     ? {backgroundColor:"red"}
                                                     : chooseSettingsForAppointments.currentTimeChosen === value ? {backgroundColor:"green"} : {}

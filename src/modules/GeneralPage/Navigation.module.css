@@ -184,3 +184,434 @@
 .email:hover{
     color: rgba(50, 92, 200, 0.7);
 }
+
+
+.burgerBtn{
+    min-width: 64px;
+    height: 64px;
+    justify-content: center;
+    align-items: center;
+    background-color: #AFD1FA;
+    display: none;
+    border-radius: 50%;
+}
+.burgerButton{
+    width: 24px;
+    height: 14px;
+    border: none;
+    background: none;
+    position: relative;
+    cursor: pointer;
+}
+
+.burgerButtonContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.burgerButtonContainer:hover{
+    opacity: 0.7;
+}
+
+.middleLine{
+    width: 24px;
+    height: 2px;
+    top: 0;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    position: absolute;
+    transform-origin: center;
+}
+
+
+
+.burgerButtonContainer::before{
+    content: "";
+    width: 24px;
+    height: 2px;
+    top: 12px;
+    left: 0;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    position: absolute;
+    transform-origin: center;
+}
+
+
+.burgerButtonContainer::after{
+    content: "";
+    width: 24px;
+    height: 2px;
+    top: 6px;
+    left: 0;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    position: absolute;
+}
+
+
+
+.mobileNavigationBarContainer{
+    width: 100%;
+    height: calc(100% - 140px);
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateX(-100%);
+    position: fixed;
+    background-color: #EAF8FF;
+    z-index: 99;
+    transition: 0.3s ease;
+    padding-top: 16px;
+}
+
+
+.mobileNavigationBarContainer{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.mobileNavigationBar{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: clamp(16px,5vh, 64px);
+}
+
+.mobileNavigationBar a{
+    display: flex;
+    justify-content: center;
+}
+
+.mobileNavigation__btnHome,
+.mobileNavigation__btn{
+    background: none;
+    border: none;
+    font-size: clamp(24px, 3vh,42px);
+    color: #1A357A;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+}
+
+.mobileNavigation__btnHome{
+    border-radius: 34px;
+    background-color: #325CC8;
+    color: #f0f0f0;
+    padding: 4px 16px;
+}
+
+.mobileNavigation__btnHome:hover,
+.mobileNavigation__btn:hover {
+    opacity: 0.7;
+}
+
+.mobileLoginContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.mobileLoginContainer{
+    font-weight: 500;
+    color: #3f6ad8;
+    font-size: 24px;
+    word-wrap: break-word;
+    word-break: break-word;
+    cursor: pointer;
+}
+
+
+.mobileLoginContainer:hover{
+    color: #1A357A;
+
+}
+
+.mobileLogin{
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.mobileCircle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: clamp(80px,10vh, 126px);
+    height: clamp(80px,10vh, 126px);
+    background-color: #AFD1FA;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.mobileAuthContainer{
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.mobileLogin__btn{
+    width: clamp(96px,15vh, 144px);
+    height: clamp(54px,15vh, 60px);
+    border-radius: 34px;
+    background-color: #EBE6E6;
+    color: #1A357A;
+    border: 3px solid #1A357A;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.mobileRegister__btn{
+    width: clamp(96px,15vh, 144px);
+    height: clamp(54px,15vh, 60px);
+    background: none;
+    color: #0D3290;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border: 2px solid #1A357A;
+    border-radius: 34px;
+}
+
+
+.mobileLogin__btn:hover{
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.mobileRegister__btn:hover{
+    color: rgba(162, 162, 162, 0.7);
+}
+
+
+.socialMediaContainer{
+    display: flex;
+    max-width: 196px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: clamp( 30px,4vh,120px);
+}
+
+.iconHover{
+    cursor: pointer;
+    width:  clamp(46px, 8vh, 76px);
+    height:  clamp(48px, 8vh, 78px);
+}
+
+.iconHover:first-child{
+    stroke: #7B9ABB;
+
+}
+
+.iconHover:last-child{
+    stroke: #7B9ABB;
+}
+
+
+.iconHover:hover{
+    opacity: 0.7;
+}
+
+
+.mobileProfileImg{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+@keyframes burgerAnimationMiddleLineActive {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes burgerAnimationTopLineActive {
+    0%{
+        transform: rotate(0) translate(0, 0);
+    }
+    50%{
+        transform: rotate(-10deg) translate(0, 0);
+    }
+    65%{
+        transform: rotate(0) translate(0, 0);
+    }
+    100%{
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+}
+
+@keyframes burgerAnimationBottomLineActive {
+    0%{
+        transform: rotate(0) translate(0, 0);
+    }
+    50%{
+        transform: rotate(10deg) translate(0, 0);
+    }
+    65%{
+        transform: rotate(0) translate(0, 0);
+    }
+    100%{
+        transform: rotate(-45deg) translate(3px, -4px);
+    }
+}
+
+
+
+@keyframes burgerAnimationMiddleLine {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes burgerAnimationTopLine {
+    0%{
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    50%{
+        transform: rotate(0) translate(0, 0);
+    }
+    65%{
+        transform: rotate(-10deg) translate(0, 0);
+    }
+    100%{
+        transform: rotate(0) translate(0, 0);
+    }
+}
+
+@keyframes burgerAnimationBottomLine {
+    0%{
+        transform: rotate(-45deg) translate(3px, -4px);
+    }
+    50%{
+        transform: rotate(0) translate(0, 0);
+    }
+    65%{
+        transform: rotate(10deg) translate(0, 0);
+    }
+    100%{
+        transform: rotate(0) translate(0, 0);
+    }
+}
+
+
+.BurgerActive::after{
+    animation: burgerAnimationMiddleLineActive 0.5s ease forwards;
+    transition: transform 0.275s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.BurgerActive::before{
+    animation: burgerAnimationBottomLineActive 0.3s ease forwards;
+    transition: transform 0.275s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.middleLineActive{
+    animation: burgerAnimationTopLineActive 0.3s ease forwards;
+    transition: transform 0.275s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+
+
+
+.middleLineDefault{
+    animation: burgerAnimationTopLine 0.3s ease forwards;
+    transition: transform 0.275s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.Burgerdefault::after{
+    animation: burgerAnimationMiddleLine 0.5s ease forwards;
+    transition: transform 0.275s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.Burgerdefault::before{
+    animation: burgerAnimationBottomLine 0.3s ease forwards;
+    transition: transform 0.275s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@media (max-width: 1230px) {
+    .AuthContainer{
+        margin-left: 60px;
+    }
+    .Logo__text{
+        display: none;
+    }
+    .LogoContainer{
+        max-width: 200px;
+    }
+    .naigationContainer{
+        margin-left: 48px;
+    }
+    .Logo__icon{
+        height: 140px;
+        width: 164px;
+    }
+}
+
+
+@media (max-width: 997px) {
+    .Logo__icon{
+        height: clamp(100px,20vw,140px);
+        width: clamp(120px, 20vw, 164px);
+    }
+    .navigationContainer{
+        display: none;
+    }
+    .AuthContainer{
+        display: none;
+    }
+    .profileContainer{
+        display: none;
+    }
+    .container__content{
+        align-items: center;
+        justify-content: space-between;
+    }
+    .burgerBtn{
+        display: flex;
+    }
+}
+
+@media (max-width: 420px) {
+    .mobileAuthContainer{
+        flex-direction: row;
+    }
+    .mobileLogin{
+        flex-direction: column;
+    }
+}

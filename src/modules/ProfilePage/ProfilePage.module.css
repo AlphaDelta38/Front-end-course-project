@@ -273,7 +273,6 @@
 
 .customTable thead{
     width: 100%;
-    border-bottom: 2px solid #B5B5B5;
     border-radius: 20px 20px 0 0;
 }
 
@@ -292,9 +291,6 @@
     display: flex;
 }
 
-.customTable tbody tr{
-    border-bottom: 2px solid #B5B5B5;
-}
 
 .customTable tbody tr:last-child{
     border-bottom: none;
@@ -312,6 +308,7 @@
     font-size: 20px;
     padding: 8px 0;
     border-right: 2px solid #B5B5B5;
+    border-bottom: 2px solid #B5B5B5;
 }
 
 
@@ -490,3 +487,86 @@
     height: 100%;
     fill: black;
 }
+
+
+@media (max-width: 1440px) {
+    .customTable tbody td,
+    .customTable thead th{
+        max-width: clamp(100px, 12vw, 200px);
+        min-width: clamp(100px, 12vw, 200px);
+    }
+}
+
+@media (max-width: 1300px) {
+    .personalDataContainer{
+        display: flex;
+        flex-direction: column;
+    }
+    .profileFirstDataContainer{
+        align-items: center;
+        margin-bottom: 40px;
+    }
+    .dataContainerWithSaveBtn{
+        align-items: center;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .changeDataContainer{
+        column-gap: 24px;
+        grid-template-columns: repeat(2, fit-content(400px));
+        justify-content: space-between;
+    }
+    .textAndLogOutContainer h2{
+        font-size: clamp(32px, 6vw, 64px);
+        margin-bottom: 0;
+    }
+    .textAndLogOutContainer{
+        align-items: center;
+        line-height: initial;
+        margin-bottom: 20px;
+    }
+    .logOutBtn{
+        margin-top: 0;
+    }
+    .navigationBtn{
+        font-size: clamp(14px, 2vw, 20px);
+    }
+    .navigationBtnActive{
+        font-size: clamp(14px, 2vw, 20px);
+    }
+    .btnContainer{
+        gap: 20px;
+    }
+    .personalDataContainer{
+        padding: 32px 15px;
+    }
+    .customTable{
+        overflow: auto;
+    }
+    .appointmentHistoryContainer{
+        padding: 64px 6px;
+    }
+}
+
+@media (max-width: 700px) {
+    .changeDataContainer{
+        grid-template-columns: repeat(1, fit-content(300px));
+        justify-content: center;
+    }
+
+    .navigationContent{
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 15px;
+    }
+    .logOutBtn{
+        font-size: 20px;
+    }
+    .customTable tbody td,
+    .customTable thead th{
+        font-size: 16px;
+    }
+}
+
