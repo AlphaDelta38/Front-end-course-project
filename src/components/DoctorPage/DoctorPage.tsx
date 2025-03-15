@@ -285,7 +285,7 @@ const DoctorPage = () => {
 
 
     useEffect(()=>{
-        if(Services){
+        if(Services && Services.length > 0){
             setServices(Services)
             changeAppointmentsState(EnumAppointmnetsFilters.service, Services[0].service)
         }
