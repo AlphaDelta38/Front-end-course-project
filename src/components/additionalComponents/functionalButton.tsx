@@ -26,7 +26,7 @@ const FunctionalButton = () => {
 
 
     function checkRole(){
-        if(roles && roles.some((value)=>value.role === "admin")){
+        if(roles && roles.some((value)=>value.role === "admin" || value.role === "doctor")){
             return true
         }else{
             return  false

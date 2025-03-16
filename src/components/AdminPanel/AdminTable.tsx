@@ -52,6 +52,18 @@ const AdminTable = ({
     const [itemsRenderMassive, setItemsRenderMassive] = useState<any[]>([]);
     const [searchInputValue, setSearchInputValue] = useState("");
 
+    function isValidDateString(value:any) {
+        if (typeof value !== "string") return false;
+
+        const date = new Date(value);
+
+        if (isNaN(date.getTime())) return false;
+
+        return value === date.toISOString().slice(0, 10) ||
+            value === date.toISOString();
+    }
+
+
     function stringHandler(massive: string[], objectValues: any, searchTypeEnum?: string) {
         let str = ""
         massive.forEach(item => {
@@ -63,7 +75,7 @@ const AdminTable = ({
                     if(objectValues[item]){
                         str += objectValues[item].toString()
                     }
-                }else if(!isNaN(new Date(objectValues[item]).getTime())){
+                }else if(!isNaN(new Date(objectValues[item]).getTime()) && isValidDateString(objectValues[item])){
                     str = dateConvert(objectValues[item].toString())
                 }else if(typeof objectValues[item] === "string"){
                     str += objectValues[item]

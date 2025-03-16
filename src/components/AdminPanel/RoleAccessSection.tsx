@@ -7,6 +7,7 @@ import CustomSelect from "../additionalComponents/CustomSelect";
 import {useAppDispatch} from "../../hooks/redux";
 import {errorSlice} from "../../store/reducers/ErrorSlice";
 import {messageType} from "../PopupMessage/PopupMessageItem";
+import Loader from "../additionalComponents/loader";
 
 
 interface objectInterface{
@@ -41,11 +42,11 @@ const RoleAccessSection = () => {
     const [itemActive, setItemActive] = useState<string>("none")
     const [addAccessBtnActive, setAddAccessBtnActive] = useState<boolean>(false)
 
-    const {data: AllEndpoints} = routeAccessAPI.useGetAllRoutesQuery({})
-    const {data: Roles, refetch: RolesRefetch} = rolesAPI.useGetAllRolesQuery({
+    const {data: AllEndpoints, isLoading: isLoadingEndpoints} = routeAccessAPI.useGetAllRoutesQuery({})
+    const {data: Roles, refetch: RolesRefetch, isLoading: isLoadingRoles} = rolesAPI.useGetAllRolesQuery({
         all: "true"
     })
-    const [createAccess, {}] = routeAccessAPI.useCreateAccessToRoleMutation()
+    const [createAccess, {isLoading: isLoadingAccessUpdate}] = routeAccessAPI.useCreateAccessToRoleMutation()
 
     const dispatch = useAppDispatch()
 
@@ -149,6 +150,7 @@ const RoleAccessSection = () => {
 
     return (
         <div className={cl.container}>
+            <Loader isLoading={isLoadingEndpoints || isLoadingRoles || isLoadingAccessUpdate} isChildElement={true}/>
             <div className={cl.content}>
                 <div className={cl.createBtnContainer}>
                     <div className={cl.headOfSearch}>

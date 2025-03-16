@@ -9,6 +9,7 @@ import {calculateAge, convertToInputTypeDate, dateConvert} from "../../utils/Dat
 import {errorSlice} from "../../store/reducers/ErrorSlice";
 import {messageType} from "../PopupMessage/PopupMessageItem";
 import {useAppDispatch} from "../../hooks/redux";
+import QuillForm from "../additionalComponents/QuillForm";
 
 
 
@@ -179,7 +180,8 @@ const AppointmentPage = () => {
                                 <h2>Notes from your doctor:</h2>
                                 <div className={cl.notesTextContainer}>
                                     <span className={cl.quatationMark}>"</span>
-                                    <span className={cl.text}>{AppointmentsData?.notes ?? "not yet"}</span>
+                                    <span className={cl.text}><QuillForm toolbarActive={false} readonly={true} value={AppointmentsData?.notes ?? "not yet"}/></span>
+
                                 </div>
                             </div>
                             <div className={cl.prescriptionContainer}>

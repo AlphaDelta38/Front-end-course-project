@@ -278,6 +278,9 @@
     font-size: 20px;
     line-height: 28px;
     font-weight: 600;
+    max-height: 400px;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 
@@ -350,7 +353,6 @@
 .dataColum span:nth-child(even){
     flex: 45% 1 1;
     text-align: start;
-    height: 30px;
 }
 
 .moreBtn{

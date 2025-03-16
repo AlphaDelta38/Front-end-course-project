@@ -263,6 +263,8 @@
     align-items: start;
     justify-content: start;
     transition: all .3s;
+    overflow-y: auto;
+    padding-bottom: 100px;
 }
 
 
