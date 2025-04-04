@@ -38,10 +38,12 @@ enum EnumAppointmnetsFilters{
     time= "time",
 }
 
+const currentTime = new Date().getHours()
+
 
 const DoctorPage = () => {
 
-
+    const [checkOnCurrentDayState, setCheckOnCurrentDayState] = useState<boolean>(true)
     const [filterModalWindowActive, setFilterModalWindowActive] = useState<boolean>(false);
     const [doctorCardsArray, setDoctorCardsArray] = useState<DoctorsCardsInterface[]>([])
     const [rolesFilterArray, setRolesFilterArray] = useState<string[]>([])
@@ -274,7 +276,7 @@ const DoctorPage = () => {
             DoctorsArray = DoctorsArray.filter((value)=>from <= value.raitings && to >= value.raitings)
         }
         if(filtersAcitvity.type !== "all"){
-            DoctorsArray = DoctorsArray.filter((value)=>value.speciality.name === filtersAcitvity.type)
+            DoctorsArray = DoctorsArray.filter((value)=>value.speciality?.name === filtersAcitvity.type)
         }
 
 
@@ -309,6 +311,16 @@ const DoctorPage = () => {
 
             setBookedTimeState(bookedTimes)
 
+        }
+        const currentMonths = new Date().getMonth() + 1
+        const currentDay = new Date().getDate();
+
+        if(Number(chooseSettingsForAppointments.chosenDate.split("-")[2]) === currentDay &&
+            Number(chooseSettingsForAppointments.chosenDate.split("-")[1]) === currentDay
+        ) {
+            setCheckOnCurrentDayState(true)
+        }else{
+            setCheckOnCurrentDayState(false)
         }
     }, [chooseSettingsForAppointments.chosenDate])
 
@@ -545,7 +557,7 @@ const DoctorPage = () => {
                                 <div className={cl.ChooseTimeContainer}>
                                     {booketTimeState && timeToAppointmentsConstant.map((value, index) =>
                                             <button
-                                                disabled={booketTimeState.some((e) => e === value)}
+                                                disabled={booketTimeState.some((e) => e === value) || (currentTime > Number(value.split(":")[0]) && checkOnCurrentDayState)}
                                                 onClick={() => changeAppointmentsState(EnumAppointmnetsFilters.time, value)}
                                                 style={booketTimeState.some((e)=>e === value)
                                                     ? {backgroundColor:"red"}

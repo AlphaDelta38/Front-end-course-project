@@ -516,6 +516,10 @@
     opacity: 0.7;
 }
 
+.chooseTimeBtn:disabled{
+    background-color: red;
+}
+
 .finalBtnsOfBook{
     display: flex;
     width: 100%;
