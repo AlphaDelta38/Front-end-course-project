@@ -48,8 +48,6 @@ const validationYupSchemaDoctorCreate = yup.object().shape({
 })
 
 
-
-
 const DoctorManagementSection = () => {
 
 

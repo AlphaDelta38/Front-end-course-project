@@ -40,6 +40,7 @@ enum EnumAppointmnetsFilters{
 
 const currentTime = new Date().getHours()
 
+console.log(currentTime)
 
 const DoctorPage = () => {
 
@@ -316,7 +317,7 @@ const DoctorPage = () => {
         const currentDay = new Date().getDate();
 
         if(Number(chooseSettingsForAppointments.chosenDate.split("-")[2]) === currentDay &&
-            Number(chooseSettingsForAppointments.chosenDate.split("-")[1]) === currentDay
+            Number(chooseSettingsForAppointments.chosenDate.split("-")[1]) === currentMonths
         ) {
             setCheckOnCurrentDayState(true)
         }else{
@@ -330,6 +331,8 @@ const DoctorPage = () => {
         setChooseSettingsForAppointments({...chooseSettingsForAppointments, chosenDate: new Date().toISOString().split("T")[0]})
     }, [chooseSettingsForAppointments.menuActive])
 
+
+    console.log(checkOnCurrentDayState)
     return (
         <div className={cl.container}>
             <div className={cl.content}>
