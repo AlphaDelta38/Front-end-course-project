@@ -145,7 +145,7 @@ const ServicesManagementSection = () => {
                             <svg className={cl.PCandPhoneIcon}>
                                 <use xlinkHref={"/sprite.svg#PCAndPhoneIcon"}></use>
                             </svg>
-                            Diagnoses Management
+                            Services Management
                         </h1>
                     </div>
                     <CustomBtn styles={{maxWidth: "200px"}} onClick={() => {
