@@ -130,6 +130,8 @@
     width: 184px;
     object-fit: cover;
     margin-bottom: 12px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .fullname{
